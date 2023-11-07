@@ -7,9 +7,12 @@
     <main>
         <?php
 
+        include "ConnectionFactory.php";
+        include 'Authentification.php';
+
         echo "<h1>Créer un compte</h1>";
 
-        //$connexion = ConnectionFactory::makeConnection();
+        $connexion = ConnectionFactory::makeConnection();
 
         echo "<h2>Renseignez quelques informations :</h2>";
 
@@ -43,18 +46,7 @@
             $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
         }
 
-        $hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
-
-        //    $sql = "insert into Users (username,name,firstname,email,password_hash)
-        //            values (:identifiant,:nom,:prenom,:email,:hash);";
-
-        //     $resultset = $connexion->prepare($sql);
-        //     $resultset->bindparam(':identifiant', $identifiant);
-        //     $resultset->bindparam(':nom', $nom);
-        //     $resultset->bindparam(':prenom', $prenom);
-        //     $resultset->bindparam(':email', $email);
-        //     $resultset->bindparam(':hash', $password);
-        //     $resultset->execute();
+        Authentification::register($identifiant, $nom, $prenom, $email,$password);
 
         ?>
     </main>

@@ -7,9 +7,12 @@
   <main>
     <?php
 
+    include "ConnectionFactory.php";
+    include 'Authentification.php';
+
     echo "<h1>Connexion</h1>";
 
-    //$connexion = ConnectionFactory::makeConnection();
+    $connexion = ConnectionFactory::makeConnection();
 
     echo "<h2>Entrez vos identifiants :</h2>";
 
@@ -31,12 +34,7 @@
       $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
     }
 
-//    $sql = " ";
-
-//     $resultset = $connexion->prepare($sql);
-//     $resultset->bindparam(1, ...);
-//     $resultset->bindparam(2, ...);
-//     $resultset->execute();
+    Authentification::authenticate($identifiant,$password);
 
     ?>
   </main>

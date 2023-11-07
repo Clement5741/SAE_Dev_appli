@@ -1,6 +1,5 @@
 <?php
 
-
 class ConnectionFactory
 {
     private static $config = [];
@@ -23,7 +22,6 @@ class ConnectionFactory
 
         $pdo = new PDO($dsn, self::$config['username'], self::$config['password']);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo("Connexion réussie!");
         return $pdo;
     }
 }

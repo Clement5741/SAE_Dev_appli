@@ -4,15 +4,14 @@
     <title>connexion</title>
 </head>
 <body>
-  <main>
+<main>
     <?php
 
-    include "ConnectionFactory.php";
-    include 'Authentification.php';
+    use Compte\Authentification;
+
+    require_once 'Authentification.php';
 
     echo "<h1>Connexion</h1>";
-
-    $connexion = ConnectionFactory::makeConnection();
 
     echo "<h2>Entrez vos identifiants :</h2>";
 
@@ -30,13 +29,13 @@
     $identifiant = $password = "";
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-      $identifiant = filter_var($_POST['identifiant'],FILTER_SANITIZE_STRING);
-      $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
+        $identifiant = filter_var($_POST['identifiant'], FILTER_SANITIZE_STRING);
+        $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+        Authentification::authenticate($identifiant, $password);
     }
 
-    Authentification::authenticate($identifiant,$password);
 
     ?>
-  </main>
+</main>
 </body>
 </html>

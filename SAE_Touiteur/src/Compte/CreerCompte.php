@@ -1,5 +1,9 @@
 <?php
 
+
+use BD\ConnectionFactory;
+use Compte\Authentification;
+
 require_once '../BD/ConnectionFactory.php';
 require_once '../Authentification.php';
 
@@ -35,22 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $prenom = filter_var($_POST['prenom'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
-
-//    $hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
-
-    // On récupère l'identifiant max dans la table Users
-//    $max = "select max(idUser) from Users;";
-//    $resultset = $connexion->prepare($max);
-//    $resultset->execute();
-//    $row = $resultset->fetch(PDO::FETCH_ASSOC);
-//    $idUser = $row['max(idUser)'] + 1;
-//
-//    $sql = "insert into Users (idUser,username,name,firstname,email,password_hash)
-//                    values ('$idUser','$identifiant','$nom','$prenom','$email','$hash');";
-//
-//    $connexion->query($sql);
+    $hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
 
     Authentification::register($identifiant, $nom, $prenom, $email,$password);
+
 }
 
 

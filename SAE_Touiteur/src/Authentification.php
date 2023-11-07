@@ -6,20 +6,24 @@ class Authentification{
         try {
             $db = ConnectionFactory::makeConnection();
 
-            $hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
+            $query = "SELECT password_hash FROM users WHERE username = ?;";
 
-            $stmt = $db->prepare("SELECT password_hash FROM user WHERE username = :username l");
-            $stmt->bindParam(':username ', $identifiant);
-            $stmt->execute();
+            $stmt = $db->prepare($query);
+            $stmt->execute([$identifiant]);
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if (password_verify($hash, $user['password_hash'])) {
-                return true;
-                echo 'Connection réussie';
+            if($user) {
+                if (password_verify($password, $user['password_hash'])) {
+                    echo 'Connection réussie';
+                } else {
+                    echo 'Mot de passe incorrect';
+                }
+            } else{
+                echo 'identifiant incorrect';
             }
-        } catch (\PDOException $e) {
-            throw new ("Erreur de base de données");
+        } catch (PDOException $e) {
+            throw new PDOException("Erreur de base de données");
         }
     }
 
@@ -52,6 +56,8 @@ class Authentification{
                       values ($idUser,?,?,?,?,?);";
             $stmt = $db->prepare($query);
             $stmt->execute([$identifiant, $nom, $prenom, $email, $hash]);
+
+            echo 'Votre compte a été créé';
         } catch (PDOException $e) {
             throw new Exception("Erreur lors de l'inscription" . $e->getMessage());
         }

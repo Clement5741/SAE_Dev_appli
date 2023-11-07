@@ -9,7 +9,7 @@
 
     echo "<h1>Connexion</h1>";
 
-//    $connexion = new PDO('mysql:host=localhost;dbname=[nom_de_la_bd]','root','');
+    //$connexion = ConnectionFactory::makeConnection();
 
     echo "<h2>Entrez vos identifiants :</h2>";
 

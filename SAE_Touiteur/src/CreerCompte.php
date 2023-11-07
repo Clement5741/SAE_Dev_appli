@@ -9,7 +9,7 @@
 
         echo "<h1>Créer un compte</h1>";
 
-        //    $connexion = new PDO('mysql:host=localhost;dbname=[nom_de_la_bd]','root','');
+        //$connexion = ConnectionFactory::makeConnection();
 
         echo "<h2>Renseignez quelques informations :</h2>";
 
@@ -39,15 +39,21 @@
             $identifiant = filter_var($_POST['identifiant'],FILTER_SANITIZE_STRING);
             $nom = filter_var($_POST['nom'],FILTER_SANITIZE_STRING);
             $prenom = filter_var($_POST['prenom'],FILTER_SANITIZE_STRING);
-            $email = filter_var($_POST['email'],FILTER_SANITIZE_STRING);
+            $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
             $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
         }
 
-        //    $sql = " ";
+        $hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
+
+        //    $sql = "insert into Users (username,name,firstname,email,password_hash)
+        //            values (:identifiant,:nom,:prenom,:email,:hash);";
 
         //     $resultset = $connexion->prepare($sql);
-        //     $resultset->bindparam(1, ...);
-        //     $resultset->bindparam(2, ...);
+        //     $resultset->bindparam(':identifiant', $identifiant);
+        //     $resultset->bindparam(':nom', $nom);
+        //     $resultset->bindparam(':prenom', $prenom);
+        //     $resultset->bindparam(':email', $email);
+        //     $resultset->bindparam(':hash', $password);
         //     $resultset->execute();
 
         ?>

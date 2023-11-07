@@ -4,16 +4,19 @@
     <title>Connexion</title>
 </head>
 <body>
-  <main>
+<main>
     <?php
 
-    require_once '../BD/ConnectionFactory.php';
-    require_once '../Authentification.php';
+    use BD\ConnectionFactory;
+    use Compte\Authentification;
 
-    echo "<h1>Connexion</h1>";
+    require_once 'Authentification.php';
+    require_once '../BD/ConnectionFactory.php';
 
     ConnectionFactory::setConfig('db.config.ini');
     $connexion = ConnectionFactory::makeConnection();
+
+    echo "<h1>Connexion</h1>";
 
     echo "<h2>Entrez vos identifiants :</h2>";
 
@@ -38,6 +41,6 @@
     }
 
     ?>
-  </main>
+</main>
 </body>
 </html>

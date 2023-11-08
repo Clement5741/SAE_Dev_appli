@@ -13,7 +13,7 @@
             </div>
 
             <div class='PartieMenu'>
-                <p>Profil</p>
+                <a href="profil.html"><div class="profile-button">Profil</div></a>
                 <p>Votre Mur</p>
                 <p>#Tags</p>
             </div>

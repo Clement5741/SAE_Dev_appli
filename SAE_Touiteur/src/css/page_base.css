@@ -8,7 +8,7 @@ body, h1, p {
 #grid-container {
     display: grid;
     justify-content: space-around;
-    grid-template-columns: 20% 40% 20%;
+    grid-template-columns: 1fr 2fr 1fr;
     max-width: 99%;
 
 }

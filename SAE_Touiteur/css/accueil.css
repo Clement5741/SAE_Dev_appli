@@ -1,0 +1,65 @@
+body {
+    text-align: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+}
+
+.profiles-container {
+    display: flex;
+    flex-direction: row; /* Mise en ligne horizontale */
+    align-items: center;
+    justify-content: center;
+}
+
+.profile {
+    margin: 20px;
+    text-align: center;
+
+}
+
+.profile-button {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: #fff;
+    font-size: 24px;
+    line-height: 100px;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 10px; /* Espace entre les boutons */
+}
+
+.profile-profiles {
+    width: 150px; /* Augmentation de la largeur */
+    height: 100px;
+    border-radius: 10px; /* Plus de coins arrondis */
+    background-color: #2980b9;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 20px 10px 0; /* Marge en haut, espacement horizontal */
+    line-height: 100px; /* Centre le texte verticalement */
+}
+

@@ -1,66 +1,81 @@
-body, html{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 99%;
-    margin-top: 1px;
-    margin-left: 1px;
+
+body, h1, p {
+    margin: 1em;
+    padding: 0;
+    background-color: #3498db;
 }
 
-#grid-container{
+
+#grid-container {
     display: grid;
-    height: 100%;
-    width: 100%;
-    grid-template-columns: 26% 49% 25%;
+    justify-content: space-around;
+    grid-template-columns: 1fr 2fr 1fr;
+    max-width: 99%;
 }
 
-#Menu{
-    display: flex;
-    flex-direction: column;
-    position:fixed;
-    height: 99%;
-    width: 25%;
+
+a {
+    text-decoration: none;
+}
+
+
+#Menu {
+    padding: 1.5em;
+    margin: 1em;
     grid-column-start: 1;
-    grid-column-end: 1;
+    border: 2px solid white;
+    background-color: #3498db ;
+    font-size: 14.5px;
+    color : #226091;
+
 }
 
-.PartieMenu{
-    border: 2px solid black;
-    height: 25%;
-    width: 100%;
-    display: grid;
-    place-items: center;
-    text-align: center;
-}
-
-#Touites{
+.PartieMenu {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border: 2px solid white;
+    background-color: #3498db;
+
+
+}
+
+#Touites {
     align-items: center;
-    height: 100%;
-    width: 100%;
     grid-column-start: 2;
-    grid-column-end: 2;
+    border: 2px solid white;
+    background-color: #3498db;
+    color : #226091;
+
 }
 
-#MenuGauche{
-    display: flex;
-    flex-direction: column;
-    position:fixed;
-    height: 99%;
-    width: 25%;
+#tags_influencer {
     grid-column-start: 3;
-    grid-column-end: 3;
-    top: 5px; /* Position en haut de la fenêtre */
-    right: 5px; /* Position à partir du bord droit de la fenêtre */
+    padding: 1.5em;
+    margin: 1em;
+    border: 2px solid white;
 }
 
-.PartieMenuGauche{
-    border: 2px solid black;
+#tag, #influencer {
     height: 50%;
-    width: 100%;
-    display: grid;
-    place-items: center;
-    text-align: center;
+    border: 2px solid white;
+    max-font-size: 90%;
+    font-size: 14.5px;
+    color : #226091;
+}
+
+.profile-button {
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border-radius: 1em;
+    background: white;
+}
+
+.profile-button:hover {
+    background: #226091;
+    color : white;
 }

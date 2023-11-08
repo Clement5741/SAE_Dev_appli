@@ -13,9 +13,10 @@
             </div>
 
             <div class='PartieMenu'>
-                <a href="profil.html"><div class="profile-button">Profil</div></a>
-                <p>Votre Mur</p>
-                <p>#Tags</p>
+                <div class="profile-button">Accueil</div></a>
+                <div class="profile-button">Profil</div></a>
+                <div class="profile-button">Tags</div></a>
+
             </div>
 
             <div class='PartieMenu'>
@@ -34,10 +35,10 @@
 
     <div id="tags_influencer">
         <div id="tag">
-            <h1>#Tags</h1>
+            <div class="profile-button">#Tags</div></a>
         </div>
         <div id="influencer">
-            <h1>#Influenceur</h1>
+            <div class="profile-button">#Influenceurs</div></a>
         </div>
     </div>
 </div>

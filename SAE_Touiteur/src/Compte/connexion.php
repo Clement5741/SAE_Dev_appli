@@ -41,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
     try {
         Authentification::authenticate($identifiant, $password);
-        if (isset($_POST['connex'])) {
-            header('Location: ../HTML/accueil.html');
+        if (isset($_SESSION['user'])) {
+            header('Location: ../HTML/page_base_CONNECTER.php');
         }
     } catch (PDOException|AuthException $e) {
         echo $e->getMessage();

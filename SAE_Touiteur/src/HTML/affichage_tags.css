@@ -1,0 +1,71 @@
+body {
+    text-align: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #3498db; /* Couleur d'arrière-plan */
+}
+
+a.back-button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #3498db; /* Fond bleu clair */
+    border-radius: 50%; /* Pour créer un bouton rond */
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    color: #fff; /* Couleur de la flèche */
+    font-size: 24px; /* Taille de la flèche */
+}
+
+a.back-button:hover {
+    background-color: #2980b9; /* Couleur de fond au survol */
+}
+
+
+.tags-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 20px; /* Augmentation de la marge intérieure */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* Couleur d'arrière-plan */
+}
+
+.tweet-author {
+    font-weight: bold;
+    margin-top: 20px; /* Ajustement de la marge */
+    color: #3498db; /* Couleur du texte */
+}
+
+.tweet-title {
+    font-size: 24px; /* Augmentation de la taille de la police */
+    margin-top: 20px; /* Ajustement de la marge */
+    color: #333; /* Couleur du texte */
+}
+
+.tweet-image {
+    max-width: 100%;
+    margin-top: 20px; /* Ajustement de la marge */
+}
+
+.tweet-text {
+    margin-top: 20px; /* Ajustement de la marge */
+    color: #555; /* Couleur du texte */
+}
+
+.tweet-date {
+    font-style: italic;
+    margin-top: 20px; /* Ajustement de la marge */
+    color: #555; /* Couleur du texte */
+}
+
+.tweet-score {
+    margin-top: 20px; /* Ajustement de la marge */
+    color: #555; /* Couleur du texte */
+}

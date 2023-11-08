@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Accueil</title>
-    <link rel="stylesheet" href="../css/page_base_sans_connection.css">
+    <link rel="stylesheet" href="../css/page_base_CONNECTER.css">
 </head>
 <body>
 <div id="grid-container">
@@ -23,8 +23,8 @@
             <!--                <button href="../Compte/connexion.php" type="button">Connexion</button>-->
             <!--                <button href="../Compte/inscription.php" type="button">S'inscrire</button>-->
             <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
-            <a href="../Compte/connexion.php"><div class="profile-button">Connexion</div></a>
-            <a href="../Compte/inscription.php"><div class="profile-button">S'inscrire</div></a>
+            <!--<a href="../Compte/connexion.php"><div class="profile-button">Connexion</div></a>-->
+            <!--<a href="../Compte/inscription.php"><div class="profile-button">S'inscrire</div></a>-->
             <a href="#" onclick="return false"><div class="profile-button">Se déconnecter</div></a>
         </div>
     </div>
@@ -35,10 +35,10 @@
 
     <div id="tags_influencer">
         <div id="tag">
-            <div class="profile-button">#Tags</div></a>
+            <div class="profile-button-abo">#Tags</div>
         </div>
         <div id="influencer">
-            <div class="profile-button">#Influenceurs</div></a>
+            <div class="profile-button-abo">#Influenceurs</div>
         </div>
     </div>
 </div>

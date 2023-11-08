@@ -65,7 +65,7 @@ a {
     color : #226091;
 }
 
-.profile-button {
+.profile-button, .profile-button-abo {
     display: flex;
     padding: 1em;
     margin: 1em;
@@ -78,3 +78,4 @@ a {
     background: #226091;
     color : white;
 }
+

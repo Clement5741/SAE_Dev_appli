@@ -1,0 +1,62 @@
+
+body, h1, p {
+    margin: 1em;
+    padding: 0;
+}
+
+
+#grid-container {
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 20% 40% 20%;
+    max-width: 99%;
+
+}
+
+#Menu {
+    padding: 1em;
+    margin: 1em;
+    grid-column-start: 1;
+    border: 2px solid red;
+}
+
+.PartieMenu {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border: 2px solid red;
+}
+
+#Touites {
+    align-items: center;
+    grid-column-start: 2;
+    border: 2px solid red;
+}
+
+#tags_influencer {
+    grid-column-start: 3;
+    padding: 1em;
+    margin: 1em;
+    border: 2px solid red;
+}
+
+#tag, #influencer {
+    height: 50%;
+    border: 2px solid red;
+    max-font-size: 90%;
+}
+
+.profile-button {
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border-radius: 1em;
+    background: #333333;
+}
+
+.profile-button:hover {
+    background: #666666;
+}

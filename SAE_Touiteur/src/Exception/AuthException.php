@@ -1,5 +1,4 @@
 <?php
-
 namespace Exception;
 
 class AuthException extends \Exception
@@ -10,6 +9,6 @@ class AuthException extends \Exception
      */
     public function __construct(string $string)
     {
-        parent::__construct($string);
+        parent::__construct("<h2>" . $string . "</h2>");
     }
 }

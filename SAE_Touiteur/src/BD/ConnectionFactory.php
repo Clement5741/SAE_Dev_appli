@@ -1,9 +1,8 @@
 <?php
-
-
 namespace BD;
 
 use PDO;
+
 class ConnectionFactory
 {
     private static $config = [];
@@ -13,7 +12,7 @@ class ConnectionFactory
         self::$config = parse_ini_file($file);
     }
 
-    public static function makeConnection()
+    public static function makeConnection(): PDO
     {
         $dsn = sprintf(
             'mysql:host=%s;dbname=%s;charset=%s',

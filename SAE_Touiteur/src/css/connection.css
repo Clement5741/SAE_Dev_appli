@@ -33,7 +33,7 @@ label {
     margin-top: 10px;
 }
 
-input[type="email"],
+input[type="text"],
 input[type="password"] {
     width: 90%;
     padding: 10px;

@@ -1,0 +1,66 @@
+body, html{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 99%;
+    margin-top: 1px;
+    margin-left: 1px;
+}
+
+#grid-container{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 26% 49% 25%;
+}
+
+#Menu{
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    height: 99%;
+    width: 25%;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.PartieMenu{
+    border: 2px solid black;
+    height: 25%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+#Touites{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    grid-column-start: 2;
+    grid-column-end: 2;
+}
+
+#MenuGauche{
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    height: 99%;
+    width: 25%;
+    grid-column-start: 3;
+    grid-column-end: 3;
+    top: 5px; /* Position en haut de la fenêtre */
+    right: 5px; /* Position à partir du bord droit de la fenêtre */
+}
+
+.PartieMenuGauche{
+    border: 2px solid black;
+    height: 50%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}

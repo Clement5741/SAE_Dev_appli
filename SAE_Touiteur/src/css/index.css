@@ -11,7 +11,7 @@ body, html{
    display: grid;
    height: 100%;
    width: 100%;
-   grid-template-columns: 26% 84%;
+   grid-template-columns: 26% 74%;
 }
 
 #Menu {

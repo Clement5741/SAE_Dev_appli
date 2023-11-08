@@ -1,46 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/connection.css">
     <title>Connexion</title>
 </head>
 <body>
-<main>
-    <?php
+<div class="header">
+    <img src="logo_twouiter.png" alt="Logo Twouiter">
+    <h1>Connexion à Twouiter</h1>
+</div>
 
-    use BD\ConnectionFactory;
-    use Compte\Authentification;
+<?php
 
-    require_once 'Authentification.php';
-    require_once '../BD/ConnectionFactory.php';
+use Compte\Authentification;
+use Exception\AuthException;
 
-    ConnectionFactory::setConfig('db.config.ini');
-    $connexion = ConnectionFactory::makeConnection();
+require_once 'Authentification.php';
 
-    echo "<h1>Connexion</h1>";
-
-    echo "<h2>Entrez vos identifiants :</h2>";
-
-    echo '<form action="" method="post">
-
-    <label for="identifiant">identifiant : </label>
-    <input type="text" name="identifiant" id="identifiant" required><br><br>
+echo '
+<div class="connexion-form">
+<form action="" method="post">
+    <label for="identifiant">Identifiant ou E-mail : </label>
+    <input type="text" name="identifiant" id="identifiant" required>
 
     <label for="password">Mot de passe : </label>
-    <input type="password" name="password" id="password" required><br><br>
+    <input type="password" name="password" id="password" required>
+        
+    <input type="submit" value="Se Connecter">
+    
+    <p><a href="recuperer_mot_de_passe.html">J\'ai oublié mon mot de passe</a></p>
+</form>
+</div>';
 
-    <input type="submit" value="Connexion">
-    </form>';
 
-    $identifiant = $password = "";
+$identifiant = $password = "";
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-      $identifiant = filter_var($_POST['identifiant'],FILTER_SANITIZE_STRING);
-      $password = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
-
-      Authentification::authenticate($identifiant,$password);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $identifiant = filter_var($_POST['identifiant'], FILTER_SANITIZE_STRING);
+    $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+    try {
+        Authentification::authenticate($identifiant, $password);
+        if (isset($_POST['connex'])) {
+            header('Location: ../HTML/accueil.html');
+        }
+    } catch (PDOException|AuthException $e) {
+        echo $e->getMessage();
     }
+}
 
-    ?>
-</main>
+if (isset($_SESSION['user'])) {
+    // echo "<br>Les cookies de session sont activés.";
+} else {
+    // echo "<br>Les cookies de session ne sont pas activés.";
+}
+
+
+?>
+
 </body>
 </html>

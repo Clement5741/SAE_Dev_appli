@@ -1,7 +1,6 @@
 <?php
-
 namespace Compte;
-
+session_start();
 use BD\ConnectionFactory;
 use Exception\AuthException;
 use PDO;
@@ -18,25 +17,47 @@ class Authentification
             ConnectionFactory::setConfig('db.config.ini');
             $db = ConnectionFactory::makeConnection();
 
-            $query = "SELECT * FROM users WHERE username = ?";
+            // On vérifie s'il y a un @ dans l'identifiant
+            if (strpos($identifiant, '@') !== false) {
+                $query = "SELECT * FROM users WHERE email = ?";
+            } else {
+                $query = "SELECT * FROM users WHERE username = ?";
+            }
 
             $stmt = $db->prepare($query);
             $stmt->execute([$identifiant]);
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if($user) {
-                if (password_verify($mdp, $user['password_hash'])) {
-                    echo 'Connection réussie';
-                    return true;
-                } else {
-                    throw new AuthException("Mot de passe incorrect");
-                }
-            } else{
-                echo 'identifiant incorrect';
+            if (!$user) {
+                throw new AuthException("Identifiant inconnu");
             }
+
+            if (password_verify($mdp, $user['password_hash'])) {
+                $_SESSION['user'] = $identifiant;
+                echo 'Connection réussie';
+                return;
+            } else {
+                throw new AuthException("Mot de passe incorrect");
+            }
+
         } catch (PDOException $e) {
             throw new ("Erreur de base de données");
+        }
+    }
+
+    public static function logout() : string
+    {
+        session_destroy();
+        return "Vous avez bien été déconnecté";
+    }
+
+    public static function isLogged() : bool
+    {
+        if (isset($_SESSION['user'])) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -46,6 +67,7 @@ class Authentification
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         try {
+            ConnectionFactory::setConfig('db.config.ini');
             $db = ConnectionFactory::makeConnection();
         } catch (PDOException $e) {
             throw new AuthException("Erreur de connexion à la base de données");
@@ -70,8 +92,6 @@ class Authentification
                       values ($idUser,?,?,?,?,?);";
             $stmt = $db->prepare($query);
             $stmt->execute([$identifiant, $nom, $prenom, $email, $hash]);
-
-            echo 'Votre compte a été créé';
         } catch (PDOException $e) {
             throw new AuthException("Erreur lors de l'inscription" . $e->getMessage());
         }

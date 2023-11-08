@@ -13,9 +13,9 @@
             </div>
 
             <div class='PartieMenu'>
-                <div class="fake-profile-button">Accueil</div></a>
-                <div class="fake-profile-button">Profil</div></a>
-                <div class="fake-profile-button">Tags</div></a>
+                <div class="profile-button-abo">Accueil</div></a>
+                <div class="profile-button-abo">Profil</div></a>
+                <div class="profile-button-abo">Tags</div></a>
 
             </div>
 
@@ -34,10 +34,10 @@
 
     <div id="tags_influencer">
         <div id="tag">
-            <div class="fake-profile-button">#Tags</div></a>
+            <div class="profile-button-abo">#Tags</div></a>
         </div>
         <div id="influencer">
-            <div class="fake-profile-button">#Influenceurs</div></a>
+            <div class="profile-button-abo ">#Influenceurs</div></a>
         </div>
     </div>
 </div>

@@ -13,9 +13,9 @@
             </div>
 
             <div class='PartieMenu'>
-                <div class="profile-button">Accueil</div></a>
-                <div class="profile-button">Profil</div></a>
-                <div class="profile-button">Tags</div></a>
+                <div class="fake-profile-button">Accueil</div></a>
+                <div class="fake-profile-button">Profil</div></a>
+                <div class="fake-profile-button">Tags</div></a>
 
             </div>
 
@@ -25,7 +25,6 @@
 <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
                 <a href="../Compte/connexion.php"><div class="profile-button">Connexion</div></a>
                 <a href="../Compte/inscription.php"><div class="profile-button">S'inscrire</div></a>
-                <a href="#" onclick="return false"><div class="profile-button">Se déconnecter</div></a>
             </div>
     </div>
 
@@ -35,10 +34,10 @@
 
     <div id="tags_influencer">
         <div id="tag">
-            <div class="profile-button">#Tags</div></a>
+            <div class="fake-profile-button">#Tags</div></a>
         </div>
         <div id="influencer">
-            <div class="profile-button">#Influenceurs</div></a>
+            <div class="fake-profile-button">#Influenceurs</div></a>
         </div>
     </div>
 </div>

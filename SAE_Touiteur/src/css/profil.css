@@ -42,7 +42,7 @@ a {
 
 }
 
-#Touites {
+#Profils {
     align-items: center;
     grid-column-start: 2;
     border: 2px solid white;
@@ -51,14 +51,14 @@ a {
 
 }
 
-#tags_influencer {
+#abonne_moyenne {
     grid-column-start: 3;
     padding: 1.5em;
     margin: 1em;
     border: 2px solid white;
 }
 
-#tag, #influencer {
+#abonne, #moyenne {
     height: 50%;
     border: 2px solid white;
     max-font-size: 90%;
@@ -79,3 +79,39 @@ a {
     background: #226091;
     color : white;
 }
+
+.fake_profile-button {
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border-radius: 1em;
+    background: white;
+    color : #226091;
+
+}
+
+.carré1 {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 1em;
+    background: white;
+    height: 25%;
+    width: 25%;
+    color : #226091;
+}
+
+.carré2 {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 1em;
+    background: white;
+    height: 25%;
+    width: 25%;
+    color : #226091;
+
+}
+
+

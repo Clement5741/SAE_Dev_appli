@@ -79,3 +79,12 @@ a {
     background: #226091;
     color : white;
 }
+
+.fake-profile-button {
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border-radius: 1em;
+    background: white;
+}

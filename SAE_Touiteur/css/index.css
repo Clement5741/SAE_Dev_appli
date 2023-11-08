@@ -11,7 +11,7 @@ body, html{
    display: grid;
    height: 100%;
    width: 100%;
-   grid-template-columns: 16% 84%;
+   grid-template-columns: 26% 84%;
 }
 
 #Menu {
@@ -19,7 +19,7 @@ body, html{
     flex-direction: column;
     position:fixed;
     height: 99%;
-    width: 15%;
+    width: 25%;
     grid-column-start: 1;
     grid-column-end: 1;
 }
@@ -51,7 +51,7 @@ header, footer{
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 100%;
+    width: 75%;
     grid-column-start: 2;
     grid-column-end: 2;
 }

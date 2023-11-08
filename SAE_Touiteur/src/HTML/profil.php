@@ -1,8 +1,9 @@
 <?php
-SESSION_START();
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: accueil.html');
+}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,7 +38,6 @@ SESSION_START();
 
         <div class="">
             <?php
-            $_SESSION['user'] = "testD USER";
             echo "{$_SESSION['user']}";
             ?>
         </div>

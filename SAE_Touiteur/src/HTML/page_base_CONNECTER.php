@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: accueil.html');
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,7 +32,7 @@
             <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
             <!--<a href="../Compte/connexion.php"><div class="profile-button">Connexion</div></a>-->
             <!--<a href="../Compte/inscription.php"><div class="profile-button">S'inscrire</div></a>-->
-            <a href="#" onclick="return false"><div class="profile-button">Se déconnecter</div></a>
+            <a href="../Compte/deconnexion.php"><div class="profile-button">Se déconnecter</div></a>
         </div>
     </div>
 

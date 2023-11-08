@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Accueil</title>
-    <link rel="stylesheet" href="../css/page_base.css">
+    <link rel="stylesheet" href="../css/page_base_sans_connection.css">
 </head>
 <body>
 <div id="grid-container">

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
     <title>Créer un touite</title>
+    <link rel="stylesheet" href="../css/creationTouite.css">
 </head>
 <body>
     <h1>Créer votre touite : </h1>

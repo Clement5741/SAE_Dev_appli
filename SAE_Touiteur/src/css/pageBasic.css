@@ -1,0 +1,57 @@
+body, html{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 99%;
+    margin-top: 1px;
+    margin-left: 1px;
+}
+
+#grid-container{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 26% 74%;
+}
+
+#Menu {
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    height: 99%;
+    width: 25%;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+header, footer{
+    border: 2px solid black;
+    height: 33%;
+    width: 100%;
+}
+
+#MilieuMenu{
+    border: 2px solid black;
+    height: 33%;
+    width: 100%;
+}
+
+.PartieMenu{
+    border: 2px solid black;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+#Touites{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 75%;
+    grid-column-start: 2;
+    grid-column-end: 2;
+}

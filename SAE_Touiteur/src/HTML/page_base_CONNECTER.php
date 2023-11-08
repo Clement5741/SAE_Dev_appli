@@ -13,9 +13,9 @@
         </div>
 
         <div class='PartieMenu'>
-            <div class="profile-button">Accueil</div></a>
-            <div class="profile-button">Profil</div></a>
-            <div class="profile-button">Tags</div></a>
+            <div class="profile-button-abo">Accueil</div>
+            <a href="profil.php"><div class="profile-button">Profil</div></a>
+            <a href="page_ensemble_tags.php"><div class="profile-button">Tags</div></a>
 
         </div>
 

@@ -98,5 +98,53 @@ class Authentification
         return true;
     }
 
+    public static function abonnementsTag(int $iduser){
+        try {
+            ConnectionFactory::setConfig('db.config.ini');
+            $db = ConnectionFactory::makeConnection();
+        } catch (PDOException $e) {
+            throw new AuthException("Erreur de connexion à la base de données");
+        }
+
+        $query = "SELECT labelTag FROM tags 
+                  inner join trackedtag on tags.idTag = trackedtag.idTag
+                  WHERE idUser = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$iduser]);
+
+        echo "<table border='1'>";
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            echo "<td>" . $row['labelTag'] . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    }
+
+    public static function abonnementsUser(int $iduser){
+        try {
+            ConnectionFactory::setConfig('db.config.ini');
+            $db = ConnectionFactory::makeConnection();
+        } catch (PDOException $e) {
+            throw new AuthException("Erreur de connexion à la base de données");
+        }
+
+        $query = "SELECT username FROM users 
+                  inner join followers on users.idUser = followers.idUser1
+                  WHERE idUser1 = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$iduser]);
+
+        echo "<table border='1'>";
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            echo "<td>" . $row['username'] . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    }
+
 }
 

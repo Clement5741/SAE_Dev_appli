@@ -25,7 +25,16 @@
 
         echo '<p><strong>Vos tags : </strong></p>';
         echo '<div class="tags-container">';
-        GestionTag::abonnementsTag($id);
+        $t = GestionTag::abonnementsTag($id);
+        if ($t == null) {
+            echo 'Vous n\'avez pas de tags';
+        }else {
+            foreach ($t as $val) {
+                echo "<a href=\"touiteTag.php?tag=" . $val['labelTag'] . "&page=vostags\">#" . $val['labelTag'] . "</a>";
+                echo '<br>';
+            }
+        }
+
         echo '</div>';
 
         ?>

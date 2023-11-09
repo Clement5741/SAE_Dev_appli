@@ -133,7 +133,8 @@ class GestionTag
         $stmt->execute([$iduser,$idtag]);
     }
 
-    public static function abonnementsTag(int $iduser){
+    public static function abonnementsTag(int $iduser): array
+    {
         $db = self::config();
         $query = "SELECT tags.labelTag FROM tags 
                   INNER JOIN trackedtag ON tags.idTag = trackedtag.idTag
@@ -141,11 +142,7 @@ class GestionTag
         $stmt = $db->prepare($query);
         $stmt->execute([$iduser]);
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            print($row['labelTag']);
-            echo '<br>';
-        }
-        echo "</table>";
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function searchTag($searchTerm) {

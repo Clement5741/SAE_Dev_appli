@@ -31,17 +31,12 @@ require_once "../Touite/GestionUser.php";
 
         <div class='PartieMenu'>
             <div class="profile-button-abo">Accueil</div>
-            <a href="profil.php"><div class="profile-button">Profil</div></a>
+            <a href="profil.php?username=<?php echo $_SESSION['user'];?>"><div class="profile-button-abo">Profil</div></a>
             <a href="page_ensemble_tags.php"><div class="profile-button">Tags</div></a>
             <a href="creationTouite.php"><div class="profile-button">TWEEEETTEEEERRRR</div></a>
         </div>
 
         <div class='PartieMenu'>
-            <!--                <button href="../Compte/connexion.php" type="button">Connexion</button>-->
-            <!--                <button href="../Compte/inscription.php" type="button">S'inscrire</button>-->
-            <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
-            <!--<a href="../Compte/connexion.php"><div class="profile-button">Connexion</div></a>-->
-            <!--<a href="../Compte/inscription.php"><div class="profile-button">S'inscrire</div></a>-->
             <a href="../Compte/deconnexion.php">
                 <div class="profile-button">Se déconnecter</div>
             </a>
@@ -79,7 +74,7 @@ require_once "../Touite/GestionUser.php";
 
             if ($tagTendance != null) {
                 foreach ($tagTendance as $tag) {
-                    echo "<div class='affich'>#" . $tag['labelTag'] . "</div>";
+                    echo "<a href=\"touiteTag.php?tag=" . $tag['labelTag'] . "\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
 
                     $idtag = GestionTag::getidTagByLabel($tag['labelTag']);
 

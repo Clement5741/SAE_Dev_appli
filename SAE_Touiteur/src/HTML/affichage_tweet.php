@@ -26,15 +26,17 @@ echo "<div class=\"tweet-container\">";
 
     if (isset($_SESSION['user']) && !isset($_GET['page'])){
         $t = "page_base_CONNECTER.php";
-    }elseif (!isset($_SESSION['user']) && isset($_GET['page']) && $_GET['page'] == "sans"){
-        $t = "page_base_sans_connection.php";
-    }else{
+    }elseif (isset($_SESSION['user']) &&isset($_GET['page']) && $_GET['page'] == "profil"){
         $t = "profil.php?username=" . $_SESSION['user'];
+    }elseif(isset($_SESSION['user']) &&isset($_GET['page']) && $_GET['page'] == "tag") {
+        $t = "touiteTag.php?tag=" . $_GET['tag'] . "&page=affichage";
+    }else {
+        $t = "page_base_sans_connection.php";
     }
     echo "<a href=\"$t\" class=\"back-button\">&#8592;</a> <!---&#8592 represent the arrow-->
     <div class=\"tweet-author\"> " . $liste['name'] . " </div>";
 
-echo "<div class=\"tweet-text\">" . $liste['contentTouite'] . "</div>";
+echo "<div class=\"tweet-text\">" . GestionTouite::afficherContenuTouiteAvecLienTag($liste['contentTouite']) . "</div>";
 
 
 $t = GestionImage::getImageByTouite($liste['idTouite']);

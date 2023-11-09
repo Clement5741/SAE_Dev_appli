@@ -23,7 +23,7 @@ require_once '../Touite/GestionImage.php';
 <div id="grid-container">
   <div id='Menu'>
     <div class='PartieMenu' id="logo">
-      <img src="../images/logo.png" alt="logo" id="logo" >
+      <img src="../Images/logo.png" alt="logo" id="logo" >
     </div>
 
     <div class='PartieMenu'>
@@ -88,15 +88,14 @@ require_once '../Touite/GestionImage.php';
             ?>
         </div>
 
-
         <?php
         $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_GET['username']));
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
             if (strlen($liste['contentTouite']) > 100) {
-                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page='profil'\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=profil\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
             } else {
-                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page='profil'\"><p>" . $liste['contentTouite']. "</p></a>";
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=profil\"><p>" . $liste['contentTouite']. "</p></a>";
             }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {

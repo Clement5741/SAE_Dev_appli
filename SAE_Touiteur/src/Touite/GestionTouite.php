@@ -65,12 +65,15 @@ class GestionTouite
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getTouitesByTag(int $idTag): array
+    public static function getTouitesByTag(string $labelTag): array
     {
         $db = self::config();
-        $query = "SELECT * FROM utiliserTag WHERE idTag = ?";
+        $query = "SELECT * FROM utiliserTag 
+         inner join touites on touites.idTouite = utiliserTag.idTouite
+         inner join tags on tags.idTag = utiliserTag.idTag
+         WHERE labelTag = ?";
         $stmt = $db->prepare($query);
-        $res = $stmt->execute([$idTag]);
+        $res = $stmt->execute([$labelTag]);
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération des touites");
         }
@@ -196,6 +199,22 @@ class GestionTouite
             throw new \PDOException("Erreur lors de la récupération du score moyen");
         }
         return $stmt->fetch(PDO::FETCH_ASSOC)['notePerti'];
+    }
+
+    public static function afficherContenuTouiteAvecLienTag(string $contenu): string
+    {
+        $tab = explode(" ", $contenu);
+        $tab2 = [];
+        foreach ($tab as $value) {
+            if (substr($value, 0, 1) == "#") {
+                $value = substr($value, 1);
+                $tab2[] = $value;
+            }
+        }
+        foreach ($tab2 as $value) {
+            $contenu = str_replace("#" . $value, "<a href=\"touiteTag.php?tag=" . $value ."&page=affichage\">#" . $value . "</a>", $contenu);
+        }
+        return $contenu;
     }
 
 

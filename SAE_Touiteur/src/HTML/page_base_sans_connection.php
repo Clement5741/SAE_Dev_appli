@@ -31,11 +31,13 @@
     <div id='Touites'>
         <?php
 
+        use Touite\GestionImage;
         use Touite\GestionTouite;
         use Touite\GestionUser;
 
         require_once "../Touite/GestionTouite.php";
         require_once "../Touite/GestionUser.php";
+        require_once "../Touite/GestionImage.php";
 
         GestionTouite::config();
         $listes = GestionTouite::getTouites();
@@ -50,6 +52,10 @@
                 echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=sans\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
             } else {
                 echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=sans\"><p>" . $liste['contentTouite']. "</p></a>";
+            }
+            $t = GestionImage::getImageByTouite($liste['idTouite']);
+            if ($t != null) {
+                echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
             }
             echo "<p>" . $liste['dateTouite'] . "</p>";
             echo "</div>";

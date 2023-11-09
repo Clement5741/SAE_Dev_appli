@@ -36,7 +36,7 @@
             echo '<p>Résultats de la recherche : </p>';
             echo '<div class="tags-container">';
             foreach ($results as $result) {
-                echo '#'.$result['labelTag'].'<br>';
+                echo "<a href=\"touiteTag.php?tag=" . $result['labelTag'] ."\">#" . $result['labelTag'] . "</a>".'<br>';
             }
             echo '</div>';
         }
@@ -46,7 +46,7 @@
         foreach ($res as $val){
             print($val['idTag']);
             echo': ';
-            print('#'.$val['labelTag']);
+            print("<a href=\"touiteTag.php?tag=" . $val['labelTag'] ."\">#" . $val['labelTag'] . "</a>");
             echo '<br>';
         }
         echo '</div>';

@@ -3,6 +3,10 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: accueil.html');
 }
+use Touite\GestionUser;
+
+require_once '../Touite/GestionUser.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -39,10 +43,19 @@ if (!isset($_SESSION['user'])) {
 
         <div class="">
             <?php
-            echo "{$_SESSION['user']}";
+            GestionUser::config();
+            $ProfilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
+            echo "<div class='info'>";
+            echo "<p>" . $ProfilsLsit['firstname'] . "</p>";
+            echo "<p>" . $ProfilsLsit['username'] . "</p>";
+            echo "<p>" . $ProfilsLsit['name'] . "</p>";
+            echo "</div>";
             ?>
         </div>
         <div class="">ABONNEMENT A VOIR </div>
+
+
+
 
         <div class="">Abonnement de : A REVOIR LE FIRST NAME ET LE NAME
 <!--            --><?php
@@ -60,9 +73,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="fake_profile-button">Vos abonnées</div>
                 <div class="carré1">
                     <?php
-                    use Touite\GestionUser;
 
-                    require_once '../Touite/GestionUser.php';
 
                     $id = GestionUser::getIdByUsername($_SESSION['user']);
 

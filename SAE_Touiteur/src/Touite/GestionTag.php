@@ -128,10 +128,10 @@ class GestionTag
     public static function getTagTendances() : ?array
     {
         $db = self::config();
-        $query = "SELECT labelTag, count(trackedTag.idTag) FROM trackedTag
-                  inner join tags on trackedTag.idTag = tags.idTag
-                  group by trackedTag.idTag
-                  order by count(trackedTag.idTag) desc
+        $query = "SELECT labelTag, count(utiliserTag.idTag) FROM utiliserTag
+                  inner join tags on utiliserTag.idTag = tags.idTag
+                  group by utiliserTag.idTag
+                  order by count(utiliserTag.idTag) desc
                   limit 3";
         $stmt = $db -> prepare($query);
         $res = $stmt -> execute();

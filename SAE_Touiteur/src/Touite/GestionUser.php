@@ -67,8 +67,6 @@ class GestionUser
         return (int)$result['idUser'];
     }
 
-
-
     public static function abonnementsUser(int $iduser){
         $db = self::config();
         $query = "SELECT users.username FROM users 
@@ -100,7 +98,8 @@ class GestionUser
     public static function followUser(int $idFollower, int $idAFollow)
     {
         $db = self::config();
-        $query = "INSERT INTO followers (idUser1,idUser2) values (?,?)";
+        $query = "INSERT INTO followers (idUser1,idUser2) values (?,?)
+                  ON DUPLICATE KEY UPDATE idUser1 = idUser1";
         $stmt = $db->prepare($query);
         $stmt->execute([$idFollower,$idAFollow]);
     }

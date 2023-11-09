@@ -66,6 +66,21 @@ class GestionTag
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public static function getidTagByLabel(string $label) : int
+    {
+        $db = self::config();
+        $query = "SELECT idTag FROM tags WHERE labelTag = ?";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$label]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération du tag");
+        }
+
+        $result = $stmt -> fetch(\PDO::FETCH_ASSOC);
+
+        return (int)$result['idTag'];
+    }
+
     public static function setTag(string $libelle, string $desc){
         $db = self::config();
         $idTag = self::calcIdTag();
@@ -146,7 +161,9 @@ class GestionTag
     public static function followTag(int $iduser, int $idtag)
     {
         $db = self::config();
-        $query = "INSERT INTO trackedtag (idUser,idTag) values (?,?)";
+
+        $query = "INSERT INTO trackedtag (idUser,idTag) values (?,?)
+                  ON DUPLICATE KEY UPDATE idUser = idUser";
         $stmt = $db->prepare($query);
         $stmt->execute([$iduser,$idtag]);
     }

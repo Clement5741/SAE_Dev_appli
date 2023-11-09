@@ -21,6 +21,14 @@
 
         $res = GestionTag::getTags();
 
+        echo'
+        <br>
+        <form action="" method="post">
+        <label for="Chercher">Chercher un tag : </label><br>
+        <input type="text" name="Chercher" id="Chercher" required>
+        <input type="submit" value="Chercher">
+        </form>';
+
         echo '<p><strong>Liste des tags : </strong></p>';
         echo '<div class="tags-container">';
         foreach ($res as $val){

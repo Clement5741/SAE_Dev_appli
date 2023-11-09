@@ -32,7 +32,7 @@ require_once "../Touite/GestionUser.php";
         <div class='PartieMenu'>
             <div class="profile-button-abo">Accueil</div>
             <a href="profil.php"><div class="profile-button">Profil</div></a>
-            <a href="affichage_tags.php"><div class="profile-button">Tags</div></a>
+            <a href="page_ensemble_tags.php"><div class="profile-button">Tags</div></a>
             <a href="creationTouite.php"><div class="profile-button">TWEEEETTEEEERRRR</div></a>
 
         </div>
@@ -69,9 +69,22 @@ require_once "../Touite/GestionUser.php";
             <div class="profile-button-abo">#Tags</div>
             <?php
             $tagTendance = GestionTag::getTagTendances();
+
+            $id = GestionUser::getIdByUsername($_SESSION['user']);
+
             if ($tagTendance != null) {
                 foreach ($tagTendance as $tag) {
                     echo "<div class='affich'>#" . $tag['labelTag'] . "</div>";
+
+                    $idtag = GestionTag::getidTagByLabel($tag['labelTag']);
+
+                    echo "<form method='post' action=''>
+                            <button type='submit' name='submit'>S'abonner</button>
+                          </form>";
+
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+                        GestionTag::followTag($id,$idtag);
+                    }
                 }
             }
             ?>
@@ -80,9 +93,20 @@ require_once "../Touite/GestionUser.php";
             <div class="profile-button-abo">#Influenceurs</div>
             <?php
             $tagTendance = GestionUser::getUserTendances();
+
+            $id = GestionUser::getIdByUsername($_SESSION['user']);
+
             if ($tagTendance != null) {
                 foreach ($tagTendance as $tag) {
                     echo "<div class='affich'>" . $tag['idUser2'] . "</div>";
+
+                    echo "<form method='post' action=''>
+                            <button type='submit' name='submit'>S'abonner</button>
+                          </form>";
+
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+                        GestionUser::followUser($id,$tag['idUser2']);
+                    }
                 }
             }
             ?>

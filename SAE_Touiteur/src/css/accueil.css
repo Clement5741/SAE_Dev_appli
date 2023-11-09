@@ -13,7 +13,14 @@ a {
     text-decoration: none;
 }
 
+img {
+    max-height: 5em;
+    max-width: 5em;
+}
+
 .header {
+    display: flex;
+    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;

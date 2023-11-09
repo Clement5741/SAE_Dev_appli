@@ -1,3 +1,4 @@
+
 body, h1, p {
     margin: 1em;
     padding: 0;
@@ -15,6 +16,10 @@ body, h1, p {
 
 a {
     text-decoration: none;
+}
+img {
+    max-height: 5em;
+    max-width: 5em;
 }
 
 
@@ -34,21 +39,18 @@ a {
     flex-direction: column;
     padding: 1em;
     margin: 1em;
-    justify-content: space-around;
     border: 2px solid white;
     background-color: #3498db;
-
-
 }
 
-#Touites {
+#logo{
     align-items: center;
-    grid-column-start: 2;
-    border: 2px solid white;
-    background-color: #3498db;
-    color : #226091;
-
 }
+
+
+
+
+
 
 #tags_influencer {
     grid-column-start: 3;
@@ -79,3 +81,32 @@ a {
     color : white;
 }
 
+#Touites {
+    align-items: center;
+    margin: 1em;
+    padding: 1em;
+    grid-column-start: 2;
+    border: 2px solid white;
+    background-color: #3498db;
+    color : #226091;
+
+}
+
+.touite {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.touite p {
+    margin: 0;
+}
+
+.touite p:first-child {
+    font-weight: bold;
+}
+
+.touite p:last-child {
+    font-size: 0.8em;
+    color: #777;
+}

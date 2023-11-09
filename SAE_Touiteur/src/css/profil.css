@@ -18,6 +18,11 @@ a {
     text-decoration: none;
 }
 
+ img {
+     max-height: 5em;
+     max-width: 5em;
+ }
+
 
 #Menu {
     padding: 1.5em;
@@ -35,11 +40,12 @@ a {
     flex-direction: column;
     padding: 1em;
     margin: 1em;
-    justify-content: space-around;
     border: 2px solid white;
     background-color: #3498db;
+}
 
-
+#logo{
+    align-items: center;
 }
 
 #Profils {

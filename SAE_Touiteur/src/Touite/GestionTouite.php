@@ -11,7 +11,7 @@ require_once 'GestionTag.php';
 class GestionTouite
 {
 
-    public static function config(): \PDO
+    public static function config(): PDO
     {
         ConnectionFactory::setConfig('db.config.ini');
         return ConnectionFactory::makeConnection();
@@ -146,6 +146,40 @@ class GestionTouite
         $res = $stmt -> execute([$image, $idTouite]);
         if (!$res) {
             throw new \PDOException("Erreur lors de l'ajout de l'image");
+        }
+    }
+
+    public static function getIdUserByTouite(int $idTouite) : int
+    {
+        $db = self::config();
+        $query = "SELECT idUser FROM publierpar WHERE idTouite = ?";
+        $stmt = $db -> prepare($query);
+        $res = $stmt -> execute([$idTouite]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération de l'idUser");
+        }
+        return $stmt -> fetch(\PDO::FETCH_ASSOC)['idUser'];
+    }
+
+    public static function likerTouite(int $idTouite) : void
+    {
+        $db = self::config();
+        $query = "UPDATE touites SET nbLike = nbLike + 1 WHERE idTouite = ?";
+        $stmt = $db -> prepare($query);
+        $res = $stmt -> execute([$idTouite]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de l'ajout du like");
+        }
+    }
+
+    public static function dislikerTouite(int $idTouite) : void
+    {
+        $db = self::config();
+        $query = "UPDATE touites SET nbLike = nbLike - 1 WHERE idTouite = ?";
+        $stmt = $db -> prepare($query);
+        $res = $stmt -> execute([$idTouite]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de l'ajout du dislike");
         }
     }
 

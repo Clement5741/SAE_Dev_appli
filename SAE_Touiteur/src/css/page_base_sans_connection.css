@@ -17,6 +17,10 @@ body, h1, p {
 a {
     text-decoration: none;
 }
+img {
+    max-height: 5em;
+    max-width: 5em;
+}
 
 
 #Menu {
@@ -38,18 +42,16 @@ a {
     justify-content: space-around;
     border: 2px solid white;
     background-color: #3498db;
-
-
 }
 
-#Touites {
+#logo{
     align-items: center;
-    grid-column-start: 2;
-    border: 2px solid white;
-    background-color: #3498db;
-    color : #226091;
-
 }
+
+
+
+
+
 
 #tags_influencer {
     grid-column-start: 3;
@@ -88,3 +90,35 @@ a {
     border-radius: 1em;
     background: white;
 }
+
+#Touites {
+    align-items: center;
+    margin: 1em;
+    padding: 1em;
+    grid-column-start: 2;
+    border: 2px solid white;
+    background-color: #3498db;
+    color : #226091;
+}
+
+
+.touite {
+    border: 1px solid white;
+    padding: 1em;
+    margin-bottom: 1.5em;
+}
+
+.touite p {
+    margin: 0;
+}
+
+.touite p:first-child {
+    font-weight: bold;
+}
+
+.touite p:last-child {
+    font-size: 0.8em;
+    color: #777;
+}
+
+

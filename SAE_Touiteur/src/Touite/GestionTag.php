@@ -148,5 +148,20 @@ class GestionTag
         echo "</table>";
     }
 
+    public static function searchTag($searchTerm) {
+        $db = self::config();
+
+        // Préparez une requête pour rechercher des tags correspondant au terme de recherche
+        $query = "SELECT idTag, labelTag FROM Tags WHERE labelTag LIKE :searchTerm";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // Récupérez les résultats de la recherche
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }
+
 
 }

@@ -29,6 +29,18 @@
         <input type="submit" value="Chercher">
         </form>';
 
+        if (isset($_POST['Chercher'])) {
+            $searchTerm = $_POST['Chercher'];
+            $results = GestionTag::searchTag($searchTerm);
+
+            echo '<p>Résultats de la recherche : </p>';
+            echo '<div class="tags-container">';
+            foreach ($results as $result) {
+                echo '#'.$result['labelTag'].'<br>';
+            }
+            echo '</div>';
+        }
+
         echo '<p><strong>Liste des tags : </strong></p>';
         echo '<div class="tags-container">';
         foreach ($res as $val){

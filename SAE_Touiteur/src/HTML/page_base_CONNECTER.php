@@ -52,7 +52,7 @@ require_once "../Touite/GestionUser.php";
         $listes = GestionTouite::getTouites();
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
-            echo "<a href=\"profil.php\"><p>" . $liste['username'] . "</p></a>";
+            echo "<a href=\"profil.php?username=". $liste['username'] ."\"><p>" . $liste['username'] . "</p></a>";
             echo "<p>" . $liste['contentTouite'] . "</p>";
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {

@@ -33,8 +33,8 @@
         echo '<div class="tags-container">';
         foreach ($res as $val){
             print($val['idTag']);
-            echo', ';
-            print($val['labelTag']);
+            echo': ';
+            print('#'.$val['labelTag']);
             echo '<br>';
         }
         echo '</div>';

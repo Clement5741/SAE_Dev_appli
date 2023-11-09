@@ -31,7 +31,7 @@ require_once "../Touite/GestionUser.php";
 
         <div class='PartieMenu'>
             <div class="profile-button-abo">Accueil</div>
-            <a href="profil.php?username=<?php echo $_SESSION['user'];?>"><div class="profile-button-abo">Profil</div></a>
+            <a href="profil.php?username=<?php echo $_SESSION['user'];?>"><div class="profile-button">Profil</div></a>
             <a href="page_ensemble_tags.php"><div class="profile-button">Tags</div></a>
             <a href="creationTouite.php"><div class="profile-button">TOUITER</div></a>
         </div>
@@ -60,18 +60,16 @@ require_once "../Touite/GestionUser.php";
             }
             echo "<p>" . $liste['dateTouite'] . "</p>";
 
-//            $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_GET['username']));
-//
-//            $_GET['touite']
 
-            //on veut utiliser la methode likertouite sur le touite
             $likeTouite = GestionTouite::likerTouite($liste['idTouite']);
+            $dislikerTouite = GestionTouite::dislikerTouite($liste['idTouite']);
 
             $score = GestionTouite::getScoreMoyenTouite($liste['idTouite']);
 
 
 //            $boutonMoins = $isLiked ? "boutonMoins" : "fake_boutonMoins";
 //            $boutonPlus = $isNotLiked ? "boutonPlus" : "fake_boutonPlus";
+
 
             echo "<div id='CarréNotation'>";
             echo "<button class='boutonMoins'> &#128077;</button>";

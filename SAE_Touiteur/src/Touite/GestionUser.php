@@ -72,16 +72,13 @@ class GestionUser
         $db = self::config();
         $query = "SELECT tags.labelTag FROM tags 
                   INNER JOIN trackedtag ON tags.idTag = trackedtag.idTag
-                  WHERE username = ?";
+                  WHERE idUser = ?";
         $stmt = $db->prepare($query);
         $stmt->execute([$iduser]);
 
-        echo "<table border='1'>";
-
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr>";
-            echo "<td>" . $row['labelTag'] . "</td>";
-            echo "</tr>";
+            print($row['labelTag']);
+            echo '<br>';
         }
         echo "</table>";
     }
@@ -100,7 +97,21 @@ class GestionUser
         }
     }
 
-    public static function follow(int $idFollower, int $idAFollow)
+    public static function userAbonne(int $iduser){
+        $db = self::config();
+        $query = "SELECT users.username FROM users 
+                  inner join followers on users.idUser = followers.idUser1
+                  WHERE followers.idUser2 = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$iduser]);
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            print($row['username']);
+            echo '<br>';
+        }
+    }
+
+    public static function followUser(int $idFollower, int $idAFollow)
     {
         $db = self::config();
         $query = "INSERT INTO followers (idUser1,idUser2) values (?,?)";

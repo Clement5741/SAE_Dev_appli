@@ -125,5 +125,13 @@ class GestionTag
         return $row['max(idTag)'] + 1;
     }
 
+    public static function followTag(int $iduser, int $idtag)
+    {
+        $db = self::config();
+        $query = "INSERT INTO trackedtag (idUser,idTag) values (?,?)";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$iduser,$idtag]);
+    }
+
 
 }

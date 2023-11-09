@@ -21,7 +21,8 @@ if (!isset($_SESSION['user'])) {
     <div class='PartieMenu'>
       <a href="page_base_CONNECTER.php"><div class="profile-button">Accueil</div></a>
       <div class="fake_profile-button">Profil</div></a>
-      <a href="affichage_tags.php"><div class="profile-button">Tags</div></a>
+      <a href="affichage_abonnements.php"><div class="profile-button">Vos Abonnements</div></a>
+      <a href="affichage_tags.php"><div class="profile-button">Vos Tags</div></a>
     </div>
 
     <div class='PartieMenu'>
@@ -55,18 +56,20 @@ if (!isset($_SESSION['user'])) {
 
     <div id='abonne_moyenne'>
         <div class='abonne'>
-            <div class="fake_profile-button">Vos abonnées</div>
-            <div class="carré1">
-                <?php
-                use Touite\GestionUser;
+            <div class='abonne'>
+                <div class="fake_profile-button">Vos abonnées</div>
+                <div class="carré1">
+                    <?php
+                    use Touite\GestionUser;
 
-                require_once '../Touite/GestionUser.php';
+                    require_once '../Touite/GestionUser.php';
 
-                $id = GestionUser::getIdByUsername($_SESSION['user']);
+                    $id = GestionUser::getIdByUsername($_SESSION['user']);
 
-                GestionUser::abonnementsUser($id);
+                    GestionUser::userAbonne($id);
 
-                ?>
+                    ?>
+                </div>
             </div>
         </div>
         <div class='moyenne'>

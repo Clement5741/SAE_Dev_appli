@@ -21,9 +21,9 @@
 
         $id = GestionUser::getIdByUsername($_SESSION['user']);
 
-        echo '<p><strong>Vos tags : </strong></p>';
-        echo '<div class="tags-container">';
-        GestionUser::abonnementsTag($id);
+        echo '<p><strong>Vos abonnements : </strong></p>';
+        echo '<div class="abo-container">';
+        GestionUser::abonnementsUser($id);
         echo '</div>';
 
         ?>
@@ -31,3 +31,4 @@
 </div>
 </body>
 </html>
+

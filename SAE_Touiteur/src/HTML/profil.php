@@ -49,7 +49,7 @@ require_once '../Touite/GestionImage.php';
         <div class="">
             <?php
             GestionUser::config();
-            if(isset($_GET['username']) && $_GET['username'] != $_SESSION['user']) {
+            if(isset($_GET['username'])) {
                 $profilsLsit = GestionUser::getUserByUsername($_GET['username']);
             } else {
                 $profilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
@@ -67,7 +67,7 @@ require_once '../Touite/GestionImage.php';
 
 
         <?php
-        $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_SESSION['user']));
+        $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_GET['username']));
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
             echo "<p>" . $liste['contentTouite'] . "</p>";

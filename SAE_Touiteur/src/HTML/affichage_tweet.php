@@ -22,27 +22,25 @@ require_once '../Touite/GestionImage.php';
 <body>
 <?php
 
-$listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_SESSION['user']));
+$liste = GestionTouite::getTouite($_GET['touite']);
 $score = GestionTouite::getScoreMoyenTouite(GestionUser::getIdByUsername($_SESSION['user']));
-foreach ($listes as $liste) {
-    echo "<div class=\"tweet-container\">
+
+echo "<div class=\"tweet-container\">
 
     <a href=\"page_base_CONNECTER.php\" class=\"back-button\">&#8592;</a> <!---&#8592 represent the arrow-->
     <div class=\"tweet-author\"> " . $liste['name'] . " </div>";
 
-    echo "<div class=\"tweet-author\"> " . $liste['idUser'] . " </div>";
-
-    echo "<div class=\"tweet-text\">" . $liste['contentTouite'] . "</div>";
+echo "<div class=\"tweet-text\">" . $liste['contentTouite'] . "</div>";
 
 
-    $t = GestionImage::getImageByTouite($liste['idTouite']);
-    if ($t != null) {
-        echo "<img class=\"tweet-image\" src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
-    }
-
-    echo "<div class=\"tweet-date\">" . $liste['dateTouite'] . "</div>";
-    echo "<div class=\"tweet-text\">" . $score . "</div>";
+$t = GestionImage::getImageByTouite($liste['idTouite']);
+if ($t != null) {
+    echo "<img class=\"tweet-image\" src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
 }
+
+echo "<div class=\"tweet-date\">" . $liste['dateTouite'] . "</div>";
+echo "<div class=\"tweet-text\">Score moyen : " . $score . "</div></div>";
+
 ?>
 </body>
 </html>

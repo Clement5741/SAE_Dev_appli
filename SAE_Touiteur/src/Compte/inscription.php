@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="header">
-    <img src="logo_twouiter.png" alt="Logo Twouiter">
+    <img src="../Images/logo.png" alt="logo" id="logo" >
     <h1>Inscription à Twouiter</h1>
 </div>
 

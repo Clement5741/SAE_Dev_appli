@@ -8,9 +8,9 @@
 <body>
 <div id="grid-container">
     <div id='Menu'>
-            <div class='PartieMenu'>
-                <p>[emplacement du logo]</p>
-            </div>
+        <div class='PartieMenu' id="logo">
+            <img src="../Images/logo.png" alt="logo" id="logo" >
+        </div>
 
             <div class='PartieMenu'>
                 <div class="profile-button-abo">Accueil</div></a>
@@ -29,7 +29,22 @@
     </div>
 
     <div id='Touites'>
-        <p>[emplacement des touites]</p>
+        <?php
+        require_once __DIR__ . "/../Touite/GestionTouite.php";
+        \Touite\GestionTouite::config();
+        $listes = \Touite\GestionTouite::getTouites();
+        foreach ($listes as $liste) {
+            $idTouite = $liste['idTouite'];
+            $idUser = \Touite\GestionTouite::getIdUserByTouite($idTouite);
+            $user = \Touite\GestionUser::getUserbyId($idUser);
+
+            echo "<div class='touite'>";
+            echo "<p>" . $user['username'] . "</p>";
+            echo "<p>" . $liste['contentTouite'] . "</p>";
+            echo "<p>" . $liste['dateTouite'] . "</p>";
+            echo "</div>";
+        }
+        ?>
     </div>
 
     <div id="tags_influencer">
@@ -43,3 +58,9 @@
 </div>
 </body>
 </html>
+
+
+
+
+
+

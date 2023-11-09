@@ -14,8 +14,8 @@ if (!isset($_SESSION['user'])) {
 <body>
 <div id="grid-container">
   <div id='Menu'>
-    <div class='PartieMenu'>
-      <p>[emplacement du logo]</p>
+    <div class='PartieMenu' id="logo">
+      <img src="../images/logo.png" alt="logo" id="logo" >
     </div>
 
     <div class='PartieMenu'>

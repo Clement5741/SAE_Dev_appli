@@ -15,9 +15,9 @@ body {
     padding: 20px;
 }
 
-.header img {
-    max-width: 100px;
-    max-height: 100px;
+img {
+    max-height: 5em;
+    max-width: 5em;
 }
 
 .inscription-form {

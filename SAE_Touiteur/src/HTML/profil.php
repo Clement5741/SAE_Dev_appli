@@ -29,7 +29,7 @@ if (!isset($_SESSION['user'])) {
       <!--                <button href="../Compte/inscription.php" type="button">S'inscrire</button>-->
       <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
 
-      <a href="#" onclick="return false"><div class="profile-button">Se déconnecter</div></a>
+      <a href="../Compte/deconnexion.php"><div class="profile-button">Se déconnecter</div></a>
     </div>
   </div>
 
@@ -56,13 +56,17 @@ if (!isset($_SESSION['user'])) {
     <div id='abonne_moyenne'>
         <div class='abonne'>
             <div class="fake_profile-button">Vos abonnées</div>
-            <div class="carré1">Faudra mettre les abonnée ici
-            ezezez
-            ezezeez
-            zezezeze
-            ezezezez
-            ezezezez
-            ezezezez
+            <div class="carré1">
+                <?php
+                use Touite\GestionUser;
+
+                require_once '../Touite/GestionUser.php';
+
+                $id = GestionUser::getIdByUsername($_SESSION['user']);
+
+                GestionUser::abonnementsUser($id);
+
+                ?>
             </div>
         </div>
         <div class='moyenne'>

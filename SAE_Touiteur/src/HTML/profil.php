@@ -4,8 +4,12 @@ if (!isset($_SESSION['user'])) {
     header('Location: accueil.html');
 }
 use Touite\GestionUser;
+use Touite\GestionTouite;
+use Touite\GestionImage;
 
 require_once '../Touite/GestionUser.php';
+require_once '../Touite/GestionTouite.php';
+require_once '../Touite/GestionImage.php';
 
 ?>
 <!DOCTYPE html>
@@ -41,29 +45,45 @@ require_once '../Touite/GestionUser.php';
     <div id='Profils'>
         <div class="fake_profile-button">Profil</div>
 
+
         <div class="">
             <?php
             GestionUser::config();
-            $ProfilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
+            if(isset($_GET['username'])) {
+                $profilsLsit = GestionUser::getUserByUsername($_GET['username']);
+            } else {
+                $profilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
+            }
             echo "<div class='info'>";
-            echo "<p>" . $ProfilsLsit['firstname'] . "</p>";
-            echo "<p>" . $ProfilsLsit['username'] . "</p>";
-            echo "<p>" . $ProfilsLsit['name'] . "</p>";
+
+
+            echo "<p>Username : " . $profilsLsit['username'] . "</p>";
+            echo "<p>LastName : " . $profilsLsit['name'] . "</p>";
+            echo "<p>Firstname : " . $profilsLsit['firstname'] . "</p>";
+
             echo "</div>";
             ?>
         </div>
-        <div class="">ABONNEMENT A VOIR </div>
 
 
+        <?php
+        $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_GET['username']));
+        foreach ($listes as $liste) {
+            echo "<div class='touite'>";
+            if (strlen($liste['contentTouite']) > 100) {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page='profil'\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+            } else {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page='profil'\"><p>" . $liste['contentTouite']. "</p></a>";
+            }
+            $t = GestionImage::getImageByTouite($liste['idTouite']);
+            if ($t != null) {
+                echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
+            }
+            echo "<p>" . $liste['dateTouite'] . "</p>";
+            echo "</div>";
+        }
+        ?>
 
-
-        <div class="">Abonnement de : A REVOIR LE FIRST NAME ET LE NAME
-<!--            --><?php
-//            echo GestionUser::getUserByUsername($_SESSION['user'])['name']; echo " ";
-//            GestionUser::getUserByUsername($_SESSION['user'])['firstname'];
-//
-//            ?>
-        </div>
 
     </div>
 

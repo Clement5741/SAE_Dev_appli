@@ -30,17 +30,27 @@
 
     <div id='Touites'>
         <?php
-        require_once __DIR__ . "/../Touite/GestionTouite.php";
-        \Touite\GestionTouite::config();
-        $listes = \Touite\GestionTouite::getTouites();
+
+        use Touite\GestionTouite;
+        use Touite\GestionUser;
+
+        require_once "../Touite/GestionTouite.php";
+        require_once "../Touite/GestionUser.php";
+
+        GestionTouite::config();
+        $listes = GestionTouite::getTouites();
         foreach ($listes as $liste) {
             $idTouite = $liste['idTouite'];
-            $idUser = \Touite\GestionTouite::getIdUserByTouite($idTouite);
-            $user = \Touite\GestionUser::getUserbyId($idUser);
+            $idUser = GestionTouite::getIdUserByTouite($idTouite);
+            $user = GestionUser::getUserbyId($idUser);
 
             echo "<div class='touite'>";
             echo "<p>" . $user['username'] . "</p>";
-            echo "<p>" . $liste['contentTouite'] . "</p>";
+            if (strlen($liste['contentTouite']) > 100) {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=sans\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+            } else {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=sans\"><p>" . $liste['contentTouite']. "</p></a>";
+            }
             echo "<p>" . $liste['dateTouite'] . "</p>";
             echo "</div>";
         }

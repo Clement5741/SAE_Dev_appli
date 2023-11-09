@@ -26,7 +26,7 @@ require_once "../Touite/GestionUser.php";
 <div id="grid-container">
     <div id='Menu'>
         <div class='PartieMenu' id="logo">
-            <img src="../Images/logo.png" alt="logo" id="logo" >
+            <img src="../Images/logo.png" alt="logo" id="logo">
         </div>
 
         <div class='PartieMenu'>
@@ -34,7 +34,6 @@ require_once "../Touite/GestionUser.php";
             <a href="profil.php"><div class="profile-button">Profil</div></a>
             <a href="page_ensemble_tags.php"><div class="profile-button">Tags</div></a>
             <a href="creationTouite.php"><div class="profile-button">TWEEEETTEEEERRRR</div></a>
-
         </div>
 
         <div class='PartieMenu'>
@@ -43,7 +42,9 @@ require_once "../Touite/GestionUser.php";
             <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
             <!--<a href="../Compte/connexion.php"><div class="profile-button">Connexion</div></a>-->
             <!--<a href="../Compte/inscription.php"><div class="profile-button">S'inscrire</div></a>-->
-            <a href="../Compte/deconnexion.php"><div class="profile-button">Se déconnecter</div></a>
+            <a href="../Compte/deconnexion.php">
+                <div class="profile-button">Se déconnecter</div>
+            </a>
         </div>
     </div>
 
@@ -52,8 +53,12 @@ require_once "../Touite/GestionUser.php";
         $listes = GestionTouite::getTouites();
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
-            echo "<a href=\"profil.php\"><p>" . $liste['username'] . "</p></a>";
-            echo "<p>" . $liste['contentTouite'] . "</p>";
+            echo "<a href=\"profil.php?username=". $liste['username'] . "\"><p>" . $liste['username'] . "</p></a>";
+            if (strlen($liste['contentTouite']) > 100) {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+            } else {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . $liste['contentTouite']. "</p></a>";
+            }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
                 echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";

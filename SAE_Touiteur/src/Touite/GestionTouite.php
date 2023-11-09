@@ -1,4 +1,5 @@
 <?php
+
 namespace Touite;
 
 use BD\ConnectionFactory;
@@ -17,49 +18,54 @@ class GestionTouite
         return ConnectionFactory::makeConnection();
     }
 
-    public static function getTouites() : array
+    public static function getTouites(): array
     {
         $db = self::config();
         $query = "SELECT * FROM touites
         inner join publierPar on publierPar.idTouite = touites.idTouite
         inner join users on users.idUser = publierPar.idUser
-
+        ORDER BY touites.dateTouite DESC
         ";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute();
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute();
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération des touites");
         }
-        return $stmt -> fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getTouite(int $idTouite) : array
+    public static function getTouite(int $idTouite): array
     {
         $db = self::config();
-        $query = "SELECT * FROM touites WHERE idTouite = ?";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite]);
+        $query = "SELECT * FROM touites
+        inner join publierPar on publierPar.idTouite = touites.idTouite
+        inner join users on users.idUser = publierPar.idUser
+        WHERE touites.idTouite = ?";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite]);
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération du touite");
         }
-        return $stmt -> fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function getTouitesByUser(int $idUser) : array
+    public static function getTouitesByUser(int $idUser): array
     {
         $db = self::config();
-        $query = "SELECT * FROM touites 
-         inner join publierPar on publierPar.idTouite = touites.idTouite
-         WHERE idUser = ?";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idUser]);
+        $query = "SELECT * FROM touites
+        inner join publierPar on publierPar.idTouite = touites.idTouite
+        inner join users on users.idUser = publierPar.idUser
+        WHERE publierPar.idUser = ?
+        ";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idUser]);
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération des touites");
         }
-        return $stmt -> fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getTouitesByTag(int $idTag) : array
+    public static function getTouitesByTag(int $idTag): array
     {
         $db = self::config();
         $query = "SELECT * FROM utiliserTag WHERE idTag = ?";
@@ -71,27 +77,27 @@ class GestionTouite
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function setTouite(string $contentTouite, string $username) : int
+    public static function setTouite(string $contentTouite, string $username): int
     {
         $db = self::config();
         $idTouite = self::calcIdTouite();
         $tab = self::checkTag($contentTouite);
 
         $query = "INSERT INTO touites (idTouite, contentTouite, dateTouite) VALUES (?, ?, ?)";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite, $contentTouite, date('Y-m-d H:i:s')]);
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite, $contentTouite, date('Y-m-d H:i:s')]);
         $idUser = GestionUser::getUserByUsername($username)['idUser'];
         $query2 = "INSERT INTO publierPar (idTouite, idUser) VALUES (?, ?)";
-        $stmt2 = $db -> prepare($query2);
-        $res2 = $stmt2 -> execute([$idTouite, $idUser]);
+        $stmt2 = $db->prepare($query2);
+        $res2 = $stmt2->execute([$idTouite, $idUser]);
 
-        if ($tab != null){
+        if ($tab != null) {
             $query3 = "INSERT INTO utiliserTag (idTag, idTouite) VALUES (?, ?)";
-            $stmt3 = $db -> prepare($query3);
-            foreach ($tab as $value){
+            $stmt3 = $db->prepare($query3);
+            foreach ($tab as $value) {
                 echo $value;
                 $idTag = GestionTag::getTagByLabel($value)['idTag'];
-                $res3 = $stmt3 -> execute([$idTag, $idTouite]);
+                $res3 = $stmt3->execute([$idTag, $idTouite]);
                 if (!$res3) {
                     throw new \PDOException("Erreur lors de l'ajout du tag");
                 }
@@ -104,18 +110,19 @@ class GestionTouite
         return $idTouite;
     }
 
-    public static function deleteTouite(int $idTouite) : void
+    public static function deleteTouite(int $idTouite): void
     {
         $db = self::config();
         $query = "DELETE FROM touites WHERE idTouite = ?";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite]);
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite]);
         if (!$res) {
             throw new \PDOException("Erreur lors de la suppression du touite");
         }
     }
 
-    public static function calcIdTouite() : int{
+    public static function calcIdTouite(): int
+    {
         // On récupère l'identifiant max dans la table Touite
         $db = self::config();
         $max = "select max(idTouite) from Touites;";
@@ -128,14 +135,15 @@ class GestionTouite
     // Corriger le bug de la création de tag dans la création de touite (si on crée un tag, il ne s'affiche pas dans la table utiliserTag)
     // Corriger le bug quand on créé 2 tags dans le même touite (le 2ème tag n'est pas ajouté dans la table utiliserTag)
 
-    public static function checkTag(string $contenu) : array{
+    public static function checkTag(string $contenu): array
+    {
         $tab = explode(" ", $contenu);
         $tab2 = [];
-        foreach ($tab as $value){
-            if (substr($value, 0, 1) == "#"){
+        foreach ($tab as $value) {
+            if (substr($value, 0, 1) == "#") {
                 $value = substr($value, 1);
                 $tab2[] = $value;
-                if (GestionTag::getTagByLabel($value) == null){
+                if (GestionTag::getTagByLabel($value) == null) {
                     GestionTag::setTag($value, $value);
                 }
             }
@@ -144,39 +152,50 @@ class GestionTouite
     }
 
 
-
-    public static function getIdUserByTouite(int $idTouite) : int
+    public static function getIdUserByTouite(int $idTouite): int
     {
         $db = self::config();
         $query = "SELECT idUser FROM publierpar WHERE idTouite = ?";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite]);
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite]);
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération de l'idUser");
         }
-        return $stmt -> fetch(PDO::FETCH_ASSOC)['idUser'];
+        return $stmt->fetch(PDO::FETCH_ASSOC)['idUser'];
     }
 
-    public static function likerTouite(int $idTouite) : void
+    public static function likerTouite(int $idTouite): void
     {
         $db = self::config();
         $query = "UPDATE touites SET nbLike = nbLike + 1 WHERE idTouite = ?";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite]);
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite]);
         if (!$res) {
             throw new \PDOException("Erreur lors de l'ajout du like");
         }
     }
 
-    public static function dislikerTouite(int $idTouite) : void
+    public static function dislikerTouite(int $idTouite): void
     {
         $db = self::config();
         $query = "UPDATE touites SET nbLike = nbLike - 1 WHERE idTouite = ?";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite]);
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite]);
         if (!$res) {
             throw new \PDOException("Erreur lors de l'ajout du dislike");
         }
+    }
+
+    public static function getScoreMoyenTouite(string $idTouite): int
+    {
+        $db = self::config();
+        $query = "SELECT notePerti FROM Touites WHERE idTouite = ?";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération du score moyen");
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC)['notePerti'];
     }
 
 

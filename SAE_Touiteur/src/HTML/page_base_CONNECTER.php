@@ -53,7 +53,7 @@ require_once "../Touite/GestionUser.php";
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
             echo "<a href=\"profil.php?username=". $liste['username'] ."\"><p>" . $liste['username'] . "</p></a>";
-            echo "<p>" . $liste['contentTouite'] . "</p>";
+            echo "<a href=\"affichage_tweet.html\"><p>" . $liste['contentTouite'] . "</p></a>";
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
                 echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";

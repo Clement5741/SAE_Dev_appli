@@ -1,8 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['user'])) {
-    header('Location: accueil.html');
-}
 
 use Touite\GestionTouite;
 use Touite\GestionUser;
@@ -23,11 +20,18 @@ require_once '../Touite/GestionImage.php';
 <?php
 
 $liste = GestionTouite::getTouite($_GET['touite']);
-$score = GestionTouite::getScoreMoyenTouite(GestionUser::getIdByUsername($_SESSION['user']));
+$score = GestionTouite::getScoreMoyenTouite($_GET['touite']);
 
-echo "<div class=\"tweet-container\">
+echo "<div class=\"tweet-container\">";
 
-    <a href=\"page_base_CONNECTER.php\" class=\"back-button\">&#8592;</a> <!---&#8592 represent the arrow-->
+    if (isset($_SESSION['user']) && !isset($_GET['page'])){
+        $t = "page_base_CONNECTER.php";
+    }elseif (!isset($_SESSION['user']) && isset($_GET['page']) && $_GET['page'] == "sans"){
+        $t = "page_base_sans_connection.php";
+    }else{
+        $t = "profil.php?username=" . $_SESSION['user'];
+    }
+    echo "<a href=\"$t\" class=\"back-button\">&#8592;</a> <!---&#8592 represent the arrow-->
     <div class=\"tweet-author\"> " . $liste['name'] . " </div>";
 
 echo "<div class=\"tweet-text\">" . $liste['contentTouite'] . "</div>";

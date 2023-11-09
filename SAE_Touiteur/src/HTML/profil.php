@@ -57,9 +57,9 @@ require_once '../Touite/GestionImage.php';
             echo "<div class='info'>";
 
 
-            echo "<p>" . $profilsLsit['firstname'] . "</p>";
-            echo "<p>" . $profilsLsit['username'] . "</p>";
-            echo "<p>" . $profilsLsit['name'] . "</p>";
+            echo "<p>Username : " . $profilsLsit['username'] . "</p>";
+            echo "<p>LastName : " . $profilsLsit['name'] . "</p>";
+            echo "<p>Firstname : " . $profilsLsit['firstname'] . "</p>";
 
             echo "</div>";
             ?>
@@ -70,7 +70,11 @@ require_once '../Touite/GestionImage.php';
         $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_GET['username']));
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
-            echo "<p>" . $liste['contentTouite'] . "</p>";
+            if (strlen($liste['contentTouite']) > 100) {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page='profil'\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+            } else {
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page='profil'\"><p>" . $liste['contentTouite']. "</p></a>";
+            }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
                 echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";

@@ -24,6 +24,7 @@ class GestionTouite
         $query = "SELECT * FROM touites
         inner join publierPar on publierPar.idTouite = touites.idTouite
         inner join users on users.idUser = publierPar.idUser
+        ORDER BY touites.dateTouite DESC
         ";
         $stmt = $db->prepare($query);
         $res = $stmt->execute();
@@ -196,6 +197,7 @@ class GestionTouite
         }
         return $stmt->fetch(PDO::FETCH_ASSOC)['notePerti'];
     }
+
 
 
 }

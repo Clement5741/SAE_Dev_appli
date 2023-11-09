@@ -1,13 +1,19 @@
 <?php
-
-use Touite\GestionImage;
-use Touite\GestionTouite;
-use Touite\GestionUser;
-
 session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: accueil.html');
 }
+
+use Touite\GestionImage;
+use Touite\GestionTag;
+use Touite\GestionTouite;
+use Touite\GestionUser;
+
+require_once "../Touite/GestionImage.php";
+require_once "../Touite/GestionTag.php";
+require_once "../Touite/GestionTouite.php";
+require_once "../Touite/GestionUser.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -43,14 +49,10 @@ if (!isset($_SESSION['user'])) {
 
     <div id='Touites'>
         <?php
-        require_once "../Touite/GestionTouite.php";
-        require_once "../Touite/GestionUser.php";
-        require_once "../Touite/GestionImage.php";
-        GestionTouite::config();
         $listes = GestionTouite::getTouites();
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
-            echo "<p>" . $liste['username'] . "</p>";
+            echo "<a href=\"profil.php\"><p>" . $liste['username'] . "</p></a>";
             echo "<p>" . $liste['contentTouite'] . "</p>";
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
@@ -65,9 +67,25 @@ if (!isset($_SESSION['user'])) {
     <div id="tags_influencer">
         <div id="tag">
             <div class="profile-button-abo">#Tags</div>
+            <?php
+            $tagTendance = GestionTag::getTagTendances();
+            if ($tagTendance != null) {
+                foreach ($tagTendance as $tag) {
+                    echo "<div class='affich'>#" . $tag['labelTag'] . "</div>";
+                }
+            }
+            ?>
         </div>
         <div id="influencer">
             <div class="profile-button-abo">#Influenceurs</div>
+            <?php
+            $tagTendance = GestionUser::getUserTendances();
+            if ($tagTendance != null) {
+                foreach ($tagTendance as $tag) {
+                    echo "<div class='affich'>" . $tag['idUser2'] . "</div>";
+                }
+            }
+            ?>
         </div>
     </div>
 </div>

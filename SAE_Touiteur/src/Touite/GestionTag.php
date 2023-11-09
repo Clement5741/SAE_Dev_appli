@@ -125,12 +125,45 @@ class GestionTag
         return $row['max(idTag)'] + 1;
     }
 
+    public static function getTagTendances() : ?array
+    {
+        $db = self::config();
+        $query = "SELECT labelTag, count(trackedTag.idTag) FROM trackedTag
+                  inner join tags on trackedTag.idTag = tags.idTag
+                  group by trackedTag.idTag
+                  order by count(trackedTag.idTag) desc
+                  limit 3";
+        $stmt = $db -> prepare($query);
+        $res = $stmt -> execute();
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération des tags");
+        }
+        if ($stmt->rowCount() == 0)
+            return null;
+        return $stmt -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function followTag(int $iduser, int $idtag)
     {
         $db = self::config();
         $query = "INSERT INTO trackedtag (idUser,idTag) values (?,?)";
         $stmt = $db->prepare($query);
         $stmt->execute([$iduser,$idtag]);
+    }
+
+    public static function abonnementsTag(int $iduser){
+        $db = self::config();
+        $query = "SELECT tags.labelTag FROM tags 
+                  INNER JOIN trackedtag ON tags.idTag = trackedtag.idTag
+                  WHERE idUser = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$iduser]);
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            print($row['labelTag']);
+            echo '<br>';
+        }
+        echo "</table>";
     }
 
 

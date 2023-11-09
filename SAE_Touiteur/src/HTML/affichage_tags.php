@@ -16,14 +16,16 @@
         }
 
         use Touite\GestionUser;
+        use Touite\GestionTag;
 
         require_once '../Touite/GestionUser.php';
+        require_once '../Touite/GestionTag.php';
 
         $id = GestionUser::getIdByUsername($_SESSION['user']);
 
         echo '<p><strong>Vos tags : </strong></p>';
         echo '<div class="tags-container">';
-        GestionUser::abonnementsTag($id);
+        GestionTag::abonnementsTag($id);
         echo '</div>';
 
         ?>

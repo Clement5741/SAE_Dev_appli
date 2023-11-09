@@ -180,6 +180,18 @@ class GestionTouite
         }
     }
 
+    public static function getScoreMoyenTouite(string $idTouite): int
+    {
+        $db = self::config();
+        $query = "SELECT notePerti FROM Touites WHERE idTouite = ?";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération du score moyen");
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC)['AVG(score)'];
+    }
+
 
 
 }

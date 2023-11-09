@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Détail du Tweet</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/affichage_tweet.css">
-</head>
-<body>
 <?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: accueil.html');
+}
+
 use Touite\GestionTouite;
 use Touite\GestionUser;
 use Touite\GestionImage;
@@ -14,7 +11,16 @@ use Touite\GestionImage;
 require_once '../Touite/GestionTouite.php';
 require_once '../Touite/GestionUser.php';
 require_once '../Touite/GestionImage.php';
-
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Détail du Tweet</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/affichage_tweet.css">
+</head>
+<body>
+<?php
 
 $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_SESSION['user']));
 $score = GestionTouite::getScoreMoyenTouite(GestionUser::getIdByUsername($_SESSION['user']));
@@ -22,9 +28,9 @@ foreach ($listes as $liste) {
     echo "<div class=\"tweet-container\">
 
     <a href=\"page_base_CONNECTER.php\" class=\"back-button\">&#8592;</a> <!---&#8592 represent the arrow-->
-    <div class=\"tweet-author\"> " . $liste['nameuser'] . " </div>";
+    <div class=\"tweet-author\"> " . $liste['name'] . " </div>";
 
-    echo "<div class=\"tweet-author\"> " . $liste['iduser'] . " </div>";
+    echo "<div class=\"tweet-author\"> " . $liste['idUser'] . " </div>";
 
     echo "<div class=\"tweet-text\">" . $liste['contentTouite'] . "</div>";
 
@@ -35,7 +41,7 @@ foreach ($listes as $liste) {
     }
 
     echo "<div class=\"tweet-date\">" . $liste['dateTouite'] . "</div>";
-    echo "<div class=\"tweet-text\">" . $score['notePerti'] . "</div>";
+    echo "<div class=\"tweet-text\">" . $score . "</div>";
 }
 ?>
 </body>

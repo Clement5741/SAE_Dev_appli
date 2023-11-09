@@ -20,13 +20,17 @@ class GestionTouite
     public static function getTouites() : array
     {
         $db = self::config();
-        $query = "SELECT * FROM touites";
+        $query = "SELECT * FROM touites
+        inner join publierPar on publierPar.idTouite = touites.idTouite
+        inner join users on users.idUser = publierPar.idUser
+
+        ";
         $stmt = $db -> prepare($query);
         $res = $stmt -> execute();
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération des touites");
         }
-        return $stmt -> fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt -> fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getTouite(int $idTouite) : array
@@ -38,7 +42,7 @@ class GestionTouite
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération du touite");
         }
-        return $stmt -> fetch(\PDO::FETCH_ASSOC);
+        return $stmt -> fetch(PDO::FETCH_ASSOC);
     }
 
     public static function getTouitesByUser(int $idUser) : array
@@ -52,7 +56,7 @@ class GestionTouite
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération des touites");
         }
-        return $stmt -> fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt -> fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getTouitesByTag(int $idTag) : array
@@ -64,10 +68,10 @@ class GestionTouite
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération des touites");
         }
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function setTouite(string $contentTouite, string $username) : void
+    public static function setTouite(string $contentTouite, string $username) : int
     {
         $db = self::config();
         $idTouite = self::calcIdTouite();
@@ -97,6 +101,7 @@ class GestionTouite
         if (!$res2 || !$res) {
             throw new \PDOException("Erreur lors de l'ajout du touite");
         }
+        return $idTouite;
     }
 
     public static function deleteTouite(int $idTouite) : void
@@ -138,16 +143,7 @@ class GestionTouite
         return $tab2;
     }
 
-    public static function addImage(int $idTouite, string $image) : void
-    {
-        $db = self::config();
-        $query = "INSERT INTO utiliserImage (idImage, idTouite, utiliserImage) VALUES (?, ?, true)";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$image, $idTouite]);
-        if (!$res) {
-            throw new \PDOException("Erreur lors de l'ajout de l'image");
-        }
-    }
+
 
     public static function getIdUserByTouite(int $idTouite) : int
     {
@@ -158,7 +154,7 @@ class GestionTouite
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération de l'idUser");
         }
-        return $stmt -> fetch(\PDO::FETCH_ASSOC)['idUser'];
+        return $stmt -> fetch(PDO::FETCH_ASSOC)['idUser'];
     }
 
     public static function likerTouite(int $idTouite) : void

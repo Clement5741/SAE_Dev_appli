@@ -49,11 +49,18 @@ require_once '../Touite/GestionImage.php';
         <div class="">
             <?php
             GestionUser::config();
-            $ProfilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
+            if(isset($_GET['username']) && $_GET['username'] != $_SESSION['user']) {
+                $profilsLsit = GestionUser::getUserByUsername($_GET['username']);
+            } else {
+                $profilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
+            }
             echo "<div class='info'>";
-            echo "<p>" . $ProfilsLsit['username'] . "</p>";
-            echo "<p>" . $ProfilsLsit['firstname'] . "</p>";
-            echo "<p>" . $ProfilsLsit['name'] . "</p>";
+
+
+            echo "<p>" . $profilsLsit['firstname'] . "</p>";
+            echo "<p>" . $profilsLsit['username'] . "</p>";
+            echo "<p>" . $profilsLsit['name'] . "</p>";
+
             echo "</div>";
             ?>
         </div>

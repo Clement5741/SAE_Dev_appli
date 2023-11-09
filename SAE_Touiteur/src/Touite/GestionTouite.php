@@ -50,7 +50,7 @@ class GestionTouite
         $query = "SELECT * FROM touites
         inner join publierPar on publierPar.idTouite = touites.idTouite
         inner join users on users.idUser = publierPar.idUser
-        WHERE users.idUser = ?
+        WHERE publierPar.idUser = ?
         ";
         $stmt = $db -> prepare($query);
         $res = $stmt -> execute([$idUser]);

@@ -56,12 +56,35 @@ require_once '../Touite/GestionImage.php';
             }
             echo "<div class='info'>";
 
+            echo "<p id='username'>Username : " . $profilsLsit['username'] . "</p>";
+            echo "<p id='lastname'>LastName : " . $profilsLsit['name'] . "</p>";
+            echo "<p id='firstname'>Firstname : " . $profilsLsit['firstname'] . "</p>";
 
-            echo "<p>Username : " . $profilsLsit['username'] . "</p>";
-            echo "<p>LastName : " . $profilsLsit['name'] . "</p>";
-            echo "<p>Firstname : " . $profilsLsit['firstname'] . "</p>";
+            echo "<form id='form_abo' method='post' action=''>";
+            $id = GestionUser::getIdByUsername($_SESSION['user']);
+            $id2 = GestionUser::getIdByUsername($profilsLsit['username']);
+            $isUserLoggedIn = isset($_SESSION['user']);
+            $isProfileOwner = ($isUserLoggedIn && $_SESSION['user'] == $profilsLsit['username']);
+            $isNotSubscribed = (!$isProfileOwner && !GestionUser::isSubscribe($id, $id2));
+            $isSubscribed = (!$isProfileOwner && GestionUser::isSubscribe($id, $id2));
 
-            echo "</div>";
+            $aboButtonClass = $isNotSubscribed ? 'abo-button' : 'fake_abo-button disabled';
+            $desaboButtonClass = $isSubscribed ? 'abo-button' : 'fake_abo-button disabled';
+
+
+            echo "<button class=$aboButtonClass type='submit' name='abo'>S'abonner</button>
+            <button class=$desaboButtonClass type='submit' name='desabo'>Se désabonner</button>";
+
+            echo "</form></div>";
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['abo'])) {
+                    GestionUser::followUser($id,$id2);
+                    // On recharge la page pour que le bouton s'abonner devienne se désabonner
+                    header('Location: profil.php?username=' . $_GET['username']);
+                } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['desabo'])) {
+                    GestionUser::unfollowUser($id,$id2);
+                    // On recharge la page pour que le bouton se désabonner devienne s'abonner
+                    header('Location: profil.php?username=' . $_GET['username']);
+                }
             ?>
         </div>
 

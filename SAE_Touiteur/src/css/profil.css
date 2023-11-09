@@ -120,4 +120,57 @@ a {
 
 }
 
+.info{
+    display:grid;
+    grid-gap: 1em;
+    padding: 1em;
+    margin: 1em;
+    border: 2px solid white;
+    background-color: #3498db;
+    color : #226091;
+}
 
+#username, #lastname, #firstname {
+    grid-column-start: 1;
+    padding: 1em;
+    margin: 0.5em;
+    color: white;
+    font-size: 20px;
+}
+
+#form_abo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    right: 0;
+    padding: 1em;
+    margin: 1em;
+}
+
+.abo-button {
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border-radius: 1em;
+    background: white;
+}
+
+.abo-button:hover {
+    background: #226091;
+    color : white;
+}
+
+.fake_abo-button {
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    justify-content: space-around;
+    border-radius: 1em;
+    background: white;
+    color : #226091;
+
+}

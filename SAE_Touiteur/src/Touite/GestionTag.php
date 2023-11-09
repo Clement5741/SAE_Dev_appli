@@ -92,41 +92,6 @@ class GestionTag
         }
     }
 
-    public static function creerTagViaTouite(string $contentTouite, string $username) : void
-    {
-        $db = self::config();
-        $idTouite = GestionTouite::calcIdTouite();
-        $tab = self::checkTag($contentTouite);
-
-        $query = "INSERT INTO touites (idTouite, contentTouite, dateTouite) VALUES (?, ?, ?)";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite, $contentTouite, date("Y-m-d H:i:s")]);
-        if (!$res) {
-            throw new \PDOException("Erreur lors de la création du touite");
-        }
-
-        $query = "INSERT INTO publierPar (idTouite, idUser) VALUES (?, ?)";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$idTouite, GestionUser::getUserByUsername($username)['idUser']]);
-        if (!$res) {
-            throw new \PDOException("Erreur lors de la création du touite");
-        }
-
-        foreach ($tab as $tag) {
-            $idTag = self::getTagByLabel($tag)['idTag'];
-            if ($idTag == null) {
-                self::setTag($tag, "");
-                $idTag = self::getTagByLabel($tag)['idTag'];
-            }
-            $query = "INSERT INTO utiliserTag (idTouite, idTag) VALUES (?, ?)";
-            $stmt = $db -> prepare($query);
-            $res = $stmt -> execute([$idTouite, $idTag]);
-            if (!$res) {
-                throw new \PDOException("Erreur lors de la création du touite");
-            }
-        }
-    }
-
     public static function calcIdTag()
     {
         $db = self::config();

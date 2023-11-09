@@ -52,22 +52,39 @@ class GestionUser
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function getIdByUsername(string $name) : int
+    public static function getIdByUsername(string $name): int
     {
         $db = self::config();
         $query = "SELECT idUser FROM users WHERE username = ?";
-        $stmt = $db -> prepare($query);
-        $res = $stmt -> execute([$name]);
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$name]);
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération de l'id");
         }
 
-        $result = $stmt -> fetch(\PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return (int)$result['idUser'];
     }
 
-    public static function abonnementsUser(int $iduser){
+    public static function isSubscribe(int $idUser1, int $idUser2): bool
+    {
+        $db = self::config();
+        $query = "SELECT * FROM followers WHERE idUser1 = ? AND idUser2 = ?";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idUser1, $idUser2]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération de l'id");
+        }
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if ($result == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function abonnementsUser(int $iduser)
+    {
         $db = self::config();
         $query = "SELECT users.username FROM users 
                   inner join followers on users.idUser = followers.idUser2
@@ -81,7 +98,8 @@ class GestionUser
         }
     }
 
-    public static function userAbonne(int $iduser){
+    public static function userAbonne(int $iduser)
+    {
         $db = self::config();
         $query = "SELECT users.username FROM users 
                   inner join followers on users.idUser = followers.idUser1
@@ -101,7 +119,19 @@ class GestionUser
         $query = "INSERT INTO followers (idUser1,idUser2) values (?,?)
                   ON DUPLICATE KEY UPDATE idUser1 = idUser1";
         $stmt = $db->prepare($query);
-        $stmt->execute([$idFollower,$idAFollow]);
+        $stmt->execute([$idFollower, $idAFollow]);
+    }
+
+    public static function unfollowUser(int $idFollower, int $idAFollow)
+    {
+        $db = self::config();
+        if (self::isSubscribe($idFollower, $idAFollow)) {
+            $query = "DELETE FROM followers WHERE idUser1 = ? AND idUser2 = ?";
+            $stmt = $db->prepare($query);
+            $stmt->execute([$idFollower, $idAFollow]);
+        } else {
+            throw new \PDOException("Erreur lors de la suppression de l'abonnement");
+        }
     }
 
     public static function getUserTendances()

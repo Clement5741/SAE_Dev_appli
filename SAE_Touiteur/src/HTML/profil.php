@@ -4,8 +4,12 @@ if (!isset($_SESSION['user'])) {
     header('Location: accueil.html');
 }
 use Touite\GestionUser;
+use Touite\GestionTouite;
+use Touite\GestionImage;
 
 require_once '../Touite/GestionUser.php';
+require_once '../Touite/GestionTouite.php';
+require_once '../Touite/GestionImage.php';
 
 ?>
 <!DOCTYPE html>
@@ -41,29 +45,34 @@ require_once '../Touite/GestionUser.php';
     <div id='Profils'>
         <div class="fake_profile-button">Profil</div>
 
+
         <div class="">
             <?php
             GestionUser::config();
             $ProfilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
             echo "<div class='info'>";
-            echo "<p>" . $ProfilsLsit['firstname'] . "</p>";
             echo "<p>" . $ProfilsLsit['username'] . "</p>";
+            echo "<p>" . $ProfilsLsit['firstname'] . "</p>";
             echo "<p>" . $ProfilsLsit['name'] . "</p>";
             echo "</div>";
             ?>
         </div>
-        <div class="">ABONNEMENT A VOIR </div>
 
 
+        <?php
+        $listes = GestionTouite::getTouitesByUser(GestionUser::getIdByUsername($_SESSION['user']));
+        foreach ($listes as $liste) {
+            echo "<div class='touite'>";
+            echo "<p>" . $liste['contentTouite'] . "</p>";
+            $t = GestionImage::getImageByTouite($liste['idTouite']);
+            if ($t != null) {
+                echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
+            }
+            echo "<p>" . $liste['dateTouite'] . "</p>";
+            echo "</div>";
+        }
+        ?>
 
-
-        <div class="">Abonnement de : A REVOIR LE FIRST NAME ET LE NAME
-<!--            --><?php
-//            echo GestionUser::getUserByUsername($_SESSION['user'])['name']; echo " ";
-//            GestionUser::getUserByUsername($_SESSION['user'])['firstname'];
-//
-//            ?>
-        </div>
 
     </div>
 

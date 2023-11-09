@@ -23,7 +23,6 @@ class GestionTouite
         $query = "SELECT * FROM touites
         inner join publierPar on publierPar.idTouite = touites.idTouite
         inner join users on users.idUser = publierPar.idUser
-
         ";
         $stmt = $db -> prepare($query);
         $res = $stmt -> execute();
@@ -48,9 +47,11 @@ class GestionTouite
     public static function getTouitesByUser(int $idUser) : array
     {
         $db = self::config();
-        $query = "SELECT * FROM touites 
-         inner join publierPar on publierPar.idTouite = touites.idTouite
-         WHERE idUser = ?";
+        $query = "SELECT * FROM touites
+        inner join publierPar on publierPar.idTouite = touites.idTouite
+        inner join users on users.idUser = publierPar.idUser
+        WHERE users.idUser = ?
+        ";
         $stmt = $db -> prepare($query);
         $res = $stmt -> execute([$idUser]);
         if (!$res) {

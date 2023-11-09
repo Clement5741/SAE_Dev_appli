@@ -30,17 +30,22 @@
 
     <div id='Touites'>
         <?php
-        require_once __DIR__ . "/../Touite/GestionTouite.php";
-        \Touite\GestionTouite::config();
-        $listes = \Touite\GestionTouite::getTouites();
-        foreach ($listes as $liste) {
-            $idTouite = $liste['idTouite'];
-            $idUser = \Touite\GestionTouite::getIdUserByTouite($idTouite);
-            $user = \Touite\GestionUser::getUserbyId($idUser);
 
+        use Touite\GestionTouite;
+        use Touite\GestionImage;
+
+        require_once "../Touite/GestionTouite.php";
+        require_once "../Touite/GestionImage.php";
+
+        $listes = GestionTouite::getTouites();
+        foreach ($listes as $liste) {
             echo "<div class='touite'>";
-            echo "<p>" . $user['username'] . "</p>";
+            echo "<p>" . $liste['username'] . "</p>";
             echo "<p>" . $liste['contentTouite'] . "</p>";
+            $t = GestionImage::getImageByTouite($liste['idTouite']);
+            if ($t != null) {
+                echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
+            }
             echo "<p>" . $liste['dateTouite'] . "</p>";
             echo "</div>";
         }

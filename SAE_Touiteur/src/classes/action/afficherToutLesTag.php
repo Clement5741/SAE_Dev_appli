@@ -31,7 +31,7 @@ class afficherToutLesTag extends Action
         </form>';
 
         if (isset($_POST['Chercher'])) {
-            $searchTerm = $_POST['Chercher'];
+            $searchTerm = filter_var($_POST['Chercher'], FILTER_SANITIZE_STRING);
             $results = GestionTag::searchTag($searchTerm);
 
             $txt .= '<p>Résultats de la recherche : </p>';

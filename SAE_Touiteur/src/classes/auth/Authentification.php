@@ -65,7 +65,7 @@ class Authentification
     public static function register(string $identifiant, string $nom, string $prenom, string $email, string $password): bool
     {
 
-        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_DEFAULT,['cost'=>10]);
 
         try {
             ConnectionFactory::setConfig('db.config.ini');

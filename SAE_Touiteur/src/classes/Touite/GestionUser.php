@@ -110,7 +110,7 @@ class GestionUser
         }
         if ($stmt->rowCount() == 0)
             return null;
-        return $stmt->fetch(PDO::FETCH_ASSOC)['username'];
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function followUser(int $idFollower, int $idAFollow)

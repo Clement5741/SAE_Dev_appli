@@ -83,21 +83,22 @@ img {
 }
 
 .touite {
-    border: 1px solid #ddd;
+    border: 1px solid #813bb9;
     margin: 1em;
     padding: 1em;
 }
 
 #abonne_moyenne {
+    margin-top: 0;
+    margin-left: 0.7em;
     grid-column-start: 3;
     padding: 1.5em;
-    margin: 1em;
-    border: 2px solid white;
+    border: 1px solid #813bb9;
 }
 
 #abonne, #moyenne {
     height: 50%;
-    border: 2px solid white;
+    border: 1px solid white;
     max-font-size: 90%;
     font-size: 14.5px;
     color : #1a1616;
@@ -128,8 +129,8 @@ img {
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: whitesmoke;
-    color : #1a1616;
+    background: #813bb9;
+    color : white;
 }
 
 .Titre {
@@ -142,25 +143,24 @@ img {
 }
 
 .carré1 {
-    flex-direction: column;
+    display: flex;
+    padding: 1em;
+    margin: 1em;
     justify-content: space-around;
-    align-items: center;
     border-radius: 1em;
-    background: white;
-    height: 25%;
-    width: 25%;
-    color : #1a1616;
+    color : white;
+    font-size: 1.5em;
+
 }
 
 .carré2 {
-    flex-direction: column;
+    display: flex;
+    padding: 1em;
+    margin: 1em;
     justify-content: space-around;
-    align-items: center;
-    border-radius: 1em;
-    background: white;
-    height: 25%;
-    width: 25%;
-    color : #1a1616;
+    border: #813bb9 1px solid; ;
+    color : white;
+    font-size: 2em;
 }
 
 .info{
@@ -168,7 +168,7 @@ img {
     grid-gap: 1em;
     padding: 1em;
     margin: 1em;
-    border: 2px solid #813bb9;
+    border: 1px solid #813bb9;
     background-color: #1a1616;
     color : #813bb9;
 }

@@ -5,8 +5,8 @@
 
 body, h1, p {
     background-color: #1a1616;
-    margin-right: 20em;
-    margin-left: 20em;
+    margin-right: 5em;
+    margin-left: 5em;
 }
 
 
@@ -53,7 +53,7 @@ img {
     padding-left: 1em;
     grid-column-start: 3;
     font-size: 18px;
-    margin-top: 0em;
+    margin-top: 0;
     margin-left: 2em;
     background-color: #1a1616;
     border: 1px solid #813bb9;

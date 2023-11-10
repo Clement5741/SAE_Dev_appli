@@ -112,8 +112,21 @@ class affichageProfilAction extends Action
 <div id="grid-container">
   <div id='Menu'>
     <div class='PartieMenu' id="logo">
-      <img src="src/classes/Images/logo.png" alt="logo" id="logo" >
+            <img src="src/classes/Images/logo.png" alt="logo" id="logoImage">
     </div>
+    
+    <script>
+            const images = [
+                "src/classes/Images/logo.png",
+                "src/classes/Images/logo1.png",];
+            let image = 0;
+            function changeImage() {
+                const logoImage = document.getElementById("logoImage");
+                logoImage.src = images[image];
+                image = (image + 1) % images.length;
+            }
+            setInterval(changeImage, 1000);
+        </script>
 
     <div class='PartieMenu'>
       <a href="?action=seConnecterAction"><div class="profile-button">Accueil</div></a>

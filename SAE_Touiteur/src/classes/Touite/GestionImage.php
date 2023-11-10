@@ -86,7 +86,7 @@ class GestionImage
     public static function uploadImage(array $image, string $idTouite): void
     {
         $nomImage = $image['name'];
-        $chemin = '../Images/ImagesTouites/';
+        $chemin = 'src/classes/Images/ImagesTouites/';
         $idImage = self::setImage($nomImage, $chemin);
         $chemin = $chemin . $idImage . '.png';
         move_uploaded_file($image['tmp_name'], $chemin);

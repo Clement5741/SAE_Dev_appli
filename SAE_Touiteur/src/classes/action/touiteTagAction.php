@@ -34,8 +34,6 @@ class touiteTagAction extends Action
             $t = "?action=affichageTagAction&username=" . $_SESSION['user'];
         } elseif (isset($_SESSION['user']) && isset($_GET['page']) && $_GET['page'] == "enstag") {
             $t = "page_ensemble_tags.php";
-        }else {
-            $t = "index.php?action=pageDefaultAction";
         }
 
         $txt .="<a href=\"$t\" class=\"back-button\">&#8592;</a> <!---&#8592 represent the arrow-->";

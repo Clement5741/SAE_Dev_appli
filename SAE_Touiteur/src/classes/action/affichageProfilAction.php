@@ -37,8 +37,8 @@ class affichageProfilAction extends Action
         $id2 = GestionUser::getIdByUsername($profilsLsit['username']);
         $isUserLoggedIn = isset($_SESSION['user']);
         $isProfileOwner = ($isUserLoggedIn && $_SESSION['user'] == $profilsLsit['username']);
-        $isNotSubscribed = (!$isProfileOwner && !GestionUser::isSubscribe($id, $id2));
-        $isSubscribed = (!$isProfileOwner && GestionUser::isSubscribe($id, $id2));
+        $isNotSubscribed = (!$isProfileOwner && !GestionUser::isSubscribeUser($id, $id2));
+        $isSubscribed = (!$isProfileOwner && GestionUser::isSubscribeUser($id, $id2));
 
         $aboButtonClass = $isNotSubscribed ? 'abo-button' : 'fake_abo-button disabled';
         $desaboButtonClass = $isSubscribed ? 'abo-button' : 'fake_abo-button disabled';
@@ -74,7 +74,8 @@ class affichageProfilAction extends Action
         $abo = GestionUser::userAbonne($id);
         if ($abo == null) {
             $txt3 .= "<p>Vous n'avez pas d'abonnées</p>";
-        } else {
+        }
+        else {
             foreach ($abo as $a) {
                 $txt3 .= '<div class="abo">';
                 $txt3 .= "<a href=\"profil.php?username=" . $a . "\"><p>" . $a . "</p></a>";
@@ -154,11 +155,11 @@ END;
         } else if ($this->http_method === 'POST' and isset($_POST['abo'])) {
             GestionUser::followUser($id,$id2);
             // On recharge la page pour que le bouton s'abonner devienne se désabonner
-            header('Location: index.php?affichageProfilAction&username=' . $_GET['username']);
+            header('Location: index.php?action=affichageProfilAction&username=' . $_GET['username']);
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['desabo'])) {
             GestionUser::unfollowUser($id,$id2);
             // On recharge la page pour que le bouton se désabonner devienne s'abonner
-            header('Location: index.php?affichageProfilAction&username=' . $_GET['username']);
+            header('Location: index.php?action=affichageProfilAction&username=' . $_GET['username']);
         }
 
 

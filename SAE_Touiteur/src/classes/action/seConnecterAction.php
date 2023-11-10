@@ -23,6 +23,7 @@ class seConnecterAction extends Action
         }
         $txt = '';
         $txt2 = '';
+        $txt3 = '';
         GestionTouite::config();
         $listes = GestionTouite::getTouitesByTagAndUser($_SESSION['user']);
         $txt .= "<div class='Titre'> TOUITER </div>";

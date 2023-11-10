@@ -20,6 +20,8 @@ class pageDefaultAction extends Action
         GestionTouite::config();
         $listes = GestionTouite::getTouites();
         $txt = '';
+        $txt2 = '';
+        $txt3 = '';
 
         $txt .= "<div class='Titre'> TOUITER </div>";
 

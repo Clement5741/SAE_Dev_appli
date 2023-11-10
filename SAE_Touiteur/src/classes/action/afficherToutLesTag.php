@@ -50,7 +50,7 @@ class afficherToutLesTag extends Action
         foreach ($res as $val){
             $txt .= $val['idTag'];
             $txt .=': ';
-            $txt .= "<a href=\"?action=touiteTag&tag=" . $val['labelTag'] ."&page=enstag\">#" . $val['labelTag'] . "</a>";
+            $txt .= "<a href=\"?action=touiteTagAction&tag=" . $val['labelTag'] ."&page=enstag\">#" . $val['labelTag'] . "</a>";
             $txt .='<br>';
         }
         $txt .= '</div>';
@@ -64,7 +64,7 @@ class afficherToutLesTag extends Action
 </head>
 <body>
 <div class="tweet-container">
-    <a href="index.php?" class="back-button">&#8592;</a>
+    <a href="index.php?action=seConnecterAction" class="back-button">&#8592;</a>
     <main>
     $txt
 </main>

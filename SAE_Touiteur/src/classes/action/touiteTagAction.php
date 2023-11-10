@@ -75,8 +75,8 @@ class touiteTagAction extends Action
             $txt .= "<div id='touite-info'>";
 
             $idTouite = $liste['idTouite'];
-            $idUser = GestionTouite::getIdUserByTouite($idTouite);
-            $user = GestionUser::getUserbyId($idUser);
+            $idUser2 = GestionTouite::getIdUserByTouite($idTouite);
+            $user = GestionUser::getUserbyId($idUser2);
 
             $txt .= "<div class='nom'>";
             $txt .= "<p>" . $user['username'] . "</p>";
@@ -95,7 +95,7 @@ class touiteTagAction extends Action
         }
 
 
-        if ($this->http_method === 'GET') {
+
             $html .= <<<END
 <!DOCTYPE html>
 <html lang="fr">
@@ -109,8 +109,7 @@ $txt
 </body>
 </html>
 END;
-        }
-        elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['abo'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['abo'])) {
         GestionTag::followTag($idUser, $idTag);
         // On recharge la page pour que le bouton s'abonner devienne se désabonner
         header('Location: index.php?action=touiteTagAction&tag=' . $_GET['tag'] . '&page=' . $_GET['page']);

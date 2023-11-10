@@ -2,12 +2,14 @@
     margin: 0;
     padding: 0;
 }
+
 body, h1, p {
     background-color: #1a1616;
     margin-right: 20em;
     margin-left: 20em;
 }
-/*#813bb9*/
+
+
 
 #grid-container {
     display: grid;
@@ -30,8 +32,8 @@ img {
 
 #Menu {
     padding: 2em;
-    padding-top: 0em;
-    margin-top:  0em;
+    padding-top: 0;
+    margin-top:  0;
     margin-right: 1em;
     margin-left: 1em;
     padding-right: 1.5em;
@@ -79,6 +81,7 @@ img {
     background-color: #1a1616;
 }
 
+
 #logo{
     align-items: center;
 }
@@ -121,7 +124,7 @@ img {
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: whitesmoke;
+    background: white;
 }
 
 
@@ -179,7 +182,6 @@ img {
     color: whitesmoke;
     text-align: center;
     font-family : "Open Sans", sans-serif;
-
 }
 
 

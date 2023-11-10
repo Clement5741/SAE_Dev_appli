@@ -137,7 +137,8 @@ class GestionUser
     public static function getUserTendances()
     {
         $db = self::config();
-        $query = "SELECT idUser2, count(followers.idUser2) FROM followers
+        $query = "SELECT username, idUser2, count(followers.idUser2) FROM followers
+                  inner join users on users.idUser = followers.idUser2
                   group by followers.idUser2
                   order by count(followers.idUser2) desc
                   limit 3";

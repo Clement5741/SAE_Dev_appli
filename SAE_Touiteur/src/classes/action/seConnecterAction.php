@@ -99,7 +99,7 @@ class seConnecterAction extends Action
 
         <div class='PartieMenu'>
             <a href="?action=affichageProfilAction"><div class="profile-button">Profil</div></a>
-            <a href="?action=affichageTagsAction"><div class="profile-button">Tags</div></a>
+            <a href="?action=afficherToutLesTag"><div class="profile-button">Tags</div></a>
             <a href="?action=touiterAction"><div class="profile-button">TWEEEETTEEEERRRR</div></a>
 
         </div>

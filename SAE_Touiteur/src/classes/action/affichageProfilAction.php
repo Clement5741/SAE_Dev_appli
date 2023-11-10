@@ -53,15 +53,23 @@ class affichageProfilAction extends Action
         foreach ($listes as $liste) {
             $txt2 .= "<div class='touite'>";
             if (strlen($liste['contentTouite']) > 100) {
-                $txt2 .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+                $txt2 .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
             } else {
-                $txt .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><p>" . $liste['contentTouite']. "</p></a>";
+                $txt2 .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><p>" . $liste['contentTouite'] . "</p></a>";
             }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
                 $txt2 .= "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
             }
             $txt2 .= "<p>" . $liste['dateTouite'] . "</p>";
+
+            // On affiche un bouton pour supprimer le touite si c'est le profil de l'utilisateur connecté
+            if (isset($_SESSION['user']) && $_SESSION['user'] == $profilsLsit['username']) {
+                $txt2 .= "<form method='post' action=''>";
+                $txt2 .= "<input type='hidden' name='idTouite' value='" . $liste['idTouite'] . "'>";
+                $txt2 .= "<button class='delete-button' type='submit' name='delete'>Supprimer</button>";
+                $txt2 .= "</form>";
+            }
             $txt2 .= "</div>";
         }
 
@@ -78,7 +86,7 @@ class affichageProfilAction extends Action
         else {
             foreach ($abo as $a) {
                 $txt3 .= '<div class="abo">';
-                $txt3 .= "<a href=\"?action=affichageProfilActionusername=" . $a . "\"><p>" . $a . "</p></a>";
+                $txt3 .= "<a href=\"?action=affichageProfilAction&username=" . $a . "\"><p>" . $a . "</p></a>";
                 $txt3 .= '</div>';
             }
         }
@@ -160,6 +168,11 @@ END;
             GestionUser::unfollowUser($id,$id2);
             // On recharge la page pour que le bouton se désabonner devienne s'abonner
             header('Location: index.php?action=affichageProfilAction&username=' . $_GET['username']);
+        }
+        elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+            GestionTouite::deleteTouite($_POST['idTouite']);
+            // On recharge la page pour que le touite supprimé disparaisse
+            header('Location: index.php?action=affichageProfilAction&username=' . $_SESSION['user']);
         }
 
 

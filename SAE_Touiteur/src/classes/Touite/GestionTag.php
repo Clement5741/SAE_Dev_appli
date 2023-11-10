@@ -1,11 +1,7 @@
 <?php
-namespace Touite;
-
-use BD\ConnectionFactory;
+namespace App\classes\Touite;
+use App\classes\db\ConnectionFactory;
 use PDO;
-
-require_once '../BD/ConnectionFactory.php';
-
 class GestionTag
 {
 

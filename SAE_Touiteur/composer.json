@@ -1,0 +1,14 @@
+{
+    "name": "vendor/sae",
+    "description": "Touiter",
+    "autoload": {
+        "psr-4": {
+            "classes\\": "src/classes/"
+        }
+    },
+
+    "require": {
+        "codeguy/upload": "1.*",
+        "ext-pdo": "*"
+    }
+}

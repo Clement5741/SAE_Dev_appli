@@ -1,4 +1,5 @@
 <?php
+namespace App\classes\auth;
 use Compte\Authentification;
 require_once 'Authentification.php';
 

@@ -1,11 +1,9 @@
 <?php
 
-namespace Touite;
-
-use BD\ConnectionFactory;
+namespace App\classes\Touite;
+use App\classes\db\ConnectionFactory;
 use PDO;
 
-require_once '../BD/ConnectionFactory.php';
 
 class GestionUser
 {
@@ -98,7 +96,7 @@ class GestionUser
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function userAbonne(int $idUser) : ?array
+    public static function userAbonne(int $idUser)
     {
         $db = self::config();
         $query = "SELECT users.username FROM users 

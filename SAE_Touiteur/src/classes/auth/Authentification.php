@@ -1,12 +1,13 @@
 <?php
-namespace Compte;
-session_start();
-use BD\ConnectionFactory;
-use Exception\AuthException;
-use PDO;
 
-require_once '../BD/ConnectionFactory.php';
-require_once '../Exception/AuthException.php';
+namespace App\classes\auth;
+session_start();
+
+use App\classes\db\ConnectionFactory;
+use App\classes\exception\AuthException;
+use PDO;
+use PDOException;
+
 
 class Authentification
 {

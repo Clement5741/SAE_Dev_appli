@@ -35,7 +35,7 @@ class touiterAction extends Action
     <input type="file" name="image" id="image"><br><br>
 
     <input type="submit" value="Poster">
-</form>';
+</form>
 END;
         }
         else {

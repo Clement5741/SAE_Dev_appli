@@ -160,6 +160,11 @@ END;
             // On recharge la page pour que le bouton se désabonner devienne s'abonner
             header('Location: index.php?affichageProfilAction&username=' . $_GET['username']);
         }
+        elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+            GestionTouite::deleteTouite($_POST['idTouite']);
+            // On recharge la page pour que le touite supprimé disparaisse
+            header('Location: index.php?action=affichageProfilAction&username=' . $_SESSION['user']);
+        }
 
 
         return $html;

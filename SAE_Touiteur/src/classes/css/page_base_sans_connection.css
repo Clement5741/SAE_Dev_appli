@@ -26,16 +26,18 @@ img {
 
 
 #Menu {
-    padding: 3em;
-    padding-top: 0.4em;
-    margin: 1em;
+    padding: 2em;
+    padding-top: 0em;
+    margin-top:  0em;
+    margin-right: 1em;
+    margin-left: 1em;
     padding-right: 1.5em;
-    padding-left: 1.5em;
+    padding-left: 1em;
     grid-column-start: 1;
     border: 1px solid #813bb9;
     background-color: #1a1616;
     font-size: 18px;
-    color : #813bb9;
+    color : whitesmoke;
 }
 
 #tags_influencer {
@@ -43,10 +45,10 @@ img {
     padding: 3em;
     padding-top: 0.4em;
     padding-right: 1.5em;
-    padding-left: 1.5em;
+    padding-left: 1em;
     grid-column-start: 3;
     font-size: 18px;
-    margin: 1em;
+    margin-top: 0em;
     margin-left: 2em;
     background-color: #1a1616;
     border: 1px solid #813bb9;
@@ -55,12 +57,11 @@ img {
 
 #Touites {
     align-items: center;
-    margin: 1em;
+    margin-top: 2em;
     margin-left: 2em;
     margin-right: 2em;
     padding: 1em;
     grid-column-start: 2;
-    border: 1px solid #813bb9;
     background-color: #1a1616;
     color : #813bb9;
 }
@@ -82,12 +83,10 @@ img {
 }
 
 #tag, #influencer {
-    margin: 2em;
-    border: 2px solid white;
-    max-font-size: 90%;
+    margin: 2.5em;
+    max-font-size:90%;
     font-size: 1em;
-    color : #b686ef;
-    border: 1px solid #813bb9;
+    text-align: center;
 
 }
 
@@ -101,6 +100,7 @@ img {
 
 
 .profile-button, .profile-button-abo {
+    width: 75%;
     display: flex;
     padding: 1em;
     margin: 1em;
@@ -130,6 +130,11 @@ img {
     padding: 1em;
     margin-bottom: 1.5em;
     border: 1px solid #813bb9;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgb(255, 255, 255);
+    transform: perspective(750px) rotateX(5deg);
+
+
 
 }
 
@@ -158,4 +163,33 @@ img {
     background: #813bb9;
     color : white;
 
+}
+
+
+.Titre {
+    color: #813bb9;
+    text-align: center;
+    font-size: 4em;
+    margin-bottom: 1em;
+    text-shadow: 2px 2px 4px rgb(189, 178, 206);
+    transform: perspective(75px) rotateX(25deg);
+}
+
+.texteTouite {
+    font-size : 1.2em;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.tagetinflu {
+    color: whitesmoke;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.affich {
+    color : whitesmoke;
+    text-align: center;
+    font-size: 0.6em;
 }

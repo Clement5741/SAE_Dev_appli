@@ -6,24 +6,24 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #3498db; /* Couleur d'arrière-plan */
+    background-color: #1a1616;
 }
 
 .header {
-    background-color: #3498db; /* Couleur d'arrière-plan */
-    color: #fff;
+    background-color: #1a1616;
+    color: #b686ef;
     padding: 20px;
 }
 
 img {
-    max-height: 5em;
-    max-width: 5em;
+    max-height: 10em;
+    max-width: 10em;
 }
 
 .inscription-form {
-    background-color: #fff; /* Couleur d'arrière-plan */
     padding: 20px;
     border-radius: 10px;
+    border: #b686ef 0.5px solid;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
@@ -31,21 +31,24 @@ img {
 label {
     display: block;
     margin-top: 10px;
+    color: whitesmoke;
 }
 
 input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="email"]{
     width: 90%;
     padding: 10px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #813bb9;
     border-radius: 5px;
+    color : #813bb9;
+    background-color: #b686ef;
 }
 
 input[type="submit"] {
     width: 100%;
-    background-color: #3498db;
+    background-color: #813bb9;
     color: #fff;
     border: none;
     padding: 10px;
@@ -54,4 +57,7 @@ input[type="submit"] {
     margin-top: 15px;
 }
 
-
+input[type="submit"]:hover {
+    background-color: white;
+    color : #813bb9;
+}

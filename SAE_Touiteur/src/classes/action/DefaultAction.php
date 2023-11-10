@@ -26,15 +26,15 @@ class DefaultAction extends Action{
 <div class="profiles-container">
     <div class="profile">
         <a href="?action=pageDefaultAction"><div class="profile-button">Défault</div></a>
-        <p>Par défault</p>
+        <p>BIENVENUE</p>
     </div>
     <div class="profile">
         <a href="?action=connexion"><div class="profile-button">Connexion</div></a>
-        <p>Connexion</p>
+        <p>SUR</p>
     </div>
     <div class="profile">
         <a href="?action=inscription"><div class="profile-button">S'inscrire</div></a>
-        <p>S'Inscrire</p>
+        <p>TOUITTER</p>
     </div>
 </div>
 </body>

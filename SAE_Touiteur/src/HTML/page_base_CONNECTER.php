@@ -36,6 +36,7 @@ require_once "../Touite/GestionUser.php";
 
         <div class='PartieMenu'>
             <div class="profile-button-abo">Accueil</div>
+
             <a href="profil.php?username=<?php echo $_SESSION['user']; ?>">
                 <div class="profile-button">Profil</div>
             </a>
@@ -104,7 +105,9 @@ require_once "../Touite/GestionUser.php";
 
             if ($tagTendance != null) {
                 foreach ($tagTendance as $tag) {
+
                     echo "<a href=\"touiteTag.php?tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
+
                 }
             }
             ?>

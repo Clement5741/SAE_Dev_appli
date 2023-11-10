@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Accueil</title>
     <link rel="stylesheet" href="../css/page_base_sans_connection.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
 </head>
 <body>
 <div id="grid-container">
@@ -38,15 +39,18 @@
     </div>
 
     <div id='Touites'>
+        <div class="TOUITER">TOUITER</div>
         <?php
 
         use Touite\GestionImage;
         use Touite\GestionTouite;
         use Touite\GestionUser;
+        use Touite\GestionTag;
 
         require_once "../Touite/GestionTouite.php";
         require_once "../Touite/GestionUser.php";
         require_once "../Touite/GestionImage.php";
+        require_once "../Touite/GestionTag.php";
 
         GestionTouite::config();
         $listes = GestionTouite::getTouites();
@@ -75,6 +79,17 @@
     <div id="tags_influencer">
         <div id="tag">
             <div class="profile-button-abo">#Tags</div></a>
+            <?php
+            $tagTendance = GestionTag::getTagTendances();
+
+//            $id = GestionUser::getIdByUsername($_SESSION['user']);
+
+            if ($tagTendance != null) {
+                foreach ($tagTendance as $tag) {
+                    echo "<a href=\"touiteTag.php?tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
+                }
+            }
+            ?>
         </div>
         <div id="influencer">
             <div class="profile-button-abo ">#Influenceurs</div></a>

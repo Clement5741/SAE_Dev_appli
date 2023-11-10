@@ -80,6 +80,26 @@ class GestionTouite
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getTouitesByTagAndUser(int $idUser): array
+    {
+        $db = self::config();
+        $query = "SELECT * FROM utiliserTag
+         inner join touites on touites.idTouite = utiliserTag.idTouite
+         inner join tags on tags.idTag = utiliserTag.idTag
+         inner join publierPar on publierPar.idTouite = touites.idTouite
+         inner join users on users.idUser = publierPar.idUser
+         WHERE labelTag IN (SELECT labelTag FROM trackedTag WHERE idUser = ?)
+         OR publierPar.idUser IN (SELECT idUser1 FROM followers WHERE idUser2 = ?)
+         ORDER BY touites.dateTouite DESC";
+
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idUser, $idUser]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération des touites");
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function setTouite(string $contentTouite, string $username): int
     {
         $db = self::config();
@@ -113,40 +133,18 @@ class GestionTouite
         return $idTouite;
     }
 
-    public static function deleteTouite(int $idTouite, int $idUser,array $idtags,array $idImage): void
+    public static function deleteTouite(int $idTouite): void
     {
+        $t = ["publierPar", "utiliserTag", "avis", "utiliserImage", "touites"];
         $db = self::config();
 
-        $query1 = "DELETE FROM publierpar WHERE idTouite = ? AND idUser = ?";
-        $stmt1 = $db->prepare($query1);
-        $res1 = $stmt1->execute([$idTouite, $idUser]);
-        if (!$res1) {
-            throw new \PDOException("Erreur lors de la suppression dans publierpar");
-        }
-
-        foreach ($idtags as $tag){
-            $query3 = "DELETE FROM utilisertag WHERE idTag = ? AND idTouite = ?";
-            $stmt3 = $db->prepare($query3);
-            $res3 = $stmt3->execute([(int)$tag, $idTouite]);
-            if (!$res3) {
-                throw new \PDOException("Erreur lors de la suppression du lien touite/tag");
+        foreach ($t as $value) {
+            $query = "DELETE FROM $value WHERE idTouite = ?";
+            $stmt = $db->prepare($query);
+            $res = $stmt->execute([$idTouite]);
+            if (!$res) {
+                throw new \PDOException("Erreur lors de la suppression du touite");
             }
-        }
-
-        foreach ($idImage as $image) {
-            $query4 = "DELETE FROM utiliserimage WHERE idImage = ? AND idTouite = ? ";
-            $stmt4 = $db->prepare($query4);
-            $res4 = $stmt4->execute([(int)$image, $idTouite]);
-            if (!$res4) {
-                throw new \PDOException("Erreur lors de la suppression du lien touite/image");
-            }
-        }
-
-        $query2 = "DELETE FROM touites WHERE idTouite = ?";
-        $stmt2 = $db->prepare($query2);
-        $res2 = $stmt2->execute([$idTouite]);
-        if (!$res2) {
-            throw new \PDOException("Erreur lors de la suppression du touite");
         }
     }
 
@@ -196,9 +194,26 @@ class GestionTouite
     public static function likerTouite(int $idTouite): void
     {
         $db = self::config();
+        if (self::isDisliked($idTouite, GestionUser::getIdByUsername($_SESSION['user']))) {
+            $query = "UPDATE touites SET nbDisLike = nbDisLike - 1 WHERE idTouite = ?";
+            $stmt = $db->prepare($query);
+            $res = $stmt->execute([$idTouite]);
+            if (!$res) {
+                throw new \PDOException("Erreur lors de la suppression du dislike");
+            }
+        }
         $query = "UPDATE touites SET nbLike = nbLike + 1 WHERE idTouite = ?";
         $stmt = $db->prepare($query);
         $res = $stmt->execute([$idTouite]);
+        if (self::isDisliked($idTouite, GestionUser::getIdByUsername($_SESSION['user']))) {
+            $query2 = "DELETE FROM avis WHERE idTouite = ? AND idUser = ?";
+            $stmt2 = $db->prepare($query2);
+            $res2 = $stmt2->execute([$idTouite, GestionUser::getIdByUsername($_SESSION['user'])]);
+            if (!$res2) {
+                throw new \PDOException("Erreur lors de la suppression du dislike");
+            }
+        }
+        self::voterTouite($idTouite, GestionUser::getIdByUsername($_SESSION['user']), 1);
         if (!$res) {
             throw new \PDOException("Erreur lors de l'ajout du like");
         }
@@ -207,12 +222,64 @@ class GestionTouite
     public static function dislikerTouite(int $idTouite): void
     {
         $db = self::config();
-        $query = "UPDATE touites SET nbLike = nbLike - 1 WHERE idTouite = ?";
+        if (self::isLiked($idTouite, GestionUser::getIdByUsername($_SESSION['user']))) {
+            $query = "UPDATE touites SET nbLike = nbLike - 1 WHERE idTouite = ?";
+            $stmt = $db->prepare($query);
+            $res = $stmt->execute([$idTouite]);
+            if (!$res) {
+                throw new \PDOException("Erreur lors de la suppression du like");
+            }
+        }
+        $query = "UPDATE touites SET nbDisLike = nbDisLike + 1 WHERE idTouite = ?";
         $stmt = $db->prepare($query);
         $res = $stmt->execute([$idTouite]);
+        if (self::isLiked($idTouite, GestionUser::getIdByUsername($_SESSION['user']))) {
+            $query2 = "DELETE FROM avis WHERE idTouite = ? AND idUser = ?";
+            $stmt2 = $db->prepare($query2);
+            $res2 = $stmt2->execute([$idTouite, GestionUser::getIdByUsername($_SESSION['user'])]);
+            if (!$res2) {
+                throw new \PDOException("Erreur lors de la suppression du like");
+            }
+        }
+        self::voterTouite($idTouite, GestionUser::getIdByUsername($_SESSION['user']), -1);
         if (!$res) {
             throw new \PDOException("Erreur lors de l'ajout du dislike");
         }
+    }
+
+    public static function voterTouite(int $idTouite, int $idUser, int $note): void
+    {
+        $db = self::config();
+        $query = "INSERT INTO avis (idTouite, idUser, vote) VALUES (?, ?, ?)";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite, $idUser, $note]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de l'ajout du vote");
+        }
+    }
+
+    public static function isLiked(int $idTouite, int $idUser): bool
+    {
+        $db = self::config();
+        $query = "SELECT * FROM avis WHERE idTouite = ? AND idUser = ? AND vote = 1";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite, $idUser]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération du like");
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC) != null;
+    }
+
+    public static function isDisliked(int $idTouite, int $idUser): bool
+    {
+        $db = self::config();
+        $query = "SELECT * FROM avis WHERE idTouite = ? AND idUser = ? AND vote = -1";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idTouite, $idUser]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération du dislike");
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC) != null;
     }
 
     public static function getScoreMoyenTouite(string $idTouite): int
@@ -227,6 +294,24 @@ class GestionTouite
         return $stmt->fetch(PDO::FETCH_ASSOC)['notePerti'];
     }
 
+
+    public static function getMoyenneImpression(int $idUser) : ?float
+    {
+        $db = self::config();
+        $query = "SELECT avg(notePerti) FROM Touites 
+                  inner join publierPar on publierPar.idTouite = touites.idTouite   
+                  WHERE publierPar.idUser = ?";
+        $stmt = $db->prepare($query);
+        $res = $stmt->execute([$idUser]);
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération de la moyenne d'impression");
+        }
+        if ($stmt->fetch(PDO::FETCH_ASSOC)['avg(notePerti)'] == null) {
+            return null;
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC)['avg(notePerti)'];
+    }
+
     public static function afficherContenuTouiteAvecLienTag(string $contenu, int $idTouite): string
     {
         $tab = explode(" ", $contenu);
@@ -238,11 +323,10 @@ class GestionTouite
             }
         }
         foreach ($tab2 as $value) {
-            $contenu = str_replace("#" . $value, "<a href=\"touiteTag.php?tag=" . $value ."&page=affichage&touite=" . $idTouite . "\">#" . $value . "</a>", $contenu);
+            $contenu = str_replace("#" . $value, "<a href=\"touiteTag.php?tag=" . $value . "&page=affichage&touite=" . $idTouite . "\">#" . $value . "</a>", $contenu);
         }
         return $contenu;
     }
-
 
 
 }

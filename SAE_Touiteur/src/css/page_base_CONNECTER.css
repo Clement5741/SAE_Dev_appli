@@ -130,7 +130,7 @@ img {
     justify-content: space-between;
     align-items: center;
     padding: 5px;
-    margin-top: 20px; /* Ajoute 20 pixels d'espace en haut du carré */
+    margin-top: 20px;
 }
 
 .notationMoins,
@@ -142,7 +142,7 @@ img {
     padding: 2px;
     border: 1px solid white;
     color: white;
-    width: 20%; /* Ajustez la largeur selon vos besoins */
+    width: 20%;
 }
 
 .boutonMoins,.boutonPlus {
@@ -159,4 +159,18 @@ img {
     color : white;
 }
 
+#noter {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    margin-top: 20px;
+}
 
+#noter button {
+    text-align: center;
+    padding: 2px;
+    border: 1px solid white;
+    color: white;
+}

@@ -36,7 +36,6 @@ require_once "../Touite/GestionUser.php";
 
         <div class='PartieMenu'>
             <div class="profile-button-abo">Accueil</div>
-
             <a href="profil.php?username=<?php echo $_SESSION['user']; ?>">
                 <div class="profile-button">Profil</div>
             </a>
@@ -57,6 +56,7 @@ require_once "../Touite/GestionUser.php";
 
     <div id='Touites'>
         <?php
+        //$listes = GestionTouite::getTouitesByTagAndUser(GestionUser::getIdByUsername($_SESSION['user']));
         $listes = GestionTouite::getTouites();
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
@@ -72,25 +72,36 @@ require_once "../Touite/GestionUser.php";
             }
             echo "<p>" . $liste['dateTouite'] . "</p>";
 
-
-            $likeTouite = GestionTouite::likerTouite($liste['idTouite']);
-            $dislikerTouite = GestionTouite::dislikerTouite($liste['idTouite']);
-
             $score = GestionTouite::getScoreMoyenTouite($liste['idTouite']);
 
+            $isLiked = GestionTouite::isLiked($liste['idTouite'], GestionUser::getIdByUsername($_SESSION['user']));
+            $isDisLiked = GestionTouite::isDisliked($liste['idTouite'], GestionUser::getIdByUsername($_SESSION['user']));
 
-            //            $boutonMoins = $isLiked ? "boutonMoins" : "fake_boutonMoins";
-            //            $boutonPlus = $isNotLiked ? "boutonPlus" : "fake_boutonPlus";
 
+            // Si l'utilisateur a déjà liké le touite, on désactive le bouton like
+            $boutonMoins = !$isDisLiked ? "boutonMoins" : "fake_bouton disabled";
+            $boutonPlus = !$isLiked ? "boutonPlus" : "fake_bouton disabled";
 
-            echo "<div id='CarréNotation'>";
-            echo "<button class='boutonMoins'> &#128077;</button>";
+            echo "<form method='post' id='noter' action=''>";
+            echo "<input type='hidden' name='idTouite' value='" . $liste['idTouite'] . "'>";
+            echo "<button class=$boutonPlus name='like'>&#128077;</button>";
             echo "<div class='notationPlus'> influence </div>";
             echo "<div class='notationMoyenne'> $score</div>";
-            echo "<button class='boutonPlus'> &#128078;</button>";
+            echo "<button class=$boutonMoins name='dislike'>&#128078;</button>";
+            echo "</form>";
             echo "</div>";
 
-            echo "</div>";
+
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like'])) {
+            $idTouite = $_POST['idTouite'];
+            GestionTouite::likerTouite($idTouite);
+            reload();
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dislike'])) {
+            $idTouite = $_POST['idTouite'];
+            GestionTouite::dislikerTouite($idTouite);
+            reload();
         }
         ?>
     </div>
@@ -105,9 +116,7 @@ require_once "../Touite/GestionUser.php";
 
             if ($tagTendance != null) {
                 foreach ($tagTendance as $tag) {
-
                     echo "<a href=\"touiteTag.php?tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
-
                 }
             }
             ?>

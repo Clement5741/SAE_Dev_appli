@@ -22,7 +22,6 @@ require_once '../Touite/GestionTag.php';
 <?php
 
 $listes = GestionTouite::getTouitesByTag($_GET['tag']);
-
 echo "<h1>Voici la page du Tag : #" . $_GET['tag'] . "</h1>";
 
 //Retourner à la page d'avant
@@ -41,12 +40,6 @@ if (isset($_SESSION['user']) && isset($_GET['page']) && $_GET['page'] == "connec
 }
 
 echo "<a href=\"$t\" class=\"back-button\">&#8592;</a> <!---&#8592 represent the arrow-->";
-
-
-
-
-
-
 
 // Abonnement au tag
 if (isset($_SESSION['user'])) {
@@ -78,28 +71,20 @@ if (isset($_SESSION['user'])) {
 
 echo "<h2>Voici les touites avec le tag : #" . $_GET['tag'] . "</h2>";
 foreach ($listes as $liste) {
-    echo "<div id='touite-info'>";
-
     $idTouite = $liste['idTouite'];
     $idUser = GestionTouite::getIdUserByTouite($idTouite);
     $user = GestionUser::getUserbyId($idUser);
 
     echo "<div class='nom'>";
     echo "<p>" . $user['username'] . "</p>";
-    echo "</div>";
-    echo "<div class='tag'>";
     if (strlen($liste['contentTouite']) > 100) {
-       echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=tag&tag=" . $_GET['tag'] . "\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
+        echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=tag&tag=" . $_GET['tag'] . "\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
     } else {
         echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=tag&tag=" . $_GET['tag'] . "\"><p>" . $liste['contentTouite'] . "</p></a>";
     }
-    echo "</div>";
-    echo "<div class='date'>";
     echo "<p>" . $liste['dateTouite'] . "</p>";
     echo "</div>";
-    echo "</div>";
 }
-
 
 ?>
 </body>

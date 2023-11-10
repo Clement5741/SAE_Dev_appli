@@ -180,3 +180,18 @@ a {
     color : #226091;
 
 }
+
+.touite {
+    display: grid;
+    flex-direction: column;
+    padding: 1em;
+    margin: 1em;
+    border: 2px solid white;
+    background-color: #3498db;
+    color : #226091;
+}
+
+.touite a, .touite p, .touite img {
+    grid-column-start: 1;
+}
+

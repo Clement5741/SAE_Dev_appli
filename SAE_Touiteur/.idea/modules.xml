@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SAE_Touiteur.iml" filepath="$PROJECT_DIR$/SAE_Touiteur.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SAE_Dispatcher.iml" filepath="$PROJECT_DIR$/.idea/SAE_Dispatcher.iml" />
     </modules>
   </component>
 </project>

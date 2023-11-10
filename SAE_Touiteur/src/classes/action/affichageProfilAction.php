@@ -78,7 +78,7 @@ class affichageProfilAction extends Action
         else {
             foreach ($abo as $a) {
                 $txt3 .= '<div class="abo">';
-                $txt3 .= "<a href=\"profil.php?username=" . $a . "\"><p>" . $a . "</p></a>";
+                $txt3 .= "<a href=\"?action=affichageProfilActionusername=" . $a . "\"><p>" . $a . "</p></a>";
                 $txt3 .= '</div>';
             }
         }

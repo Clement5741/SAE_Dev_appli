@@ -32,7 +32,8 @@ class clickSurTouiteAction extends Action
             $t = "index.php?action=pageDefaultAction";
         }
         $txt .="<a href=\"$t\" class=\"back-button\">&#8592;</a>
-    <div class=\"tweet-author\"> " . $liste['name'] . " </div>";
+        <div class=\"tweet-author\"> " . $liste['username'] . " </div>";
+
 
         $txt .="<div class=\"tweet-text\">" . GestionTouite::afficherContenuTouiteAvecLienTag($liste['contentTouite'], $_GET['touite']) . "</div>";
 

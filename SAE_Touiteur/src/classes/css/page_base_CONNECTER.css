@@ -4,8 +4,9 @@
 }
 
 body, h1, p {
-    padding: 0;
-    background-color: #3498db;
+    background-color: #1a1616;
+    margin-right: 20em;
+    margin-left: 20em;
 }
 
 #grid-container {
@@ -20,29 +21,35 @@ a {
 }
 
 img {
-    max-height: 5em;
-    max-width: 5em;
+    max-height: 200px;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
 }
 
 #Menu {
-    position: fixed;
-    left: 0;
-    padding: 1.5em;
-    margin: 1em;
+    padding: 2em;
+    padding-top: 0;
+    margin-top:  0;
+    margin-right: 1em;
+    margin-left: 1em;
+    padding-right: 1.5em;
+    padding-left: 1em;
     grid-column-start: 1;
-    border: 2px solid white;
-    background-color: #3498db ;
-    font-size: 14.5px;
-    color : #226091;
+    border: 1px solid #813bb9;
+    background-color: #1a1616;
+    font-size: 18px;
+    color : whitesmoke;
 }
 
 .PartieMenu {
+
     display: flex;
     flex-direction: column;
     padding: 1em;
-    margin: 1em;
-    border: 2px solid white;
-    background-color: #3498db;
+    margin: 1.2em;
+    justify-content: space-around;
+    background-color: #1a1616;
 }
 
 #logo{
@@ -50,55 +57,67 @@ img {
 }
 
 #tags_influencer {
-    position: fixed;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: calc(100% - 4em);
+    color : #813bb9;
+    padding: 3em;
+    padding-top: 0.4em;
+    padding-right: 1.5em;
+    padding-left: 1em;
     grid-column-start: 3;
-    padding: 1.5em;
-    margin: 1em;
-    border: 2px solid white;
+    font-size: 18px;
+    margin-top: 0;
+    margin-left: 2em;
+    background-color: #1a1616;
+    border: 1px solid #813bb9;
+
 }
 
 #tag, #influencer {
-    width: 100%;
-    margin: 5px;
-    border: 2px solid white;
-    max-font-size: 90%;
-    font-size: 14.5px;
-    color : #226091;
-}
+     margin: 2.5em;
+     max-font-size:90%;
+     font-size: 1em;
+     text-align: center;
+ }
 
 .profile-button, .profile-button-abo {
+    width: 75%;
     display: flex;
     padding: 1em;
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: white;
+    background: #813bb9;
+    color: whitesmoke;
+}
+
+.nom {
+    color: #b686ef;
+    text-align: start;
 }
 
 .profile-button:hover {
-    background: #226091;
-    color : white;
+    background: whitesmoke;
+    color : #b686ef;
 }
 
 #Touites {
     align-items: center;
-    margin: 1em;
+    margin-top: 2em;
+    margin-left: 2em;
+    margin-right: 2em;
     padding: 1em;
     grid-column-start: 2;
-    border: 2px solid white;
-    background-color: #3498db;
-    color : #226091;
+    background-color: #1a1616;
+    color : #813bb9;
 }
 
 .touite {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 1em;
+    margin-bottom: 1.5em;
+    border: 1px solid #813bb9;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgb(255, 255, 255);
+    transform: perspective(750px) rotateX(5deg);
+
 }
 
 .touite p {
@@ -107,11 +126,37 @@ img {
 
 .touite p:first-child {
     font-weight: bold;
+    font-size: 1.5em;
+    color: whitesmoke;
+    text-align: center
 }
 
-.touite p:last-child {
-    font-size: 0.8em;
-    color: #777;
+.touite p:last-child:hover {
+    background: #813bb9;
+    color : white;
+
+}
+
+.date {
+    color: #b686ef;
+    text-align: end;
+}
+
+
+.Titre {
+    color: #813bb9;
+    text-align: center;
+    font-size: 4em;
+    margin-bottom: 1em;
+    text-shadow: 2px 2px 4px rgb(189, 178, 206);
+    transform: perspective(75px) rotateX(25deg);
+}
+
+.texteTouite {
+    font-size : 1.2em;
+    color: whitesmoke;
+    text-align: center;
+    font-family : "Open Sans", sans-serif;
 }
 
 .affich{
@@ -120,10 +165,15 @@ img {
     align-items: center;
     margin: 1em;
     padding: 1em;
-    border: 2px solid white;
-    background-color: #3498db;
-    color : #226091;
+    color : whitesmoke;
 }
+
+/*affich {*/
+/*    color : whitesmoke;*/
+/*    text-align: center;*/
+/*    font-size: 0.6em;*/
+/*}*/
+
 
 #CarréNotation {
     display: flex;
@@ -151,11 +201,11 @@ img {
     margin: 0.5em;
     justify-content: space-around;
     border-radius: 1em;
-    background: #3498db;
+    background: #813bb9;
 }
 
 .boutonMoins:active,.boutonPlus:active {
-    background: #226091;
+    background: #b686ef;
     color : white;
 }
 

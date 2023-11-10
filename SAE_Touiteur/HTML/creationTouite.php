@@ -9,7 +9,7 @@ if (!isset($_SESSION['user'])) {
 <head>
     <meta charset="UTF-8">
     <title>Créer un Touite</title>
-    <link rel="stylesheet" href="../css/creationTouite.css">
+    <link rel="stylesheet" href="src/classes/css/creationTouite.css">
 </head>
 <body>
 <h1>Créer votre Touite : </h1>

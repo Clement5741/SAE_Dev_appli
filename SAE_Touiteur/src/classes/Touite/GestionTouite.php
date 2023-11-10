@@ -76,20 +76,34 @@ class GestionTouite
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getTouitesByTagAndUser(int $idUser): array
+    public static function getTouitesByTagAndUser(string $username): array
     {
         $db = self::config();
-        $query = "SELECT * FROM utiliserTag
-         inner join touites on touites.idTouite = utiliserTag.idTouite
-         inner join tags on tags.idTag = utiliserTag.idTag
-         inner join publierPar on publierPar.idTouite = touites.idTouite
-         inner join users on users.idUser = publierPar.idUser
-         WHERE labelTag IN (SELECT labelTag FROM trackedTag WHERE idUser = ?)
-         OR publierPar.idUser IN (SELECT idUser1 FROM followers WHERE idUser2 = ?)
-         ORDER BY touites.dateTouite DESC";
+        // On affiche les informations du touite
+        $query = "SELECT Touites.idTouite, Touites.contentTouite, Touites.dateTouite, Users.username FROM Touites 
+INNER JOIN PublierPar ON Touites.idTouite = PublierPar.idTouite
+INNER JOIN Users ON Users.idUser = PublierPar.idUser
+LEFT JOIN Avis ON Touites.idTouite = Avis.idTouite
+LEFT JOIN UtiliserTag ON Touites.idTouite = utilisertag.idTouite
+WHERE Users.username = ?
+    OR Users.idUser IN (
+        SELECT Followers.idUser2 FROM Followers
+        WHERE followers.idUser1 = (
+            SELECT idUser
+            FROM Users
+            WHERE username = ?
+        )
+    )
+    OR touites.idTouite IN (
+        SELECT utiliserTag.idTouite FROM utiliserTag
+        JOIN TrackedTag ON utilisertag.idTag = trackedtag.idTag
+        JOIN Users ON trackedtag.idUser = users.idUser
+        WHERE users.username = ?
+    )
+ORDER BY Touites.dateTouite DESC;";
 
         $stmt = $db->prepare($query);
-        $res = $stmt->execute([$idUser, $idUser]);
+        $res = $stmt->execute([$username, $username, $username]);
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération des touites");
         }

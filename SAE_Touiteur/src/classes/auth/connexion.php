@@ -30,7 +30,7 @@ echo '
         
     <input href="?action" type="submit" value="Se Connecter" >
     
-    <p><a href="recuperer_mot_de_passe.html">J\'ai oublié mon mot de passe</a></p>
+    <p><a href="recuperer_mot_de_passe.html">Jai oublié mon mot de passe</a></p>
 </form>
 </div>';
 

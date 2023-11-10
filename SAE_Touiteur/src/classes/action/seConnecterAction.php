@@ -24,20 +24,22 @@ class seConnecterAction extends Action
         $txt = '';
         $txt2 = '';
         GestionTouite::config();
-        $listes = GestionTouite::getTouites();
+        $listes = GestionTouite::getTouitesByTagAndUser($_SESSION['user']);
+        $txt .= "<div class='Titre'> TOUITTER </div>";
+
         foreach ($listes as $liste) {
             $txt .= "<div class='touite'>";
-            $txt .= "<a href=\"?action=affichageProfilAction&username=" . $liste['username'] . "\"><p>" . $liste['username'] . "</p></a>";
+            $txt .= "<a href=\"?action=affichageProfilAction&username=" . $liste['username'] . "\"><div class='nom'>" . $liste['username'] . "</div></a>";
             if (strlen($liste['contentTouite']) > 100) {
-                $txt .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
+                $txt .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "\"><div class = 'texteTouite'>" . $liste['contentTouite']. "</div></a>";
             } else {
-                $txt .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "\"><p>" . $liste['contentTouite'] . "</p></a>";
+                $txt .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "\"><div class = 'texteTouite'>" . $liste['contentTouite']. "</div></a>";
             }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
                 $txt .= "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
             }
-            $txt .="<p>" . $liste['dateTouite'] . "</p>";
+            $txt .= "<div class='date'>" . $liste['dateTouite'] . "</div>";
 
             $score = GestionTouite::getScoreMoyenTouite($liste['idTouite']);
 
@@ -65,7 +67,7 @@ class seConnecterAction extends Action
 
         if ($tagTendance != null) {
             foreach ($tagTendance as $tag) {
-                $txt2 = "<a href=\"?action=touiteTagAction&tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
+                $txt2 = "<a href=\"?action=touiteTagAction&tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'> - #" . $tag['labelTag'] . "</div></a>";
             }
         }
 
@@ -76,7 +78,7 @@ class seConnecterAction extends Action
 
         if ($userTendance != null) {
             foreach ($userTendance as $user) {
-                $txt3 = "<a href=\"?action=affichageProfilAction&username=" . $user['username'] . "\"><div class='affich'>" . $user['username'] . "</div></a>";
+                $txt3 = "<a href=\"?action=affichageProfilAction&username=" . $user['username'] . "\"><div class='affich'>- " . $user['username'] . "</div></a>";
             }
         }
 
@@ -94,8 +96,22 @@ class seConnecterAction extends Action
 <div id="grid-container">
     <div id='Menu'>
         <div class='PartieMenu' id="logo">
-            <img src="src/classes/Images/logo.png" alt="logo" id="logo" >
+            <img src="src/classes/Images/logo.png" alt="logo" id="logoImage">
         </div>
+        
+            
+         <script>
+            const images = [
+                "src/classes/Images/logo.png",
+                "src/classes/Images/logo1.png",];
+            let image = 0;
+            function changeImage() {
+                const logoImage = document.getElementById("logoImage");
+                logoImage.src = images[image];
+                image = (image + 1) % images.length;
+            }
+            setInterval(changeImage, 1000);
+        </script>
 
         <div class='PartieMenu'>
             <a href="?action=affichageProfilAction"><div class="profile-button">Profil</div></a>

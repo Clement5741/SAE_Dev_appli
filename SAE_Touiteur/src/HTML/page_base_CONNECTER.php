@@ -61,8 +61,8 @@ require_once "../Touite/GestionUser.php";
             echo "<p>" . $liste['dateTouite'] . "</p>";
 
 
-            $likeTouite = GestionTouite::likerTouite($liste['idTouite']);
-            $dislikerTouite = GestionTouite::dislikerTouite($liste['idTouite']);
+//            $likeTouite = GestionTouite::likerTouite($liste['idTouite']);
+//            $dislikerTouite = GestionTouite::dislikerTouite($liste['idTouite']);
 
             $score = GestionTouite::getScoreMoyenTouite($liste['idTouite']);
 
@@ -77,6 +77,25 @@ require_once "../Touite/GestionUser.php";
             echo "<div class='notationMoyenne'> $score</div>";
             echo "<button class='boutonPlus'> &#128078;</button>";
             echo "</div>";
+
+//
+//            echo "<div id='CarréNotation'>";
+//            echo "<button class='boutonMoins' name='likeBtn' value='{$liste['idTouite']}'>&#128077;</button>";
+//            echo "<div class='notationPlus'>influence</div>";
+//            echo "<div class='notationMoyenne'>$score</div>";
+//            echo "<button class='boutonPlus' name='dislikeBtn' value='{$liste['idTouite']}'>&#128078;</button>";
+//            echo "</div>";
+
+//            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//                if (isset($_POST['likeBtn'])) {
+//                    GestionTouite::likerTouite($_POST['likeBtn']);
+//                    header('Location: profil.php?username=' . $_GET['username']);
+//                } elseif (isset($_POST['dislikeBtn'])) {
+//                    GestionTouite::dislikerTouite($_POST['dislikeBtn']);
+//                    header('Location: profil.php?username=' . $_GET['username']);
+//                }
+//
+//            }
 
 
 

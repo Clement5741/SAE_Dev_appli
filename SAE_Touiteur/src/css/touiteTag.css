@@ -1,0 +1,73 @@
+body {
+    text-align: center;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #3498db;
+}
+
+a.back-button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: white;
+    background-color: #3498db; /* Fond bleu clair */
+    border-radius: 50%; /* Pour créer un bouton rond */
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+}
+
+a.back-button:hover {
+    background-color: #2980b9;
+}
+
+
+
+
+#touite-info {
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+
+.nom {
+    font-weight: bold;
+    color: #3498db;
+    margin: 50px;
+}
+
+.touite {
+    font-size: 16px;
+    color: #333;
+    margin: 50px;
+}
+
+.tags {
+    font-size: 16px;
+    color: #333;
+    margin: 50px;
+}
+
+.date {
+    font-weight: bold;
+    color: #3498db;
+    margin: 50px;
+
+}
+
+
+
+

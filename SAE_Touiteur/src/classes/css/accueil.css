@@ -6,8 +6,15 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #1a1616;
+    font-family: 'Roboto', sans-serif;
+    color: #b686ef ;
+
 }
 
+p {
+    color: #b686ef;
+}
 
 a {
     text-decoration: none;
@@ -25,7 +32,7 @@ img {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #3498db;
+    background-color: #813bb9   ;
     color: #fff;
     padding: 10px;
 }
@@ -44,16 +51,16 @@ img {
 }
 
 .profile-button {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    background-color: #3498db;
+    background-color: #813bb9;
     color: #fff;
-    font-size: 24px;
-    line-height: 100px;
+    font-size: 22px;
+    line-height: 150px;
     text-align: center;
     cursor: pointer;
-    margin: 0 10px; /* Espace entre les boutons */
+    margin: 0 25px; /* Espace entre les boutons */
 }
 
 .profile-profiles {

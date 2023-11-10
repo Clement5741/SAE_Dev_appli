@@ -4,7 +4,6 @@
 }
 body, h1, p {
     background-color: #1a1616;
-    font-family: 'Montserrat', sans-serif;
     margin-right: 20em;
     margin-left: 20em;
 }
@@ -89,7 +88,6 @@ img {
     max-font-size:90%;
     font-size: 1em;
     text-align: center;
-
 }
 
 
@@ -137,8 +135,6 @@ img {
     box-shadow: 0 0 8px rgb(255, 255, 255);
     transform: perspective(750px) rotateX(5deg);
 
-
-
 }
 
 .touite p {
@@ -182,17 +178,18 @@ img {
     font-size : 1.2em;
     color: whitesmoke;
     text-align: center;
+    font-family : "Open Sans", sans-serif;
+
 }
 
-.tagetinflu {
-    color: whitesmoke;
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 1em;
-}
 
-.affich {
+
+
+.affich{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em;
+    padding: 1em;
     color : whitesmoke;
-    text-align: center;
-    font-size: 0.6em;
 }

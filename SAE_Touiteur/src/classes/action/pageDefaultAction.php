@@ -64,7 +64,7 @@ class pageDefaultAction extends Action
 
         if ($userTendance != null) {
             foreach ($userTendance as $user) {
-                $txt3 =  "<div class='affich'>-" . $user['username'] . "</div></a>";
+                $txt3 =  "<div class='affich'> - " . $user['username'] . "</div></a>";
             }
         }
 

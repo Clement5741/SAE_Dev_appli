@@ -24,7 +24,7 @@ class seConnecterAction extends Action
         $txt = '';
         $txt2 = '';
         GestionTouite::config();
-        $listes = GestionTouite::getTouites();
+        $listes = GestionTouite::getTouitesByTagAndUser($_SESSION['user']);
         $txt .= "<div class='Titre'> TOUITTER </div>";
 
         foreach ($listes as $liste) {

@@ -93,7 +93,7 @@ class GestionUser
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération de l'utilisateur");
         }
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function userAbonne(int $idUser)

@@ -27,8 +27,10 @@ class affichageAbonnementAction extends Action
         $abonnements = GestionUser::abonnementsUser($id);
 
         foreach ($abonnements as $abonnement) {
-            // Modify the line below according to how you want to display each item in the array
-            $txt .= '<div>' . $abonnement . '</div>';
+            foreach ($abonnement as $abo) {
+                // Modify the line below according to how you want to display each item in the array
+                $txt .= '<div>' . $abo . '</div>';
+            }
         }
 
         $txt .= '</div>';

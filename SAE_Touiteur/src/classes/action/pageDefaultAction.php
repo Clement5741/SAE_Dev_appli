@@ -51,6 +51,9 @@ class pageDefaultAction extends Action
 
         $tagTendance = GestionTag::getTagTendances();
 
+        $txt2 = "";
+        $txt3 = "";
+
 
         if ($tagTendance != null) {
             foreach ($tagTendance as $tag) {

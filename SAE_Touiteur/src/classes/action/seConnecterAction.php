@@ -65,6 +65,9 @@ class seConnecterAction extends Action
 
         $id = GestionUser::getIdByUsername($_SESSION['user']);
 
+        $txt2 = "";
+        $txt3 = "";
+
         if ($tagTendance != null) {
             foreach ($tagTendance as $tag) {
                 $txt2 = "<a href=\"?action=touiteTagAction&tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'> - #" . $tag['labelTag'] . "</div></a>";

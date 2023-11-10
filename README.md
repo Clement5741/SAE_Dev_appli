@@ -1,6 +1,6 @@
 # SAE_Dev_appli
 
-BORTOLOTTI Florian
-CHAUVEL Clément 
-KETZINGER Tom
-RAGOT Yogan
+BORTOLOTTI Florian = Fiori4444 /
+CHAUVEL Clément = Clement5741 / 
+KETZINGER Tom = Dracosxs /
+RAGOT Yogan = ItsNezio

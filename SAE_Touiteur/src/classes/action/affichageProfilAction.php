@@ -53,9 +53,9 @@ class affichageProfilAction extends Action
         foreach ($listes as $liste) {
             $txt2 .= "<div class='touite'>";
             if (strlen($liste['contentTouite']) > 100) {
-                $txt2 .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
+                $txt2 .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><div class = 'texteTouite'>". substr($liste['contentTouite'], 0, 100) . "..." . "</div></a>";
             } else {
-                $txt2 .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><p>" . $liste['contentTouite'] . "</p></a>";
+                $txt2 .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "&page=profil\"><div class = 'texteTouite'>" . $liste['contentTouite']. "</div></a>";
             }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
@@ -127,7 +127,7 @@ class affichageProfilAction extends Action
   </div>
 
     <div id='Profils'>
-        <div class="fake_profile-button">Profil</div>
+        <div class="Titre">Profil</div>
 
 
         <div class="">

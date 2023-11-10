@@ -1,10 +1,12 @@
-
-body, h1, p {
-    margin: 1em;
+*{
+    margin: 0;
     padding: 0;
-    background-color: #3498db;
 }
 
+body, h1, p {
+    background-color: #1a1616;
+
+}
 
 #grid-container {
     display: grid;
@@ -13,35 +15,38 @@ body, h1, p {
     max-width: 99%;
 }
 
-
 a {
     text-decoration: none;
 }
 
- img {
-     max-height: 5em;
-     max-width: 5em;
- }
-
+img {
+    max-height: 10em;
+    max-width: 10em;
+}
 
 #Menu {
-    padding: 1.5em;
-    margin: 1em;
+    padding: 2em;
+    padding-top: 0;
+    margin-top:  0;
+    margin-right: 1em;
+    margin-left: 1em;
+    padding-right: 1.5em;
+    padding-left: 1em;
     grid-column-start: 1;
-    border: 2px solid white;
-    background-color: #3498db ;
-    font-size: 14.5px;
-    color : #226091;
-
+    border: 1px solid #813bb9;
+    background-color: #1a1616;
+    font-size: 18px;
+    color : whitesmoke;
 }
 
 .PartieMenu {
+
     display: flex;
     flex-direction: column;
     padding: 1em;
-    margin: 1em;
-    border: 2px solid white;
-    background-color: #3498db;
+    margin: 1.2em;
+    justify-content: space-around;
+    background-color: #1a1616;
 }
 
 #logo{
@@ -51,10 +56,29 @@ a {
 #Profils {
     align-items: center;
     grid-column-start: 2;
-    border: 2px solid white;
-    background-color: #3498db;
-    color : #226091;
+    background-color: #1a1616;
+    color :#813bb9 ;
+}
 
+.texteTouite {
+    font-size : 1.2em;
+    color: whitesmoke;
+    text-align: center;
+    font-family : "Open Sans", sans-serif;
+}
+
+.delete-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 200px;
+    max-width: 200px;
 }
 
 .touite {
@@ -75,22 +99,27 @@ a {
     border: 2px solid white;
     max-font-size: 90%;
     font-size: 14.5px;
-    color : #226091;
+    color : #1a1616;
 }
 
 .profile-button {
+    width: 75%;
     display: flex;
     padding: 1em;
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: white;
+    background: #813bb9;
+    color: whitesmoke;
 }
 
+
+
 .profile-button:hover {
-    background: #226091;
-    color : white;
+    background: whitesmoke;
+    color : #b686ef;
 }
+
 
 .fake_profile-button {
     display: flex;
@@ -99,8 +128,16 @@ a {
     justify-content: space-around;
     border-radius: 1em;
     background: white;
-    color : #226091;
+    color : #1a1616;
+}
 
+.Titre {
+    color: #813bb9;
+    text-align: center;
+    font-size: 4em;
+    margin-bottom: 1em;
+    text-shadow: 2px 2px 4px rgb(189, 178, 206);
+    transform: perspective(75px) rotateX(25deg);
 }
 
 .carré1 {
@@ -111,7 +148,7 @@ a {
     background: white;
     height: 25%;
     width: 25%;
-    color : #226091;
+    color : #1a1616;
 }
 
 .carré2 {
@@ -122,8 +159,7 @@ a {
     background: white;
     height: 25%;
     width: 25%;
-    color : #226091;
-
+    color : #1a1616;
 }
 
 .info{
@@ -132,8 +168,8 @@ a {
     padding: 1em;
     margin: 1em;
     border: 2px solid white;
-    background-color: #3498db;
-    color : #226091;
+    background-color: #813bb9;
+    color : #1a1616;
 }
 
 #username, #lastname, #firstname {
@@ -166,7 +202,7 @@ a {
 }
 
 .abo-button:hover {
-    background: #226091;
+    background: #1a1616;
     color : white;
 }
 
@@ -177,21 +213,3 @@ a {
     justify-content: space-around;
     border-radius: 1em;
     background: white;
-    color : #226091;
-
-}
-
-.touite {
-    display: grid;
-    flex-direction: column;
-    padding: 1em;
-    margin: 1em;
-    border: 2px solid white;
-    background-color: #3498db;
-    color : #226091;
-}
-
-.touite a, .touite p, .touite img {
-    grid-column-start: 1;
-}
-

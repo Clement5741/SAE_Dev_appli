@@ -25,6 +25,8 @@ img {
 }
 
 #Menu {
+    position: fixed;
+    left: 0;
     padding: 1.5em;
     margin: 1em;
     grid-column-start: 1;
@@ -55,7 +57,7 @@ img {
     align-items: center;
     height: calc(100% - 4em);
     grid-column-start: 3;
-    padding: 1em;
+    padding: 1.5em;
     margin: 1em;
     border: 2px solid white;
 }
@@ -122,3 +124,39 @@ img {
     background-color: #3498db;
     color : #226091;
 }
+
+#CarréNotation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin-top: 20px; /* Ajoute 20 pixels d'espace en haut du carré */
+}
+
+.notationMoins,
+.boutonMoins,
+.notationMoyenne,
+.notationPlus,
+.boutonPlus {
+    text-align: center;
+    padding: 2px;
+    border: 1px solid white;
+    color: white;
+    width: 20%; /* Ajustez la largeur selon vos besoins */
+}
+
+.boutonMoins,.boutonPlus {
+    display: flex;
+    padding: 0.5em;
+    margin: 0.5em;
+    justify-content: space-around;
+    border-radius: 1em;
+    background: #3498db;
+}
+
+.boutonMoins:active,.boutonPlus:active {
+    background: #226091;
+    color : white;
+}
+
+

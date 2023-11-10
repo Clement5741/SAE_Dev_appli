@@ -201,7 +201,7 @@ class GestionTouite
         return $stmt->fetch(PDO::FETCH_ASSOC)['notePerti'];
     }
 
-    public static function afficherContenuTouiteAvecLienTag(string $contenu): string
+    public static function afficherContenuTouiteAvecLienTag(string $contenu, int $idTouite): string
     {
         $tab = explode(" ", $contenu);
         $tab2 = [];
@@ -212,7 +212,7 @@ class GestionTouite
             }
         }
         foreach ($tab2 as $value) {
-            $contenu = str_replace("#" . $value, "<a href=\"touiteTag.php?tag=" . $value ."&page=affichage\">#" . $value . "</a>", $contenu);
+            $contenu = str_replace("#" . $value, "<a href=\"touiteTag.php?tag=" . $value ."&page=affichage&touite=" . $idTouite . "\">#" . $value . "</a>", $contenu);
         }
         return $contenu;
     }

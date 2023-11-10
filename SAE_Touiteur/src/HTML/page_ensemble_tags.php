@@ -35,8 +35,11 @@
 
             echo '<p>Résultats de la recherche : </p>';
             echo '<div class="tags-container">';
+            if ($results == null) {
+                echo 'Aucun résultat';
+            }
             foreach ($results as $result) {
-                echo "<a href=\"touiteTag.php?tag=" . $result['labelTag'] ."\">#" . $result['labelTag'] . "</a>".'<br>';
+                echo "<a href=\"touiteTag.php?tag=" . $result['labelTag'] ."&page=enstag\">#" . $result['labelTag'] . "</a>".'<br>';
             }
             echo '</div>';
         }
@@ -46,7 +49,7 @@
         foreach ($res as $val){
             print($val['idTag']);
             echo': ';
-            print("<a href=\"touiteTag.php?tag=" . $val['labelTag'] ."\">#" . $val['labelTag'] . "</a>");
+            print("<a href=\"touiteTag.php?tag=" . $val['labelTag'] ."&page=enstag\">#" . $val['labelTag'] . "</a>");
             echo '<br>';
         }
         echo '</div>';

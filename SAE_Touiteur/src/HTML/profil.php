@@ -30,7 +30,7 @@ require_once '../Touite/GestionImage.php';
       <a href="page_base_CONNECTER.php"><div class="profile-button">Accueil</div></a>
       <div class="fake_profile-button">Profil</div></a>
       <a href="affichage_abonnements.php"><div class="profile-button">Vos Abonnements</div></a>
-      <a href="affichage_tags.php"><div class="profile-button">Vos Tags</div></a>
+      <a href="affichage_tags.php?username=<?php echo $_SESSION['user'];?>"><div class="profile-button">Vos Tags</div></a>
     </div>
 
     <div class='PartieMenu'>
@@ -48,7 +48,6 @@ require_once '../Touite/GestionImage.php';
 
         <div class="">
             <?php
-            GestionUser::config();
             if(isset($_GET['username'])) {
                 $profilsLsit = GestionUser::getUserByUsername($_GET['username']);
             } else {
@@ -65,8 +64,8 @@ require_once '../Touite/GestionImage.php';
             $id2 = GestionUser::getIdByUsername($profilsLsit['username']);
             $isUserLoggedIn = isset($_SESSION['user']);
             $isProfileOwner = ($isUserLoggedIn && $_SESSION['user'] == $profilsLsit['username']);
-            $isNotSubscribed = (!$isProfileOwner && !GestionUser::isSubscribe($id, $id2));
-            $isSubscribed = (!$isProfileOwner && GestionUser::isSubscribe($id, $id2));
+            $isNotSubscribed = (!$isProfileOwner && !GestionUser::isSubscribeUser($id, $id2));
+            $isSubscribed = (!$isProfileOwner && GestionUser::isSubscribeUser($id, $id2));
 
             $aboButtonClass = $isNotSubscribed ? 'abo-button' : 'fake_abo-button disabled';
             $desaboButtonClass = $isSubscribed ? 'abo-button' : 'fake_abo-button disabled';

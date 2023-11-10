@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/connection.css">
+    <link rel="stylesheet" type="text/css" href="../css/connexion.css">
     <title>Connexion</title>
 </head>
 <body>
@@ -27,7 +28,7 @@ echo '
     <label for="password">Mot de passe : </label>
     <input type="password" name="password" id="password" required>
         
-    <input type="submit" value="Se Connecter">
+    <input href="?action" type="submit" value="Se Connecter" >
     
     <p><a href="recuperer_mot_de_passe.html">J\'ai oublié mon mot de passe</a></p>
 </form>

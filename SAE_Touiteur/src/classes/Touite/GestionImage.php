@@ -1,11 +1,10 @@
 <?php
 
-namespace Touite;
+namespace App\classes\Touite;
 
-use BD\ConnectionFactory;
+use App\classes\db\ConnectionFactory;
 use PDO;
 
-require_once '../BD/ConnectionFactory.php';
 
 class GestionImage
 {

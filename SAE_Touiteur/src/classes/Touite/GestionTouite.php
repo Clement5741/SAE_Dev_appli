@@ -1,13 +1,9 @@
 <?php
 
-namespace Touite;
-
-use BD\ConnectionFactory;
+namespace App\classes\Touite;
+use App\classes\db\ConnectionFactory;
 use PDO;
 
-require_once '../BD/ConnectionFactory.php';
-require_once 'GestionUser.php';
-require_once 'GestionTag.php';
 
 class GestionTouite
 {
@@ -309,7 +305,7 @@ class GestionTouite
         if ($stmt->fetch(PDO::FETCH_ASSOC)['avg(notePerti)'] == null) {
             return null;
         }
-        return $stmt->fetch(PDO::FETCH_ASSOC)['avg(notePerti)'];
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function afficherContenuTouiteAvecLienTag(string $contenu, int $idTouite): string
@@ -323,7 +319,7 @@ class GestionTouite
             }
         }
         foreach ($tab2 as $value) {
-            $contenu = str_replace("#" . $value, "<a href=\"touiteTag.php?tag=" . $value . "&page=affichage&touite=" . $idTouite . "\">#" . $value . "</a>", $contenu);
+            $contenu = str_replace("#" . $value, "<a href=\"?action=touiteTagAction&tag=" . $value . "&page=affichage&touite=" . $idTouite . "\">#" . $value . "</a>", $contenu);
         }
         return $contenu;
     }

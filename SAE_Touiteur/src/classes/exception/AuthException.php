@@ -1,5 +1,5 @@
 <?php
-namespace Exception;
+namespace App\classes\exception;
 
 class AuthException extends \Exception
 {

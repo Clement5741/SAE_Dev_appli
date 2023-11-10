@@ -24,7 +24,13 @@ class affichageAbonnementAction extends Action
         $id = GestionUser::getIdByUsername($_SESSION['user']);
         $txt .= '<p><strong>Vos abonnements : </strong></p>';
         $txt .= '<div class="abo-container">';
-        $txt .= GestionUser::abonnementsUser($id);
+        $abonnements = GestionUser::abonnementsUser($id);
+
+        foreach ($abonnements as $abonnement) {
+            // Modify the line below according to how you want to display each item in the array
+            $txt .= '<div>' . $abonnement . '</div>';
+        }
+
         $txt .= '</div>';
         $html .= <<<END
 <!DOCTYPE html>

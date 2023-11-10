@@ -27,11 +27,11 @@ class seConnecterAction extends Action
         $listes = GestionTouite::getTouites();
         foreach ($listes as $liste) {
             $txt .= "<div class='touite'>";
-            $txt .= "<a href=\"?action=affichageProfilAction&username=" . $liste['username'] . "\"><p>" . $liste['username'] . "</p></a>";
+            $txt .= "<a href=\"profil.php?username=" . $liste['username'] . "\"><p>" . $liste['username'] . "</p></a>";
             if (strlen($liste['contentTouite']) > 100) {
-                $txt .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
+                $txt .= "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
             } else {
-                $txt .= "<a href=\"?action=clickSurTouiteAction&touite=" . $liste['idTouite'] . "\"><p>" . $liste['contentTouite'] . "</p></a>";
+                $txt .= "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . $liste['contentTouite'] . "</p></a>";
             }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
@@ -65,7 +65,7 @@ class seConnecterAction extends Action
 
         if ($tagTendance != null) {
             foreach ($tagTendance as $tag) {
-                $txt2 = "<a href=\"?action=touiteTagAction&tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
+                $txt2 = "<a href=\"touiteTag.php?tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
             }
         }
 
@@ -76,7 +76,7 @@ class seConnecterAction extends Action
 
         if ($userTendance != null) {
             foreach ($userTendance as $user) {
-                $txt3 = "<a href=\"?action=affichageProfilAction&username=" . $user['username'] . "\"><div class='affich'>" . $user['username'] . "</div></a>";
+                $txt3 = "<a href=\"profil.php?username=" . $user['username'] . "\"><div class='affich'>" . $user['username'] . "</div></a>";
             }
         }
 

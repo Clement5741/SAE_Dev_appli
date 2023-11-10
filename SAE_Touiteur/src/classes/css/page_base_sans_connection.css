@@ -1,12 +1,8 @@
-*{
-    margin: 0;
-    padding: 0;
-}
+
 body, h1, p {
+    margin: 1em;
+    padding: 0;
     background-color: #1a1616;
-    font-family: 'Montserrat', sans-serif;
-    margin-right: 20em;
-    margin-left: 20em;
 }
 /*#813bb9*/
 
@@ -32,16 +28,14 @@ img {
 #Menu {
     padding: 3em;
     padding-top: 0.4em;
-    margin-top:  0em;
-    margin-right: 1em;
-    margin-left: 1em;
+    margin: 1em;
     padding-right: 1.5em;
     padding-left: 1.5em;
     grid-column-start: 1;
     border: 1px solid #813bb9;
     background-color: #1a1616;
     font-size: 18px;
-    color : whitesmoke;
+    color : #813bb9;
 }
 
 #tags_influencer {
@@ -72,13 +66,15 @@ img {
 }
 
 .PartieMenu {
-    
     display: flex;
     flex-direction: column;
     padding: 1em;
     margin: 1.2em;
     justify-content: space-around;
+    border: 2px solid white;
     background-color: #1a1616;
+    border: 1px solid #813bb9;
+
 }
 
 #logo{
@@ -90,7 +86,7 @@ img {
     border: 2px solid white;
     max-font-size: 90%;
     font-size: 1em;
-    color : whitesmoke;
+    color : #b686ef;
     border: 1px solid #813bb9;
 
 }
@@ -110,13 +106,12 @@ img {
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: #813bb9;
-    color: whitesmoke;
+    background: whitesmoke;
 }
 
 .profile-button:hover {
-    background: whitesmoke;
-    color : #b686ef;
+    background: #813bb9;
+    color : white;
 }
 
 .fake-profile-button {
@@ -125,7 +120,7 @@ img {
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: whitesmoke;
+    background: white;
 }
 
 

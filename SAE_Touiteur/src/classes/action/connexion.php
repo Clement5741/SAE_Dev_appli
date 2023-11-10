@@ -40,7 +40,7 @@ class Connexion extends Action
         
     <input type="submit" value="Se Connecter">
     
-    <p><a href="recuperer_mot_de_passe.php">J'ai oublié mon mot de passe</a></p>
+    <p><a href="src/classes/Video/video.html">J'ai oublié mon mot de passe</a></p>
 </form>
 </div>
             </body>

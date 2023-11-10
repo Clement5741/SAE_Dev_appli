@@ -133,6 +133,18 @@ class GestionTag
         $stmt->execute([$iduser,$idtag]);
     }
 
+    public static function unfollowTag(int $iduser, int $idtag)
+    {
+        $db = self::config();
+        if (self::isFollowedTag($iduser, $idtag)) {
+            $query = "DELETE FROM trackedtag WHERE idUser = ? AND idTag = ?";
+            $stmt = $db->prepare($query);
+            $stmt->execute([$iduser, $idtag]);
+        } else {
+            throw new \PDOException("Erreur lors de la suppression de l'abonnement");
+        }
+    }
+
     public static function abonnementsTag(int $iduser): array
     {
         $db = self::config();
@@ -145,7 +157,7 @@ class GestionTag
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function searchTag($searchTerm) {
+    public static function searchTag(string $searchTerm) {
         $db = self::config();
 
         // Préparez une requête pour rechercher des tags correspondant au terme de recherche
@@ -158,6 +170,17 @@ class GestionTag
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $results;
+    }
+
+    public static function isFollowedTag(int $iduser, int $idtag) : bool
+    {
+        $db = self::config();
+        $query = "SELECT * FROM trackedtag WHERE idUser = ? AND idTag = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$iduser, $idtag]);
+        if ($stmt->rowCount() == 0)
+            return false;
+        return true;
     }
 
 

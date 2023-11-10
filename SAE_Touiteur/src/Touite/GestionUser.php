@@ -67,7 +67,7 @@ class GestionUser
         return (int)$result['idUser'];
     }
 
-    public static function isSubscribe(int $idUser1, int $idUser2): bool
+    public static function isSubscribeUser(int $idUser1, int $idUser2): bool
     {
         $db = self::config();
         $query = "SELECT * FROM followers WHERE idUser1 = ? AND idUser2 = ?";
@@ -77,10 +77,10 @@ class GestionUser
             throw new \PDOException("Erreur lors de la récupération de l'id");
         }
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if ($result == null) {
-            return false;
+        if ($result != null) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static function abonnementsUser(int $iduser)
@@ -125,7 +125,7 @@ class GestionUser
     public static function unfollowUser(int $idFollower, int $idAFollow)
     {
         $db = self::config();
-        if (self::isSubscribe($idFollower, $idAFollow)) {
+        if (self::isSubscribeUser($idFollower, $idAFollow)) {
             $query = "DELETE FROM followers WHERE idUser1 = ? AND idUser2 = ?";
             $stmt = $db->prepare($query);
             $stmt->execute([$idFollower, $idAFollow]);
@@ -137,7 +137,8 @@ class GestionUser
     public static function getUserTendances()
     {
         $db = self::config();
-        $query = "SELECT idUser2, count(followers.idUser2) FROM followers
+        $query = "SELECT username, idUser2, count(followers.idUser2) FROM followers
+                  inner join users on users.idUser = followers.idUser2
                   group by followers.idUser2
                   order by count(followers.idUser2) desc
                   limit 3";

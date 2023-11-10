@@ -4,6 +4,11 @@ if (!isset($_SESSION['user'])) {
     header('Location: accueil.html');
 }
 
+function reload()
+{
+    header('Location: page_base_CONNECTER.php');
+}
+
 use Touite\GestionImage;
 use Touite\GestionTag;
 use Touite\GestionTouite;
@@ -31,9 +36,15 @@ require_once "../Touite/GestionUser.php";
 
         <div class='PartieMenu'>
             <div class="profile-button-abo">Accueil</div>
-            <a href="profil.php?username=<?php echo $_SESSION['user'];?>"><div class="profile-button">Profil</div></a>
-            <a href="page_ensemble_tags.php"><div class="profile-button">Tags</div></a>
-            <a href="creationTouite.php"><div class="profile-button">TOUITER</div></a>
+            <a href="profil.php?username=<?php echo $_SESSION['user']; ?>">
+                <div class="profile-button">Profil</div>
+            </a>
+            <a href="page_ensemble_tags.php">
+                <div class="profile-button">Tags</div>
+            </a>
+            <a href="creationTouite.php">
+                <div class="profile-button">TOUITER</div>
+            </a>
         </div>
 
         <div class='PartieMenu'>
@@ -48,11 +59,11 @@ require_once "../Touite/GestionUser.php";
         $listes = GestionTouite::getTouites();
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
-            echo "<a href=\"profil.php?username=". $liste['username'] . "\"><p>" . $liste['username'] . "</p></a>";
+            echo "<a href=\"profil.php?username=" . $liste['username'] . "\"><p>" . $liste['username'] . "</p></a>";
             if (strlen($liste['contentTouite']) > 100) {
-                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
             } else {
-                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . $liste['contentTouite']. "</p></a>";
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "\"><p>" . $liste['contentTouite'] . "</p></a>";
             }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
@@ -61,14 +72,14 @@ require_once "../Touite/GestionUser.php";
             echo "<p>" . $liste['dateTouite'] . "</p>";
 
 
-//            $likeTouite = GestionTouite::likerTouite($liste['idTouite']);
-//            $dislikerTouite = GestionTouite::dislikerTouite($liste['idTouite']);
+            $likeTouite = GestionTouite::likerTouite($liste['idTouite']);
+            $dislikerTouite = GestionTouite::dislikerTouite($liste['idTouite']);
 
             $score = GestionTouite::getScoreMoyenTouite($liste['idTouite']);
 
 
-//            $boutonMoins = $isLiked ? "boutonMoins" : "fake_boutonMoins";
-//            $boutonPlus = $isNotLiked ? "boutonPlus" : "fake_boutonPlus";
+            //            $boutonMoins = $isLiked ? "boutonMoins" : "fake_boutonMoins";
+            //            $boutonPlus = $isNotLiked ? "boutonPlus" : "fake_boutonPlus";
 
 
             echo "<div id='CarréNotation'>";
@@ -77,27 +88,6 @@ require_once "../Touite/GestionUser.php";
             echo "<div class='notationMoyenne'> $score</div>";
             echo "<button class='boutonPlus'> &#128078;</button>";
             echo "</div>";
-
-//
-//            echo "<div id='CarréNotation'>";
-//            echo "<button class='boutonMoins' name='likeBtn' value='{$liste['idTouite']}'>&#128077;</button>";
-//            echo "<div class='notationPlus'>influence</div>";
-//            echo "<div class='notationMoyenne'>$score</div>";
-//            echo "<button class='boutonPlus' name='dislikeBtn' value='{$liste['idTouite']}'>&#128078;</button>";
-//            echo "</div>";
-
-//            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//                if (isset($_POST['likeBtn'])) {
-//                    GestionTouite::likerTouite($_POST['likeBtn']);
-//                    header('Location: profil.php?username=' . $_GET['username']);
-//                } elseif (isset($_POST['dislikeBtn'])) {
-//                    GestionTouite::dislikerTouite($_POST['dislikeBtn']);
-//                    header('Location: profil.php?username=' . $_GET['username']);
-//                }
-//
-//            }
-
-
 
             echo "</div>";
         }
@@ -114,17 +104,7 @@ require_once "../Touite/GestionUser.php";
 
             if ($tagTendance != null) {
                 foreach ($tagTendance as $tag) {
-                    echo "<a href=\"touiteTag.php?tag=" . $tag['labelTag'] . "\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
-
-                    $idtag = GestionTag::getidTagByLabel($tag['labelTag']);
-
-                    echo "<form method='post' action=''>
-                            <button type='submit' name='submit'>S'abonner</button>
-                          </form>";
-
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-                        GestionTag::followTag($id,$idtag);
-                    }
+                    echo "<a href=\"touiteTag.php?tag=" . $tag['labelTag'] . "&page=connect\"><div class='affich'>#" . $tag['labelTag'] . "</div></a>";
                 }
             }
             ?>
@@ -132,21 +112,14 @@ require_once "../Touite/GestionUser.php";
         <div id="influencer">
             <div class="profile-button-abo">#Influenceurs</div>
             <?php
-            $tagTendance = GestionUser::getUserTendances();
+            $userTendance = GestionUser::getUserTendances();
 
             $id = GestionUser::getIdByUsername($_SESSION['user']);
 
-            if ($tagTendance != null) {
-                foreach ($tagTendance as $tag) {
-                    echo "<div class='affich'>" . $tag['idUser2'] . "</div>";
+            if ($userTendance != null) {
+                foreach ($userTendance as $user) {
+                    echo "<a href=\"profil.php?username=" . $user['username'] . "\"><div class='affich'>" . $user['username'] . "</div></a>";
 
-                    echo "<form method='post' action=''>
-                            <button type='submit' name='submit'>S'abonner</button>
-                          </form>";
-
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-                        GestionUser::followUser($id,$tag['idUser2']);
-                    }
                 }
             }
             ?>

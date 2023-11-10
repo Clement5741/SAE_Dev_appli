@@ -3,6 +3,7 @@ namespace App\classes\dispatch;
 use App\classes\action\affichageAbonnementAction;
 use App\classes\action\affichageProfilAction;
 use App\classes\action\affichageTagsAction;
+use App\classes\action\afficherToutLesTag;
 use App\classes\action\clickSurTouiteAction;
 use App\classes\action\clickSurUserAction;
 use App\classes\action\DefaultAction;
@@ -25,6 +26,9 @@ class Dispatcher{
     public function run(): void
     {
         switch ($this->action) {
+            case 'afficherToutLesTag':
+                $action = new afficherToutLesTag();
+                break;
             case 'touiteTagAction':
                 $action = new touiteTagAction();
                 break;

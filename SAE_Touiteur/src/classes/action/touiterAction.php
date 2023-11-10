@@ -28,12 +28,11 @@ class touiterAction extends Action
 <body>
 <h1>Créer votre Touite : </h1>
 <main>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     <label for="contenu">Contenu : </label><br>
     <textarea name="contenu" rows="10" clos="40"></textarea><br><br>
     <label for="image">Image : </label><br>
     <input type="file" name="image" id="image"><br><br>
-
     <input type="submit" value="Poster">
 </form>
 END;
@@ -50,6 +49,7 @@ END;
 
             if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
                 GestionImage::uploadImage($_FILES['image'], $idTouite);
+                throw new \PDOException("Erreur lors de l'insertion de l'image");
             }
 
 

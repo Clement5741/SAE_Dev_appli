@@ -1,6 +1,8 @@
 <?php
 
 namespace App\classes\action;
+use App\classes\auth\Authentification;
+
 class DefaultAction extends Action{
     public function __construct()
     {
@@ -9,6 +11,7 @@ class DefaultAction extends Action{
 
     public function execute(): string
     {
+        Authentification::logout();
         $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">

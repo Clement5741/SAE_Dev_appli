@@ -108,8 +108,8 @@ class Authentification
                 throw new AuthException("Erreur lors de l'inscription" . $e->getMessage());
             }
         }else{
-            $errorMessage = "mot de passe incorrect : il doit faire 9 car minimum, dont un digit, un car. spécial, une minuscule et une majuscule";
-            throw new AuthException("<span style='color: white;'>$errorMessage</span>");
+            $erreur = "mot de passe incorrect : il doit faire 9 car minimum, dont un digit, un car. spécial, une minuscule et une majuscule";
+            throw new AuthException("<span style='color: white;'>$erreur</span>");
         }
         return true;
     }

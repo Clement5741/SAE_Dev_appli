@@ -3,6 +3,8 @@
 namespace App\classes\action;
 
 use App\classes\auth\Authentification;
+use App\classes\exception\AuthException;
+use PDOException;
 
 class Connexion extends Action
 {
@@ -15,7 +17,6 @@ class Connexion extends Action
     public function execute(): string
     {
         $html = '';
-        if($this->http_method === 'GET'){
             $html .= <<<END
             <!DOCTYPE html>
                 <html lang="fr">
@@ -41,12 +42,12 @@ class Connexion extends Action
     
     <p><a href="recuperer_mot_de_passe.html">J\'ai oublié mon mot de passe</a></p>
 </form>
-</div>'
+</div>
             </body>
             </html>
 END;
-        }
-        else {
+
+        if ($this->http_method === 'POST') {
             $identifiant = filter_var($_POST['identifiant'], FILTER_SANITIZE_STRING);
             $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
             try {
@@ -56,7 +57,7 @@ END;
                     header('Location: index.php?action=seConnecterAction');
                 }
             } catch (PDOException|AuthException $e) {
-                echo $e->getMessage();
+                 $html .= $e->getMessage();
             }
         }
         return $html;

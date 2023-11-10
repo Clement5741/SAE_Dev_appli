@@ -5,6 +5,7 @@
 
 body, h1, p {
     background-color: #1a1616;
+    color: #813bb9;
 
 }
 
@@ -127,7 +128,7 @@ img {
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: white;
+    background: whitesmoke;
     color : #1a1616;
 }
 
@@ -167,16 +168,16 @@ img {
     grid-gap: 1em;
     padding: 1em;
     margin: 1em;
-    border: 2px solid white;
-    background-color: #813bb9;
-    color : #1a1616;
+    border: 2px solid #813bb9;
+    background-color: #1a1616;
+    color : #813bb9;
 }
 
 #username, #lastname, #firstname {
     grid-column-start: 1;
     padding: 1em;
     margin: 0.5em;
-    color: white;
+    color: #813bb9;
     font-size: 20px;
 }
 
@@ -190,6 +191,9 @@ img {
     right: 0;
     padding: 1em;
     margin: 1em;
+    border-radius: 1em;
+    background-color: #b686ef;
+    color: whitesmoke;
 }
 
 .abo-button {
@@ -198,12 +202,13 @@ img {
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: white;
+    background: #813bb9;
+    color : white;
 }
 
 .abo-button:hover {
-    background: #1a1616;
-    color : white;
+    background: white;
+    color : black;
 }
 
 .fake_abo-button {
@@ -212,6 +217,7 @@ img {
     margin: 1em;
     justify-content: space-around;
     border-radius: 1em;
-    background: white;
+    background: #813bb9;
+    color : white;
 }
 

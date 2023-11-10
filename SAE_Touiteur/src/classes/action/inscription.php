@@ -27,7 +27,7 @@ class inscription extends Action
 <body>
 <div class="header">
     <img src="src/classes/Images/logo.png" alt="logo" id="logo" >
-    <h1>Inscription à Twouiter</h1>
+    <h1>Inscription à Touiter</h1>
 </div>
 <div class="inscription-form">
 <form action="" method="post">

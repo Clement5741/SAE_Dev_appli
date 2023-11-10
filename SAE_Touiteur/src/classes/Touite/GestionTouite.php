@@ -308,7 +308,7 @@ ORDER BY Touites.dateTouite DESC;";
     public static function getMoyenneImpression(int $idUser) : ?float
     {
         $db = self::config();
-        $query = "SELECT avg(notePerti) FROM Touites 
+        $query = "SELECT avg(nbLike) FROM Touites 
                   inner join publierPar on publierPar.idTouite = touites.idTouite   
                   WHERE publierPar.idUser = ?";
         $stmt = $db->prepare($query);
@@ -316,10 +316,7 @@ ORDER BY Touites.dateTouite DESC;";
         if (!$res) {
             throw new \PDOException("Erreur lors de la récupération de la moyenne d'impression");
         }
-        if ($stmt->fetch(PDO::FETCH_ASSOC)['avg(notePerti)'] == null) {
-            return null;
-        }
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['avg(nbLike)'];
     }
 
     public static function afficherContenuTouiteAvecLienTag(string $contenu, int $idTouite): string

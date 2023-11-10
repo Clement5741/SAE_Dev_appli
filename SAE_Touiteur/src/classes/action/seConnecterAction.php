@@ -25,7 +25,7 @@ class seConnecterAction extends Action
         $txt2 = '';
         GestionTouite::config();
         $listes = GestionTouite::getTouitesByTagAndUser($_SESSION['user']);
-        $txt .= "<div class='Titre'> TOUITTER </div>";
+        $txt .= "<div class='Titre'> TOUITER </div>";
 
         foreach ($listes as $liste) {
             $txt .= "<div class='touite'>";
@@ -116,7 +116,7 @@ class seConnecterAction extends Action
         <div class='PartieMenu'>
             <a href="?action=affichageProfilAction"><div class="profile-button">Profil</div></a>
             <a href="?action=afficherToutLesTag"><div class="profile-button">Tags</div></a>
-            <a href="?action=touiterAction"><div class="profile-button">TWEEEETTEEEERRRR</div></a>
+            <a href="?action=touiterAction"><div class="profile-button">Touiter</div></a>
 
         </div>
 

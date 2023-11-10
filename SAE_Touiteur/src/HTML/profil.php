@@ -6,10 +6,12 @@ if (!isset($_SESSION['user'])) {
 use Touite\GestionUser;
 use Touite\GestionTouite;
 use Touite\GestionImage;
+use Touite\GestionTag;
 
 require_once '../Touite/GestionUser.php';
 require_once '../Touite/GestionTouite.php';
 require_once '../Touite/GestionImage.php';
+require_once '../Touite/GestionTag.php';
 
 ?>
 <!DOCTYPE html>
@@ -101,6 +103,22 @@ require_once '../Touite/GestionImage.php';
                 echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
             }
             echo "<p>" . $liste['dateTouite'] . "</p>";
+
+            $idT = $liste['idTouite'];
+            $idU = GestionTouite::getIdUserByTouite($idT);
+            $idTag = GestionTag::getTagsByTouite($idT);
+            $idImage = GestionImage::getImageByTouite($idT);
+
+            echo "<form id='suppr_touite' method='post' action=''>
+                    <button class='supprimer' type='submit' name='supprimer'>Supprimer le Touite</button>
+                  </form>";
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
+                GestionTouite::deleteTouite($idT,$idU,$idTag,$idImage);
+                // On recharge la page pour que le bouton s'abonner devienne se désabonner
+                header('Location: profil.php?username=' . $_GET['username']);
+            }
+
             echo "</div>";
         }
         ?>
@@ -114,7 +132,6 @@ require_once '../Touite/GestionImage.php';
                 <div class="fake_profile-button">Vos abonnées</div>
                 <div class="carré1">
                     <?php
-
 
                     $id = GestionUser::getIdByUsername($_SESSION['user']);
 

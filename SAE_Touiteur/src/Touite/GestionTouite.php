@@ -113,13 +113,39 @@ class GestionTouite
         return $idTouite;
     }
 
-    public static function deleteTouite(int $idTouite): void
+    public static function deleteTouite(int $idTouite, int $idUser,array $idtags,array $idImage): void
     {
         $db = self::config();
-        $query = "DELETE FROM touites WHERE idTouite = ?";
-        $stmt = $db->prepare($query);
-        $res = $stmt->execute([$idTouite]);
-        if (!$res) {
+
+        $query1 = "DELETE FROM publierpar WHERE idTouite = ? AND idUser = ?";
+        $stmt1 = $db->prepare($query1);
+        $res1 = $stmt1->execute([$idTouite, $idUser]);
+        if (!$res1) {
+            throw new \PDOException("Erreur lors de la suppression dans publierpar");
+        }
+
+        foreach ($idtags as $tag){
+            $query3 = "DELETE FROM utilisertag WHERE idTag = ? AND idTouite = ?";
+            $stmt3 = $db->prepare($query3);
+            $res3 = $stmt3->execute([(int)$tag, $idTouite]);
+            if (!$res3) {
+                throw new \PDOException("Erreur lors de la suppression du lien touite/tag");
+            }
+        }
+
+        foreach ($idImage as $image) {
+            $query4 = "DELETE FROM utiliserimage WHERE idImage = ? AND idTouite = ? ";
+            $stmt4 = $db->prepare($query4);
+            $res4 = $stmt4->execute([(int)$image, $idTouite]);
+            if (!$res4) {
+                throw new \PDOException("Erreur lors de la suppression du lien touite/image");
+            }
+        }
+
+        $query2 = "DELETE FROM touites WHERE idTouite = ?";
+        $stmt2 = $db->prepare($query2);
+        $res2 = $stmt2->execute([$idTouite]);
+        if (!$res2) {
             throw new \PDOException("Erreur lors de la suppression du touite");
         }
     }

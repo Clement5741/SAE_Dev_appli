@@ -57,6 +57,12 @@ a {
 
 }
 
+.touite {
+    border: 1px solid #ddd;
+    margin: 1em;
+    padding: 1em;
+}
+
 #abonne_moyenne {
     grid-column-start: 3;
     padding: 1.5em;

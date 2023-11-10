@@ -34,7 +34,7 @@ class DefaultAction extends Action{
     </div>
     <div class="profile">
         <a href="?action=inscription"><div class="profile-button">S'inscrire</div></a>
-        <p>TOUITTER</p>
+        <p>TOUITER</p>
     </div>
 </div>
 </body>

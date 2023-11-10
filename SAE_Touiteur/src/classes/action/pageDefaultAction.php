@@ -21,7 +21,7 @@ class pageDefaultAction extends Action
         $listes = GestionTouite::getTouites();
         $txt = '';
 
-        $txt .= "<div class='Titre'> TOUITTER </div>";
+        $txt .= "<div class='Titre'> TOUITER </div>";
 
         foreach ($listes as $liste) {
             $idTouite = $liste['idTouite'];

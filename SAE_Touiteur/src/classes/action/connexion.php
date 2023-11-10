@@ -28,7 +28,7 @@ class Connexion extends Action
             <body>
             <div class="header">
                 <img src="src/classes/Images/logo.png" alt="logo" id="logo" >
-                <h1>Connexion à Twouiter</h1>
+                <h1>Connexion à Touiter</h1>
             </div>
             <div class="connexion-form">
 <form action="" method="post">

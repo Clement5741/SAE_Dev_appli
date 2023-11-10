@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header('Location: accueil.html');
+}
+
+use Touite\GestionUser;
+
+require_once '../Touite/GestionUser.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,23 +17,20 @@
 </head>
 <body>
 <div class="tweet-container">
-    <a href="profil.php" class="back-button">&#8592;</a> <!---&#8592 represent the arrow-->
     <main>
+        <a href="profil.php?username=<?php echo $_SESSION['user']; ?>" class="back-button">&#8592;</a> <!---&#8592 represent the arrow-->
         <?php
-        session_start();
-        if (!isset($_SESSION['user'])) {
-            header('Location: accueil.html');
-        }
-
-        use Touite\GestionUser;
-
-        require_once '../Touite/GestionUser.php';
 
         $id = GestionUser::getIdByUsername($_SESSION['user']);
 
         echo '<p><strong>Vos abonnements : </strong></p>';
         echo '<div class="abo-container">';
-        GestionUser::abonnementsUser($id);
+        $abo = GestionUser::abonnementsUser($id);
+        foreach ($abo as $a) {
+            echo '<div class="abo">';
+            echo "<a href=\"profil.php?username=" . $a . "\"><p>" . $a . "</p></a>";
+            echo '</div>';
+        }
         echo '</div>';
 
         ?>

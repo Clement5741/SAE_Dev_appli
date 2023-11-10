@@ -9,9 +9,8 @@
 <div id="grid-container">
     <div id='Menu'>
         <div class='PartieMenu' id="logo">
-            <img src="../Images/logo.png" alt="logo" id="logoImage">
+            <img src="../Images/logo.png" alt="logo" id="logoImage" >
         </div>
-
         <script>
             const images = [
                 "../Images/logo.png",
@@ -33,9 +32,6 @@
             </div>
 
             <div class='PartieMenu'>
-<!--                <button href="../Compte/connexion.php" type="button">Connexion</button>-->
-<!--                <button href="../Compte/inscription.php" type="button">S'inscrire</button>-->
-<!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
                 <a href="../Compte/connexion.php"><div class="profile-button">Connexion</div></a>
                 <a href="../Compte/inscription.php"><div class="profile-button">S'inscrire</div></a>
             </div>
@@ -61,7 +57,6 @@
 
             echo "<div class='touite'>";
             echo "<div class='nom'>" . $user['username'] . "</div>";
-
             if (strlen($liste['contentTouite']) > 100) {
                 echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=sans\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
             } else {
@@ -71,11 +66,7 @@
             if ($t != null) {
                 echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
             }
-
             echo "<div class='date'>" . $liste['dateTouite'] . "</div>";
-
-
-
             echo "</div>";
         }
         ?>

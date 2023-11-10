@@ -83,34 +83,36 @@ class GestionUser
         return false;
     }
 
-    public static function abonnementsUser(int $iduser)
+    public static function abonnementsUser(int $idUser): array
     {
         $db = self::config();
         $query = "SELECT users.username FROM users 
                   inner join followers on users.idUser = followers.idUser2
                   WHERE followers.idUser1 = ?";
         $stmt = $db->prepare($query);
-        $stmt->execute([$iduser]);
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            print($row['username']);
-            echo '<br>';
+        $stmt->execute([$idUser]);
+        $res = $stmt->execute();
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération de l'utilisateur");
         }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function userAbonne(int $iduser)
+    public static function userAbonne(int $idUser) : ?array
     {
         $db = self::config();
         $query = "SELECT users.username FROM users 
                   inner join followers on users.idUser = followers.idUser1
                   WHERE followers.idUser2 = ?";
         $stmt = $db->prepare($query);
-        $stmt->execute([$iduser]);
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            print($row['username']);
-            echo '<br>';
+        $stmt->execute([$idUser]);
+        $res = $stmt->execute();
+        if (!$res) {
+            throw new \PDOException("Erreur lors de la récupération de l'utilisateur");
         }
+        if ($stmt->rowCount() == 0)
+            return null;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function followUser(int $idFollower, int $idAFollow)

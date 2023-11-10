@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: accueil.html');
 }
+
 use Touite\GestionUser;
 use Touite\GestionTouite;
 use Touite\GestionImage;
@@ -21,26 +22,35 @@ require_once '../Touite/GestionImage.php';
 </head>
 <body>
 <div id="grid-container">
-  <div id='Menu'>
-    <div class='PartieMenu' id="logo">
-      <img src="../Images/logo.png" alt="logo" id="logo" >
-    </div>
+    <div id='Menu'>
+        <div class='PartieMenu' id="logo">
+            <img src="../Images/logo.png" alt="logo" id="logo">
+        </div>
 
-    <div class='PartieMenu'>
-      <a href="page_base_CONNECTER.php"><div class="profile-button">Accueil</div></a>
-      <div class="fake_profile-button">Profil</div></a>
-      <a href="affichage_abonnements.php"><div class="profile-button">Vos Abonnements</div></a>
-      <a href="affichage_tags.php?username=<?php echo $_SESSION['user'];?>"><div class="profile-button">Vos Tags</div></a>
-    </div>
+        <div class='PartieMenu'>
+            <a href="page_base_CONNECTER.php">
+                <div class="profile-button">Accueil</div>
+            </a>
+            <div class="fake_profile-button">Profil</div>
+            </a>
+            <a href="affichage_abonnements.php">
+                <div class="profile-button">Vos Abonnements</div>
+            </a>
+            <a href="affichage_tags.php?username=<?php echo $_SESSION['user']; ?>">
+                <div class="profile-button">Vos Tags</div>
+            </a>
+        </div>
 
-    <div class='PartieMenu'>
-      <!--                <button href="../Compte/connexion.php" type="button">Connexion</button>-->
-      <!--                <button href="../Compte/inscription.php" type="button">S'inscrire</button>-->
-      <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
+        <div class='PartieMenu'>
+            <!--                <button href="../Compte/connexion.php" type="button">Connexion</button>-->
+            <!--                <button href="../Compte/inscription.php" type="button">S'inscrire</button>-->
+            <!--                <button href="../Compte/deconnexion.php" type="button">Se déconnecter</button>-->
 
-      <a href="../Compte/deconnexion.php"><div class="profile-button">Se déconnecter</div></a>
+            <a href="../Compte/deconnexion.php">
+                <div class="profile-button">Se déconnecter</div>
+            </a>
+        </div>
     </div>
-  </div>
 
     <div id='Profils'>
         <div class="fake_profile-button">Profil</div>
@@ -48,7 +58,7 @@ require_once '../Touite/GestionImage.php';
 
         <div class="">
             <?php
-            if(isset($_GET['username'])) {
+            if (isset($_GET['username'])) {
                 $profilsLsit = GestionUser::getUserByUsername($_GET['username']);
             } else {
                 $profilsLsit = GestionUser::getUserByUsername($_SESSION['user']);
@@ -76,14 +86,14 @@ require_once '../Touite/GestionImage.php';
 
             echo "</form></div>";
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['abo'])) {
-                    GestionUser::followUser($id,$id2);
-                    // On recharge la page pour que le bouton s'abonner devienne se désabonner
-                    header('Location: profil.php?username=' . $_GET['username']);
-                } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['desabo'])) {
-                    GestionUser::unfollowUser($id,$id2);
-                    // On recharge la page pour que le bouton se désabonner devienne s'abonner
-                    header('Location: profil.php?username=' . $_GET['username']);
-                }
+                GestionUser::followUser($id, $id2);
+                // On recharge la page pour que le bouton s'abonner devienne se désabonner
+                header('Location: profil.php?username=' . $_GET['username']);
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['desabo'])) {
+                GestionUser::unfollowUser($id, $id2);
+                // On recharge la page pour que le bouton se désabonner devienne s'abonner
+                header('Location: profil.php?username=' . $_GET['username']);
+            }
             ?>
         </div>
 
@@ -92,16 +102,28 @@ require_once '../Touite/GestionImage.php';
         foreach ($listes as $liste) {
             echo "<div class='touite'>";
             if (strlen($liste['contentTouite']) > 100) {
-                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=profil\"><p>" . substr($liste['contentTouite'], 0, 100). "..." . "</p></a>";
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=profil\"><p>" . substr($liste['contentTouite'], 0, 100) . "..." . "</p></a>";
             } else {
-                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=profil\"><p>" . $liste['contentTouite']. "</p></a>";
+                echo "<a href=\"affichage_tweet.php?touite=" . $liste['idTouite'] . "&page=profil\"><p>" . $liste['contentTouite'] . "</p></a>";
             }
             $t = GestionImage::getImageByTouite($liste['idTouite']);
             if ($t != null) {
                 echo "<img src='" . $t['cheminImage'] . "' alt='image touite' width='200' height='200'>";
             }
             echo "<p>" . $liste['dateTouite'] . "</p>";
+            // On affiche un bouton pour supprimer le touite si c'est le profil de l'utilisateur connecté
+            if (isset($_SESSION['user']) && $_SESSION['user'] == $_GET['username']) {
+                echo "<form method='post' action=''>";
+                echo "<input type='hidden' name='idTouite' value='" . $liste['idTouite'] . "'>";
+                echo "<button class='delete-button' type='submit' name='delete'>Supprimer</button>";
+                echo "</form>";
+            }
             echo "</div>";
+        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+            GestionTouite::deleteTouite($_POST['idTouite']);
+            // On recharge la page pour que le touite supprimé disparaisse
+            header('Location: profil.php?username=' . $_GET['username']);
         }
         ?>
 
@@ -114,19 +136,34 @@ require_once '../Touite/GestionImage.php';
                 <div class="fake_profile-button">Vos abonnées</div>
                 <div class="carré1">
                     <?php
-
-
                     $id = GestionUser::getIdByUsername($_SESSION['user']);
-
-                    GestionUser::userAbonne($id);
-
+                    $abo = GestionUser::userAbonne($id);
+                    if ($abo == null) {
+                        echo "<p>Vous n'avez pas d'abonnées</p>";
+                    } else {
+                        foreach ($abo as $a) {
+                            echo '<div class="abo">';
+                            echo "<a href=\"profil.php?username=" . $a . "\"><p>" . $a . "</p></a>";
+                            echo '</div>';
+                        }
+                    }
                     ?>
                 </div>
             </div>
         </div>
         <div class='moyenne'>
             <div class="fake_profile-button">Moyenne d'impressions de vos tweets</div>
-            <div class="carré2">Faudra mettre la moyenne ici</div>
+            <div class="carré2">
+                <?php
+                $id = GestionUser::getIdByUsername($_SESSION['user']);
+                $moyenne = GestionTouite::getMoyenneImpression($id);
+                if ($moyenne == null) {
+                    echo "<p>Vous n'avez pas de tweets</p>";
+                } else {
+                    echo "<p>" . $moyenne . "</p>";
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>

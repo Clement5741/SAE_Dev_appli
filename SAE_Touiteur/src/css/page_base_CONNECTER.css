@@ -159,4 +159,18 @@ img {
     color : white;
 }
 
+#noter {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    margin-top: 20px;
+}
 
+#noter button {
+    text-align: center;
+    padding: 2px;
+    border: 1px solid white;
+    color: white;
+}
